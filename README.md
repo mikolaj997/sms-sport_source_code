@@ -11,6 +11,8 @@
 - Czaty dla poszczególnych aktywności sportowych
 
 ## Zrzuty ekranu:
+<img width="1866" height="919" alt="Zrzut ekranu 2026-07-24 125659" src="https://github.com/user-attachments/assets/7cbd5e78-3436-44ab-a25e-bfb344627b82" />
+
 ![image](https://github.com/user-attachments/assets/b11afaad-2920-4009-ad6b-8c73f985c0c6)
 ![image](https://github.com/user-attachments/assets/f5eb70c7-be45-4f8a-aab9-d95b0979efb2)
 ![image](https://github.com/user-attachments/assets/968ede33-8cc8-48b3-ae83-a5d67a9b8bbb)
