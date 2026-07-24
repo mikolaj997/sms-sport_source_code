@@ -1,7 +1,7 @@
 # Sms-sport to aplikacja mająca zachęcić ludzi do uprawiania sportu dzięki stosowanemu kalkulatorowi oplacalności
 **Część frontendowa** napisana jest w React i wykorzystuje jego mniejsze biblioteki (React Queries - do połączenia z node.js i React-Datepicker - do wyboru daty). Do wyświetlania mapki użyłem Mapbox API.
 
-**Część backendowa** została napisana w Node.js. Potpięta baza danych to MongoDB.
+**Część backendowa** została napisana w Node.js. Podpięta baza danych to MongoDB.
 
 ## Funkcjonalności
 - Kalkulator opłacalności sportu (czas, koszt, kalorie)
