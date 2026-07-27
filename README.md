@@ -1,14 +1,22 @@
-# Sms-sport to aplikacja mająca zachęcić ludzi do uprawiania sportu dzięki stosowanemu kalkulatorowi oplacalności
-**Część frontendowa** napisana jest w React i wykorzystuje jego mniejsze biblioteki (React Queries - do połączenia z node.js i React-Datepicker - do wyboru daty). Do wyświetlania mapki użyłem Mapbox API.
+# Sms-sport 
 
-**Część backendowa** została napisana w Node.js. Podpięta baza danych to MongoDB.
+SMS-Sport is a web application designed to encourage people to engage in sports by using a profitability calculator that compares different physical activities based on time, cost, and calories burned.
 
-## Funkcjonalności
-- Kalkulator opłacalności sportu (czas, koszt, kalorie)
-- Mapa obiektów sportowych z możliwością wyboru trasy dojazdu
-- Wybór środka transportu wpływający na czas dojazdu i obliczenia kalkulatora
-- Wyświetlanie trasy dojazdu do wybranego obiektu
-- Czaty dla poszczególnych aktywności sportowych
+🇬🇧 English | 🇵🇱 [Polski](README.pl.md)
+
+**Część frontendowa** 
+The frontend is built with React and uses additional libraries such as React Query for communication with the Node.js backend and React Datepicker for date selection. Mapbox API is used to display interactive maps.
+
+**Część backendowa** 
+The backend is developed in Node.js, with MongoDB as the database.
+
+## Features
+- Sports profitability calculator (time, cost, and calories burned)
+- Interactive map of sports facilities
+- Route planning to selected sports facilities
+- Transport mode selection affecting travel time and calculator results
+- Display of travel routes to selected locations
+- Dedicated chat rooms for different sports activities
 
 ## Zrzuty ekranu:
 <img width="1866" height="919" alt="Zrzut ekranu 2026-07-24 125659" src="https://github.com/user-attachments/assets/7cbd5e78-3436-44ab-a25e-bfb344627b82" />
@@ -16,6 +24,5 @@
 ![image](https://github.com/user-attachments/assets/b11afaad-2920-4009-ad6b-8c73f985c0c6)
 ![image](https://github.com/user-attachments/assets/f5eb70c7-be45-4f8a-aab9-d95b0979efb2)
 ![image](https://github.com/user-attachments/assets/968ede33-8cc8-48b3-ae83-a5d67a9b8bbb)
-> Repozytorium nie zawiera kluczy api!
-
+> This repository does not include configuration files or API keys required to run the application. They have been intentionally excluded for security reasons.
 
