@@ -26,7 +26,7 @@ The backend is developed in Node.js, with MongoDB as the database.
 - Display of travel routes to selected locations
 - Dedicated chat rooms for different sports activities
 
-## Zrzuty ekranu:
+## Screen shots:
 <img width="1866" height="919" alt="Zrzut ekranu 2026-07-24 125659" src="https://github.com/user-attachments/assets/7cbd5e78-3436-44ab-a25e-bfb344627b82" />
 
 ![image](https://github.com/user-attachments/assets/b11afaad-2920-4009-ad6b-8c73f985c0c6)
