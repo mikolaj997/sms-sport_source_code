@@ -203,7 +203,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
   // Inicjalizacja mapy i dodanie granic mapy
   useEffect(() => {
     mapboxgl.accessToken =
-      "Token"; // {do_usuniecia} - to abym widział efekty na zywo bez marnowania requestów api
+       (`${process.env.REACT_APP_API_KEY}`); // {do_usuniecia} - to abym widział efekty na zywo bez marnowania requestów api
       let map
       const getMap =() =>{
    map = new mapboxgl.Map({
