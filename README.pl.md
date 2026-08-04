@@ -1,8 +1,16 @@
 # SMS-Sport
 
+# Sms-sport to aplikacja mająca zachęcić ludzi do uprawiania sportu dzięki stosowanemu kalkulatorowi oplacalności
+
 🇵🇱 Polski | 🇬🇧 [English](README.md)
 
-# Sms-sport to aplikacja mająca zachęcić ludzi do uprawiania sportu dzięki stosowanemu kalkulatorowi oplacalności
+> **Uwaga**
+>
+> To repozytorium zawiera publiczną wersję projektu przygotowaną do celów portfolio.
+>
+> Oryginalna wersja projektu była rozwijana w prywatnym repozytorium. Ze względów bezpieczeństwa usunięto pliki konfiguracyjne, zmienne środowiskowe, klucze API oraz inne poufne dane.
+>
+> Instrukcja uruchomienia projektu oraz informacje o wymaganych zmiennych środowiskowych znajdują się w gałęzi `dev`.
 
 **Część frontendowa** napisana jest w React i wykorzystuje jego mniejsze biblioteki (React Queries - do połączenia z node.js i React-Datepicker - do wyboru daty). Do wyświetlania mapki użyłem Mapbox API.
 
