@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const dbUri = 'url'
+const dbUri = process.env.MONGODB_URI
 
 mongoose.set('strictQuery', false)
 
