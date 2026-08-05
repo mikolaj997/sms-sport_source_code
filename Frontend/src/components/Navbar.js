@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Navbar = ({children, setPlanned, setPast, toggleHistory, isHistoryVisible, togglePlanned, isPlannedVisible, togglePast, isPastVisible, toggleProfile, toggleChat, setUsername, setPassword, setIsLoggedIn}) => {
+const Navbar = ({children, setPlanned, setPast, toggleHistory, isHistoryVisible, togglePlanned, isPlannedVisible, showHome, togglePast, isPastVisible, toggleProfile, toggleChat, setUsername, setPassword, setIsLoggedIn}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = () => {
@@ -9,57 +9,102 @@ const Navbar = ({children, setPlanned, setPast, toggleHistory, isHistoryVisible,
 
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
-    <div className="container-fluid">
-      <a className="navbar-brand" href="#">sms-sport</a>
-      <button className="navbar-toggler" type="button" onClick={handleToggle}>
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className={`collapse navbar-collapse show`} id="navbarScroll">
-        <ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style={{ '--bs-scroll-height': '100px' }}>
-          <li className="nav-item dropdown">
-            <a className="nav-link dropdown-toggle" href="#" role="button" onClick={(e) => {e.preventDefault()}} data-bs-toggle="dropdown" aria-expanded="false">
-            <span onClick={toggleHistory}>
-          {isHistoryVisible ? "Ukryj Aktywności" : "Pokarz Aktywności"}
-        </span>   
-            </a>
-            <ul className="dropdown-menu">
-              <li><a className="dropdown-item"  onClick={()=>{
-                setPlanned(true)
-                // setPast(false)
-                return togglePlanned()
-              }}>
-          {isPlannedVisible ? "Ukryj Aktywności" : "przyszłe aktywności"}
-        </a></li>
-              <li><a className="dropdown-item" onClick={togglePast}>
-          {isPastVisible ? "Ukryj Aktywności" : "przeszłe aktywności"}
-        </a></li>
-              <li><hr className="dropdown-divider"></hr></li>
-              <li><a className="dropdown-item" href="#">wszystkie</a></li>
-            </ul>
-          </li>
-         
-          
-         
-          <li className="nav-item">
-          <span className="nav-link" onClick={toggleProfile}>profil </span>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link " onClick={toggleChat} >chat</a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link disabled" >kalendarz</a>
-          </li>
-        </ul>
-        <form className="d-flex" role="search">
-          {/* <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input> */}
-          <button className="btn btn-outline-success" type="submit"  onClick={()=>{setIsLoggedIn(false)
-          setPassword(' ')
-          setUsername(' ')}}>wyloguj</button>
-        </form>
-      </div>
-    </div>
-  </nav>
+      <div className="container-fluid">
+        <a
+          className="navbar-brand"
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            showHome();
+          }}
+        >
+          sms-sport
+        </a>
+        <button className="navbar-toggler" type="button" onClick={handleToggle}>
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className={`collapse navbar-collapse show`} id="navbarScroll">
+          <ul
+            className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
+            style={{ "--bs-scroll-height": "100px" }}
+          >
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                }}
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <span onClick={toggleHistory}>
+                  {isHistoryVisible ? "Ukryj Aktywności" : "Pokarz Aktywności"}
+                </span>
+              </a>
+              <ul className="dropdown-menu">
+                <li>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => {
+                      setPlanned(true);
+                      // setPast(false)
+                      return togglePlanned();
+                    }}
+                  >
+                    {isPlannedVisible
+                      ? "Ukryj Aktywności"
+                      : "przyszłe aktywności"}
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" onClick={togglePast}>
+                    {isPastVisible ? "Ukryj Aktywności" : "przeszłe aktywności"}
+                  </a>
+                </li>
+                <li>
+                  <hr className="dropdown-divider"></hr>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">
+                    wszystkie
+                  </a>
+                </li>
+              </ul>
+            </li>
 
+            <li className="nav-item">
+              <span className="nav-link" onClick={toggleProfile}>
+                profil{" "}
+              </span>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link " onClick={toggleChat}>
+                chat
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className="nav-link disabled">kalendarz</a>
+            </li>
+          </ul>
+          <form className="d-flex" role="search">
+            {/* <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input> */}
+            <button
+              className="btn btn-outline-success"
+              type="submit"
+              onClick={() => {
+                setIsLoggedIn(false);
+                setPassword(" ");
+                setUsername(" ");
+              }}
+            >
+              wyloguj
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
   );
 };
 
