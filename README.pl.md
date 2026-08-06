@@ -29,6 +29,13 @@
 ![image](https://github.com/user-attachments/assets/b11afaad-2920-4009-ad6b-8c73f985c0c6)
 ![image](https://github.com/user-attachments/assets/f5eb70c7-be45-4f8a-aab9-d95b0979efb2)
 ![image](https://github.com/user-attachments/assets/968ede33-8cc8-48b3-ae83-a5d67a9b8bbb)
+
+## MongoDB - struktura bazy danych:
+<img width="1698" height="613" alt="image" src="https://github.com/user-attachments/assets/80fb86e8-adea-4069-94bb-8324de3a349f" />
+
+### Główna kolekcja:
+<img width="1306" height="744" alt="image" src="https://github.com/user-attachments/assets/ee2ffb73-2b9f-435f-a31a-f06c23638db9" />
+
 > Uwaga: Oryginalna wersja projektu była rozwijana w prywatnym repozytorium. To repozytorium zawiera publiczną wersję projektu przygotowaną do celów portfolio. Ze względów bezpieczeństwa pominięto w nim poufną konfigurację, klucze API oraz część plików konfiguracyjnych projektu.
 
 
