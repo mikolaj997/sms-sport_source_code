@@ -10,7 +10,9 @@ SMS-Sport is a web application designed to encourage people to engage in sports 
 >
 > The original project was developed in a private repository. For security reasons, sensitive configuration files, environment variables, API keys, and other confidential data have been removed.
 >
-> Please refer to the `dev` branch for setup instructions and the required environment variables.
+> **Project status:** Maintained and further developed. Ongoing changes are implemented in the `dev` branch
+>
+> Also please refer to the `dev` branch for setup instructions and the required environment variables.
 
 **Frontend** 
 The frontend is built with React and uses additional libraries such as React Query for communication with the Node.js backend and React Datepicker for date selection. Mapbox API is used to display interactive maps.
