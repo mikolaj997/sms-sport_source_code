@@ -11,7 +11,7 @@
 > Oryginalna wersja projektu była rozwijana w prywatnym repozytorium. Ze względów bezpieczeństwa usunięto pliki konfiguracyjne, zmienne środowiskowe, klucze API oraz inne poufne dane.
 >
 >
-*Status projektu:** Projekt jest utrzymywany i dalej rozwijany. Bieżące zmiany są wprowadzane na gałęzi `dev`.
+> *Status projektu:** Projekt jest utrzymywany i dalej rozwijany. Bieżące zmiany są wprowadzane na gałęzi `dev`.
 >
 > Instrukcja uruchomienia projektu oraz informacje o wymaganych zmiennych środowiskowych znajdują się w gałęzi `dev`.
 
