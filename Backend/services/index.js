@@ -1,11 +1,13 @@
 exports.generateCrudMethods = Model => {
     return {
-        getAll: () => Model.find(),
-        getById: id => Model.findById(id),
-        create: record => Model.create(record),
-        update: (id, record) => Model.findByIdAndUpdate(id, record, { new: true }),
-        updateByUsername: (username, record) => Model.findOneAndUpdate({ username }, record, { new: true }),
-        delete: id => Model.findByIdAndDelete(id),
-        deleteAll: () => Model.deleteMany({})
-    }
+      getAll: () => Model.find(),
+      getById: (id) => Model.findById(id),
+      create: (record) => Model.create(record),
+      update: (id, record) =>
+        Model.findByIdAndUpdate(id, record, { new: true }),
+      updateByUsername: (username, record) =>
+        Model.findOneAndUpdate({ Name: username }, record, { new: true }),
+      delete: (id) => Model.findByIdAndDelete(id),
+      deleteAll: () => Model.deleteMany({}),
+    };
 }

@@ -19,6 +19,7 @@ import Profile from "./Profile";
 import Chat from "./chat";
 
 function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
+
   const [startPoint, setStartPoint] = useState([18.5531, 54.4449]);
   const [active, setActive] = useState(false);
   const [travelTime, setTravelTime] = useState("");
@@ -49,6 +50,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
   const [click, setClick] = useState(false);
   const [date, setDate] = useState(new Date());
   const [prefSport, setPrefSport] = useState("");
+  const [preferredLocation, setPreferredLocation] = useState("Gdynia");
   const [isVisible, setIsVisible] = useState(false);
   const [ifPlaned, setIfPlaned] = useState(false);
   const [planned, setPlanned] = useState(false);
@@ -62,6 +64,23 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
   };
 
   console.log(click, "click");
+  const showHome = () => {
+  setIsHistoryVisible(false);
+  setIsPastVisible(false);
+  setIsPlannedVisible(false);
+  setIsProfileVisible(false);
+  setIsChatVisible(false);
+
+  setAll(false);
+  setPast(false);
+  setPlanned(false);
+
+  document.getElementById("map").style.display = "block";
+  document.getElementById("instructions").style.display = "block";
+  document.querySelector(".select-container").style.display = "block";
+  document.querySelector(".activityData").style.display = "flex";
+  document.querySelector(".rightTopButtons").style.display = "block";
+};
   const toggleHistory = () => {
     setIsHistoryVisible(!isHistoryVisible);
     setAll(true);
@@ -97,43 +116,50 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
     }
   };
   const toggleProfile = () => {
-    setIsProfileVisible(!isProfileVisible);
-    // setPlanned(true)
+  const newValue = !isProfileVisible;
 
-    if (!isProfileVisible) {
-      document.getElementById("map").style.display = "none";
-      document.getElementById("instructions").style.display = "none";
-      document.querySelector(".select-container").style.display = "none";
-      document.querySelector(".activityData").style.display = "none";
-      document.querySelector(".rightTopButtons").style.display = "none";
-    } else {
-      document.getElementById("map").style.display = "block";
-      document.getElementById("instructions").style.display = "block";
-      document.getElementById("instructions").style.display = "block";
-      document.querySelector(".select-container").style.display = "block";
-      // document.querySelector(".UpdateDbFrontView").style.display = "none";
-      document.querySelector(".rightTopButtons").style.display = "block";
-      document.querySelector(".profile").style.display = "none";
-    }
-  };
-  const toggleChat = () => {
-    setIsChatVisible(!isChatVisible);
+  setIsProfileVisible(newValue);
+  setIsHistoryVisible(false);
+  setIsPastVisible(false);
+  setIsPlannedVisible(false);
+  setIsChatVisible(false);
 
-    if (!isChatVisible) {
-      // document.getElementById("map").style.display = "none";
-      // document.getElementById("instructions").style.display = "none";
-      document.querySelector(".select-container").style.display = "none";
-      document.querySelector(".activityData").style.display = "none";
-      document.querySelector(".rightTopButtons").style.display = "none";
-    } else {
-      document.getElementById("map").style.display = "block";
-      document.getElementById("instructions").style.display = "block";
-      document.querySelector(".select-container").style.display = "block";
-      document.querySelector(".activityData").style.display = "flex";
-      document.querySelector(".rightTopButtons").style.display = "block";
-      // document.querySelector(".profile").style.display = "none";
-    }
-  };
+  if (newValue) {
+    document.getElementById("map").style.display = "none";
+    document.getElementById("instructions").style.display = "none";
+    document.querySelector(".select-container").style.display = "none";
+    document.querySelector(".activityData").style.display = "none";
+    document.querySelector(".rightTopButtons").style.display = "none";
+  } else {
+    document.getElementById("map").style.display = "block";
+    document.getElementById("instructions").style.display = "block";
+    document.querySelector(".select-container").style.display = "block";
+    document.querySelector(".activityData").style.display = "block";
+    document.querySelector(".rightTopButtons").style.display = "block";
+  }
+};
+
+const toggleChat = () => {
+  const newValue = !isChatVisible;
+
+  setIsChatVisible(newValue);
+  setIsHistoryVisible(false);
+  setIsPastVisible(false);
+  setIsPlannedVisible(false);
+  setIsProfileVisible(false);
+
+  if (newValue) {
+    document.querySelector(".select-container").style.display = "none";
+    document.querySelector(".activityData").style.display = "none";
+    document.querySelector(".rightTopButtons").style.display = "none";
+  } else {
+    document.getElementById("map").style.display = "block";
+    document.getElementById("instructions").style.display = "block";
+    document.querySelector(".select-container").style.display = "block";
+    document.querySelector(".activityData").style.display = "flex";
+    document.querySelector(".rightTopButtons").style.display = "block";
+  }
+};
 
   const handleTransportChange = (e) => {
     setKindOfTransport(e.target.value);
@@ -203,7 +229,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
   // Inicjalizacja mapy i dodanie granic mapy
   useEffect(() => {
     mapboxgl.accessToken =
-      "Token"; // {do_usuniecia} - to abym widział efekty na zywo bez marnowania requestów api
+       (`${process.env.REACT_APP_API_KEY}`); // {do_usuniecia} - to abym widział efekty na zywo bez marnowania requestów api
       let map
       const getMap =() =>{
    map = new mapboxgl.Map({
@@ -545,6 +571,7 @@ if(active){
           isHistoryVisible={isHistoryVisible}
           togglePlanned={togglePlanned}
           isPlannedVisible={isPlannedVisible}
+          showHome={showHome}
           togglePast={togglePast}
           isPastVisible={isPastVisible}
           toggleProfile={toggleProfile}
@@ -623,6 +650,12 @@ if(active){
                 setPrefSport={setPrefSport}
                 selectedSport={selectedSport}
                 setSelectedSport={setSelectedSport}
+                kindOfTransport={kindOfTransport}
+                setKindOfTransport={setKindOfTransport}
+                preferredLocation={preferredLocation}
+                setPreferredLocation={setPreferredLocation}
+                startPoint={startPoint}
+                setStartPoint={setStartPoint}
                 tenisOptionsExtended={tenisOptionsExtended}
                 setTenisOptionsExtended={setTenisOptionsExtended}
                 runningOptionsExtended={runningOptionsExtended}

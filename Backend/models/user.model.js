@@ -6,7 +6,11 @@ module.exports = mongoose.model('user',
     Password: {type: String},
     Location: {type: String},
     Sport: {type: String},
-    TransportType: {type: String}
+    Transport: { type: String },
+    StartPoint: {
+    type: [Number],
+    default: [18.5531, 54.4449]
+}
 })
 
 

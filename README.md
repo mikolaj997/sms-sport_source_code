@@ -71,3 +71,36 @@ The backend is developed in Node.js, with MongoDB as the database.
 
 > Note: The original development of this project was carried out in a private repository. This public repository contains a portfolio version of the project with sensitive configuration, API keys, and some project setup files omitted.
 
+## How to Run the Project
+
+### Frontend
+
+1. Navigate to the frontend directory:
+   ```bash
+   cd Frontend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file based on `.env.example` and provide the required values.
+4. Start the application:
+   ```bash
+   npm start
+   ```
+
+### Backend
+
+1. Navigate to the backend directory:
+   ```bash
+   cd Backend
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file based on `.env.example` and provide the required values.
+4. Start the server:
+   ```bash
+   node index.js
+   ```

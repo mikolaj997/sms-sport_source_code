@@ -1,6 +1,9 @@
 const clubsAndOtherLocations = [
     {
         clubs: [
+            { name: 'InterPadel Gdynia', coordinates: [18.44734, 54.54940], type: 'padel' }, 
+            { name: 'Baltic Padel Club', coordinates: [18.4890, 54.5410], type: 'padel' }, 
+            { name: 'Bravo Padel Club', coordinates: [18.4460, 54.4210], type: 'padel' }, 
             { name: 'Klub tenisowy arka', coordinates: [18.554056, 54.504021], type: 'tennis' },
             { name: 'CSR', coordinates: [18.5669, 54.4200], type: 'squash' },
             { name: 'sopocki klub tenisowy', coordinates: [18.5616, 54.4502], type: 'tennis' },
