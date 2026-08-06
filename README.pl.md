@@ -11,9 +11,9 @@
 > Oryginalna wersja projektu była rozwijana w prywatnym repozytorium. Ze względów bezpieczeństwa usunięto pliki konfiguracyjne, zmienne środowiskowe, klucze API oraz inne poufne dane.
 >
 >
-> *Status projektu:** Projekt jest utrzymywany i dalej rozwijany. Bieżące zmiany są wprowadzane na gałęzi `dev`.
+> **Status projektu:** Projekt jest utrzymywany i dalej rozwijany. Bieżące zmiany są najpierw wprowadzane w tej gałęzi.
 >
-> Instrukcja uruchomienia projektu oraz informacje o wymaganych zmiennych środowiskowych znajdują się w gałęzi `dev`.
+> Instrukcja uruchomienia projektu znajduje się na końcu tego pliku.
 
 **Część frontendowa** napisana jest w React i wykorzystuje jego mniejsze biblioteki (React Queries - do połączenia z node.js i React-Datepicker - do wyboru daty). Do wyświetlania mapki użyłem Mapbox API.
 
@@ -41,4 +41,36 @@
 
 > Uwaga: Oryginalna wersja projektu była rozwijana w prywatnym repozytorium. To repozytorium zawiera publiczną wersję projektu przygotowaną do celów portfolio. Ze względów bezpieczeństwa pominięto w nim poufną konfigurację, klucze API oraz część plików konfiguracyjnych projektu.
 
+## Jak uruchomić projekt
 
+### Frontend
+
+1. Przejdź do katalogu frontend:
+   ```bash
+   cd Frontend
+    ```
+2. Zainstaluj zależności:
+
+npm install
+3. Utwórz plik .env na podstawie pliku .env.example i uzupełnij wymagane wartości.
+
+4. Uruchom aplikację:
+  ```
+npm start
+  ```
+Backend
+
+1. Przejdź do katalogu backend:
+```
+cd Backend
+```
+2. Zainstaluj zależności:
+```
+npm install
+```
+3. Utwórz plik .env na podstawie pliku .env.example i uzupełnij wymagane wartości.
+
+Uruchom serwer:
+```
+node index.js
+```
