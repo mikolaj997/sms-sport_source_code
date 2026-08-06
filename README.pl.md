@@ -46,12 +46,13 @@
 ### Frontend
 
 1. Przejdź do katalogu frontend:
-   ```bash
-   cd Frontend
-    ```
+```bash
+cd Frontend
+ ```
 2. Zainstaluj zależności:
-
+```bash
 npm install
+ ```
 3. Utwórz plik .env na podstawie pliku .env.example i uzupełnij wymagane wartości.
 
 4. Uruchom aplikację:
