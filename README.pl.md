@@ -70,7 +70,7 @@ npm install
 ```
 3. Utwórz plik .env na podstawie pliku .env.example i uzupełnij wymagane wartości.
 
-Uruchom serwer:
+4. Uruchom serwer:
 ```
 node index.js
 ```
