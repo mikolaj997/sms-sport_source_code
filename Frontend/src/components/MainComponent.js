@@ -19,6 +19,7 @@ import Profile from "./Profile";
 import Chat from "./chat";
 
 function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
+
   const [startPoint, setStartPoint] = useState([18.5531, 54.4449]);
   const [active, setActive] = useState(false);
   const [travelTime, setTravelTime] = useState("");
@@ -49,6 +50,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
   const [click, setClick] = useState(false);
   const [date, setDate] = useState(new Date());
   const [prefSport, setPrefSport] = useState("");
+  const [preferredLocation, setPreferredLocation] = useState("Gdynia");
   const [isVisible, setIsVisible] = useState(false);
   const [ifPlaned, setIfPlaned] = useState(false);
   const [planned, setPlanned] = useState(false);
@@ -569,7 +571,7 @@ if(active){
           isHistoryVisible={isHistoryVisible}
           togglePlanned={togglePlanned}
           isPlannedVisible={isPlannedVisible}
-          showHome={showHome} 
+          showHome={showHome}
           togglePast={togglePast}
           isPastVisible={isPastVisible}
           toggleProfile={toggleProfile}
@@ -648,6 +650,12 @@ if(active){
                 setPrefSport={setPrefSport}
                 selectedSport={selectedSport}
                 setSelectedSport={setSelectedSport}
+                kindOfTransport={kindOfTransport}
+                setKindOfTransport={setKindOfTransport}
+                preferredLocation={preferredLocation}
+                setPreferredLocation={setPreferredLocation}
+                startPoint={startPoint}
+                setStartPoint={setStartPoint}
                 tenisOptionsExtended={tenisOptionsExtended}
                 setTenisOptionsExtended={setTenisOptionsExtended}
                 runningOptionsExtended={runningOptionsExtended}
