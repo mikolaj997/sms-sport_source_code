@@ -23,7 +23,10 @@ const Navbar = ({children, setPlanned, setPast, toggleHistory, isHistoryVisible,
         <button className="navbar-toggler" type="button" onClick={handleToggle}>
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className={`collapse navbar-collapse show`} id="navbarScroll">
+        <div
+          className={`collapse navbar-collapse ${isOpen ? "show" : ""}`}
+          id="navbarScroll"
+        >
           <ul
             className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
             style={{ "--bs-scroll-height": "100px" }}
