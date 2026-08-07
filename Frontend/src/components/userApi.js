@@ -23,7 +23,7 @@ export const fetchData = async () => {
   };
   export const updateUser = async ({ username, user }) => {
     try {
-      const response = await fetch(`http://localhost:3001/api/user/${username}`, {
+      const response = await fetch(`http://localhost:3001/api/user/username/${username}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'

@@ -19,7 +19,6 @@ import Profile from "./Profile";
 import Chat from "./chat";
 
 function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
-
   const [startPoint, setStartPoint] = useState([18.5531, 54.4449]);
   const [active, setActive] = useState(false);
   const [travelTime, setTravelTime] = useState("");
@@ -65,22 +64,22 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
 
   console.log(click, "click");
   const showHome = () => {
-  setIsHistoryVisible(false);
-  setIsPastVisible(false);
-  setIsPlannedVisible(false);
-  setIsProfileVisible(false);
-  setIsChatVisible(false);
+    setIsHistoryVisible(false);
+    setIsPastVisible(false);
+    setIsPlannedVisible(false);
+    setIsProfileVisible(false);
+    setIsChatVisible(false);
 
-  setAll(false);
-  setPast(false);
-  setPlanned(false);
+    setAll(false);
+    setPast(false);
+    setPlanned(false);
 
-  document.getElementById("map").style.display = "block";
-  document.getElementById("instructions").style.display = "block";
-  document.querySelector(".select-container").style.display = "block";
-  document.querySelector(".activityData").style.display = "flex";
-  document.querySelector(".rightTopButtons").style.display = "block";
-};
+    document.getElementById("map").style.display = "block";
+    document.getElementById("instructions").style.display = "block";
+    document.querySelector(".select-container").style.display = "block";
+    document.querySelector(".activityData").style.display = "flex";
+    document.querySelector(".rightTopButtons").style.display = "block";
+  };
   const toggleHistory = () => {
     setIsHistoryVisible(!isHistoryVisible);
     setAll(true);
@@ -116,50 +115,50 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
     }
   };
   const toggleProfile = () => {
-  const newValue = !isProfileVisible;
+    const newValue = !isProfileVisible;
 
-  setIsProfileVisible(newValue);
-  setIsHistoryVisible(false);
-  setIsPastVisible(false);
-  setIsPlannedVisible(false);
-  setIsChatVisible(false);
+    setIsProfileVisible(newValue);
+    setIsHistoryVisible(false);
+    setIsPastVisible(false);
+    setIsPlannedVisible(false);
+    setIsChatVisible(false);
 
-  if (newValue) {
-    document.getElementById("map").style.display = "none";
-    document.getElementById("instructions").style.display = "none";
-    document.querySelector(".select-container").style.display = "none";
-    document.querySelector(".activityData").style.display = "none";
-    document.querySelector(".rightTopButtons").style.display = "none";
-  } else {
-    document.getElementById("map").style.display = "block";
-    document.getElementById("instructions").style.display = "block";
-    document.querySelector(".select-container").style.display = "block";
-    document.querySelector(".activityData").style.display = "block";
-    document.querySelector(".rightTopButtons").style.display = "block";
-  }
-};
+    if (newValue) {
+      document.getElementById("map").style.display = "none";
+      document.getElementById("instructions").style.display = "none";
+      document.querySelector(".select-container").style.display = "none";
+      document.querySelector(".activityData").style.display = "none";
+      document.querySelector(".rightTopButtons").style.display = "none";
+    } else {
+      document.getElementById("map").style.display = "block";
+      document.getElementById("instructions").style.display = "block";
+      document.querySelector(".select-container").style.display = "block";
+      document.querySelector(".activityData").style.display = "block";
+      document.querySelector(".rightTopButtons").style.display = "block";
+    }
+  };
 
-const toggleChat = () => {
-  const newValue = !isChatVisible;
+  const toggleChat = () => {
+    const newValue = !isChatVisible;
 
-  setIsChatVisible(newValue);
-  setIsHistoryVisible(false);
-  setIsPastVisible(false);
-  setIsPlannedVisible(false);
-  setIsProfileVisible(false);
+    setIsChatVisible(newValue);
+    setIsHistoryVisible(false);
+    setIsPastVisible(false);
+    setIsPlannedVisible(false);
+    setIsProfileVisible(false);
 
-  if (newValue) {
-    document.querySelector(".select-container").style.display = "none";
-    document.querySelector(".activityData").style.display = "none";
-    document.querySelector(".rightTopButtons").style.display = "none";
-  } else {
-    document.getElementById("map").style.display = "block";
-    document.getElementById("instructions").style.display = "block";
-    document.querySelector(".select-container").style.display = "block";
-    document.querySelector(".activityData").style.display = "flex";
-    document.querySelector(".rightTopButtons").style.display = "block";
-  }
-};
+    if (newValue) {
+      document.querySelector(".select-container").style.display = "none";
+      document.querySelector(".activityData").style.display = "none";
+      document.querySelector(".rightTopButtons").style.display = "none";
+    } else {
+      document.getElementById("map").style.display = "block";
+      document.getElementById("instructions").style.display = "block";
+      document.querySelector(".select-container").style.display = "block";
+      document.querySelector(".activityData").style.display = "flex";
+      document.querySelector(".rightTopButtons").style.display = "block";
+    }
+  };
 
   const handleTransportChange = (e) => {
     setKindOfTransport(e.target.value);
@@ -228,19 +227,17 @@ const toggleChat = () => {
 
   // Inicjalizacja mapy i dodanie granic mapy
   useEffect(() => {
-    mapboxgl.accessToken =
-       (`${process.env.REACT_APP_API_KEY}`); // {do_usuniecia} - to abym widział efekty na zywo bez marnowania requestów api
-      let map
-      const getMap =() =>{
-   map = new mapboxgl.Map({
-    container: "map",
-    style: "mapbox://styles/mapbox/streets-v12",
-    center: [18.4293, 54.4293],
-    zoom: 1,
-  });
-
-}
-getMap()
+    mapboxgl.accessToken = `${process.env.REACT_APP_API_KEY}`; // {do_usuniecia} - to abym widział efekty na zywo bez marnowania requestów api
+    let map;
+    const getMap = () => {
+      map = new mapboxgl.Map({
+        container: "map",
+        style: "mapbox://styles/mapbox/streets-v12",
+        center: [18.4293, 54.4293],
+        zoom: 1,
+      });
+    };
+    getMap();
     // Ustaw granice mapy na obszar obejmujący Trójmiasto
     // const clubs = [
     // ];
@@ -306,22 +303,22 @@ getMap()
       }
       // create a HTML element for each feature
     });
-    clubsAndOtherLocations[1].nonInstitutionActivities.forEach(function (
-      place
-    ) {
-      if (
-        place.type === "running/walking" &&
-        selectedSport.includes("Running")
-      ) {
-        var el = document.createElement("div");
-        el.className = "marker " + place.type;
+    clubsAndOtherLocations[1].nonInstitutionActivities.forEach(
+      function (place) {
+        if (
+          place.type === "running/walking" &&
+          selectedSport.includes("Running")
+        ) {
+          var el = document.createElement("div");
+          el.className = "marker " + place.type;
 
-        new mapboxgl.Marker(el)
-          .setLngLat(place.coordinates)
-          .setPopup(new mapboxgl.Popup().setHTML(`<h3>${place.name}</h3>`))
-          .addTo(map);
-      }
-    });
+          new mapboxgl.Marker(el)
+            .setLngLat(place.coordinates)
+            .setPopup(new mapboxgl.Popup().setHTML(`<h3>${place.name}</h3>`))
+            .addTo(map);
+        }
+      },
+    );
 
     // create a function to make a directions request
     async function getRoute(end, kindOfTransport) {
@@ -334,19 +331,19 @@ getMap()
       if (kindOfTransport === "driving") {
         const query1 = await fetch(
           `https://api.mapbox.com/directions/v5/mapbox/driving/${startPoint[0]},${startPoint[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
-          { method: "GET" }
+          { method: "GET" },
         );
         query = query1;
       } else if (kindOfTransport === "cycling") {
         const query1 = await fetch(
           `https://api.mapbox.com/directions/v5/mapbox/cycling/${startPoint[0]},${startPoint[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
-          { method: "GET" }
+          { method: "GET" },
         );
         query = query1;
       } else {
         const query1 = await fetch(
           `https://api.mapbox.com/directions/v5/mapbox/walking/${startPoint[0]},${startPoint[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
-          { method: "GET" }
+          { method: "GET" },
         );
         query = query1;
       }
@@ -363,18 +360,29 @@ getMap()
           coordinates: route,
         },
       };
-      let distanceKm
+      let distanceKm;
       if (map.getSource("route")) {
         map.getSource("route").setData(geojson);
         const instructions = document.getElementById("instructions");
-         distanceKm = (data.distance / 1000).toFixed(2);
+        distanceKm = (data.distance / 1000).toFixed(2);
         updateDistance(distanceKm);
-        instructions.innerHTML = `<h3><strong>Dane dojazdu ${ kindOfTransport == "walking"
-           ? "na pieszo:" : kindOfTransport == "cycling"  ? "rowerem:"
-            : kindOfTransport == "driving"  ? "samochodem:"   : ""
+        instructions.innerHTML = `<h3><strong>Dane dojazdu ${
+          kindOfTransport == "walking"
+            ? "na pieszo:"
+            : kindOfTransport == "cycling"
+              ? "rowerem:"
+              : kindOfTransport == "driving"
+                ? "samochodem:"
+                : ""
         }</strong></h3>
         <h4>czas: ${Math.floor(data.duration / 60)} min ${
-          kindOfTransport == "walking"  ? "🚶‍♂️": kindOfTransport == "cycling" ? "🚴:": kindOfTransport == "driving" ? "🚘" : ""
+          kindOfTransport == "walking"
+            ? "🚶‍♂️"
+            : kindOfTransport == "cycling"
+              ? "🚴:"
+              : kindOfTransport == "driving"
+                ? "🚘"
+                : ""
         } </h4>
         <h4>dystans: ${distanceKm} km </h4>`;
         updateTravelTime(Math.floor(data.duration / 60));
@@ -451,7 +459,7 @@ getMap()
       const coords = Object.keys(event.lngLat).map((key) => event.lngLat[key]);
 
       if (active) {
-        setStartPoint(coords)
+        setStartPoint(coords);
       }
       // if (active) {
       //   const start = {
@@ -550,9 +558,9 @@ getMap()
       getRoute(coords, selectedTransport);
 
       getRoute(coords, selectedTransport);
-if(active){
-  setActive(!active)
-}
+      if (active) {
+        setActive(!active);
+      }
 
       // if (travelTime == ''){
       //   return getRoute(coords, selectedTransport);}
@@ -705,27 +713,25 @@ if(active){
               cyclingOptionsExtended={cyclingOptionsExtended}
               setCyclingOptionsExtended={setCyclingOptionsExtended}
             ></SelectedSport>
-            <select id="locationSelect">
+            <select
+              id="locationSelect"
+              value={preferredLocation}
+              onChange={(e) => setPreferredLocation(e.target.value)}
+            >
               <option value="">Wybierz lokalizację</option>
               <option value="Gdynia">Gdynia</option>
               <option value="Gdańsk">Gdańsk</option>
               <option value="Sopot">Sopot</option>
             </select>
-            <select id="travelKindSelect" onChange={handleTransportChange}>
-              {" "}
-              {/* value={kindOfTransport} */}
-              <option
-                value={kindOfTransport}
-                onChange={(e) => {
-                  setKindOfTransport(e.target.value);
-                }}
-              >
-                Wybierz środek transportu
-              </option>
-              <option value="driving">samochod</option>
+            <select
+              id="travelKindSelect"
+              value={kindOfTransport}
+              onChange={(e) => setKindOfTransport(e.target.value)}
+            >
+              <option value="">Wybierz środek transportu</option>
+              <option value="driving">samochód</option>
               <option value="cycling">rower</option>
               <option value="walking">pieszo</option>
-              <option>inne</option>
             </select>
             <input
               type="number"

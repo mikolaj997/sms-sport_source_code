@@ -1,10 +1,29 @@
 import React, { useState } from "react";
 
-const Navbar = ({children, setPlanned, setPast, toggleHistory, isHistoryVisible, togglePlanned, isPlannedVisible, showHome, togglePast, isPastVisible, toggleProfile, toggleChat, setUsername, setPassword, setIsLoggedIn}) => {
+const Navbar = ({
+  children,
+  setPlanned,
+  setPast,
+  toggleHistory,
+  isHistoryVisible,
+  togglePlanned,
+  isPlannedVisible,
+  showHome,
+  togglePast,
+  isPastVisible,
+  toggleProfile,
+  toggleChat,
+  setUsername,
+  setPassword,
+  setIsLoggedIn,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
+  };
+  const closeMenu = () => {
+    setIsOpen(false);
   };
 
   return (
@@ -42,7 +61,12 @@ const Navbar = ({children, setPlanned, setPast, toggleHistory, isHistoryVisible,
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <span onClick={toggleHistory}>
+                <span
+                  onClick={() => {
+                    toggleHistory();
+                    closeMenu();
+                  }}
+                >
                   {isHistoryVisible ? "Ukryj Aktywności" : "Pokarz Aktywności"}
                 </span>
               </a>
@@ -52,8 +76,8 @@ const Navbar = ({children, setPlanned, setPast, toggleHistory, isHistoryVisible,
                     className="dropdown-item"
                     onClick={() => {
                       setPlanned(true);
-                      // setPast(false)
-                      return togglePlanned();
+                      togglePlanned();
+                      closeMenu();
                     }}
                   >
                     {isPlannedVisible
@@ -62,7 +86,13 @@ const Navbar = ({children, setPlanned, setPast, toggleHistory, isHistoryVisible,
                   </a>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={togglePast}>
+                  <a
+                    className="dropdown-item"
+                    onClick={() => {
+                      togglePast();
+                      closeMenu();
+                    }}
+                  >
                     {isPastVisible ? "Ukryj Aktywności" : "przeszłe aktywności"}
                   </a>
                 </li>
@@ -78,12 +108,24 @@ const Navbar = ({children, setPlanned, setPast, toggleHistory, isHistoryVisible,
             </li>
 
             <li className="nav-item">
-              <span className="nav-link" onClick={toggleProfile}>
+              <span
+                className="nav-link"
+                onClick={() => {
+                  toggleProfile();
+                  closeMenu();
+                }}
+              >
                 profil{" "}
               </span>
             </li>
             <li className="nav-item">
-              <a className="nav-link " onClick={toggleChat}>
+              <a
+                className="nav-link"
+                onClick={() => {
+                  toggleChat();
+                  closeMenu();
+                }}
+              >
                 chat
               </a>
             </li>
@@ -113,8 +155,8 @@ const Navbar = ({children, setPlanned, setPast, toggleHistory, isHistoryVisible,
 
 export default Navbar;
 
-
-    {/* <nav 
+{
+  /* <nav 
     //   style={{
     //     width: "100%",
     //     height: "50px",
@@ -154,10 +196,12 @@ export default Navbar;
     //       </ul>
     //     </div>
     //   )}
-    // </nav>*/}
+    // </nav>*/
+}
 
 //z  bootatrup
-{/* <nav class="navbar navbar-expand-lg bg-body-tertiary">
+{
+  /* <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar scroll</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
@@ -192,4 +236,5 @@ export default Navbar;
       </form>
     </div>
   </div>
-</nav> */}
+</nav> */
+}

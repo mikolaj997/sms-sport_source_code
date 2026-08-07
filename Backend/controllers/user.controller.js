@@ -39,17 +39,19 @@ router.put("/:id", validateDbId, (req, res) => {
     })
     .catch((err) => next(err));
 });
-router.put('/:username', (req, res, next) => {
+router.put("/username/:username", (req, res, next) => {
   const username = req.params.username;
-  messagePadelCrud.updateByUsername(username, req.body)
-    .then(data => {
+
+  userCrud
+    .updateByUsername(username, req.body)
+    .then((data) => {
       if (data) {
         res.send(data);
       } else {
-        res.status(404).send({ error: 'Record not found' });
+        res.status(404).send({ error: "Record not found" });
       }
     })
-    .catch(err => next(err));
+    .catch((err) => next(err));
 });
 
 router.delete("/:id", validateDbId, (req, res) => {
