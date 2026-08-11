@@ -41,18 +41,18 @@
 
 > Uwaga: Oryginalna wersja projektu była rozwijana w prywatnym repozytorium. To repozytorium zawiera publiczną wersję projektu przygotowaną do celów portfolio. Ze względów bezpieczeństwa pominięto w nim poufną konfigurację, klucze API oraz część plików konfiguracyjnych projektu.
 
-
 ## Jak uruchomić projekt
 
 ### Frontend
 
 1. Przejdź do katalogu frontend:
-   ```bash
-   cd Frontend
-    ```
+```bash
+cd Frontend
+ ```
 2. Zainstaluj zależności:
-
+```bash
 npm install
+ ```
 3. Utwórz plik .env na podstawie pliku .env.example i uzupełnij wymagane wartości.
 
 4. Uruchom aplikację:
@@ -71,9 +71,7 @@ npm install
 ```
 3. Utwórz plik .env na podstawie pliku .env.example i uzupełnij wymagane wartości.
 
-Uruchom serwer:
+4. Uruchom serwer:
 ```
 node index.js
 ```
-
-
