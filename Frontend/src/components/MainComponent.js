@@ -125,7 +125,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
     setIsChatVisible(false);
 
     if (newValue) {
-      document.getElementById("map").style.display = "none";
+      // document.getElementById("map").style.display = "none";
       document.getElementById("instructions").style.display = "none";
       document.querySelector(".select-container").style.display = "none";
       document.querySelector(".activityData").style.display = "none";
@@ -227,7 +227,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
   }
 
   // Inicjalizacja mapy i dodanie granic mapy
-  
+
   return (
     <>
       <div style={{ height: "fit-content", width: "100%" }}>
@@ -311,38 +311,40 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
                 top: 0,
                 left: 0,
                 backgroundColor: "whitesmoke",
+                overflowY: "auto",
+                zIndex: 10,
               }}
             >
-              <Profile
-                username={username}
-                prefSport={prefSport}
-                setPrefSport={setPrefSport}
-                selectedSport={selectedSport}
-                setSelectedSport={setSelectedSport}
-                kindOfTransport={kindOfTransport}
-                setKindOfTransport={setKindOfTransport}
-                preferredLocation={preferredLocation}
-                setPreferredLocation={setPreferredLocation}
-                startPoint={startPoint}
-                setStartPoint={setStartPoint}
-                tenisOptionsExtended={tenisOptionsExtended}
-                setTenisOptionsExtended={setTenisOptionsExtended}
-                runningOptionsExtended={runningOptionsExtended}
-                setRunningOptionsExtended={setRunningOptionsExtended}
-                cyclingOptionsExtended={cyclingOptionsExtended}
-                setCyclingOptionsExtended={setCyclingOptionsExtended}
+              <div
+                style={{
+                  width: "50%",
+                  height: "100%",
+                  overflowY: "auto",
+                }}
               >
-                {/* <SelectedSport
-              selectedSport={selectedSport}
-              setSelectedSport={setSelectedSport}
-              tenisOptionsExtended={tenisOptionsExtended}
-              setTenisOptionsExtended={setTenisOptionsExtended}
-              runningOptionsExtended={runningOptionsExtended}
-              setRunningOptionsExtended={setRunningOptionsExtended}
-              cyclingOptionsExtended={cyclingOptionsExtended}
-              setCyclingOptionsExtended={setCyclingOptionsExtended}
-            ></SelectedSport> */}
-              </Profile>
+                <Profile
+                  username={username}
+                  prefSport={prefSport}
+                  setPrefSport={setPrefSport}
+                  selectedSport={selectedSport}
+                  setSelectedSport={setSelectedSport}
+                  kindOfTransport={kindOfTransport}
+                  setKindOfTransport={setKindOfTransport}
+                  preferredLocation={preferredLocation}
+                  setPreferredLocation={setPreferredLocation}
+                  startPoint={startPoint}
+                  setStartPoint={setStartPoint}
+                  tenisOptionsExtended={tenisOptionsExtended}
+                  setTenisOptionsExtended={setTenisOptionsExtended}
+                  runningOptionsExtended={runningOptionsExtended}
+                  setRunningOptionsExtended={setRunningOptionsExtended}
+                  cyclingOptionsExtended={cyclingOptionsExtended}
+                  setCyclingOptionsExtended={setCyclingOptionsExtended}
+                >
+                  {/* komentarze mogą zostać */}
+                </Profile>
+              </div>
+
               {/* <UpdateDb 
             selectedSport={selectedSport}
             activityTime={activityTime}
@@ -563,15 +565,15 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
         </div>
         <div style={{ flex: 1, height: "90vh", position: "relative" }}>
           <MapComponent
-  selectedSport={selectedSport}
-  kindOfTransport={kindOfTransport}
-  startPoint={startPoint}
-  setStartPoint={setStartPoint}
-  active={active}
-  setActive={setActive}
-  updateDistance={updateDistance}
-  updateTravelTime={updateTravelTime}
-/>
+            selectedSport={selectedSport}
+            kindOfTransport={kindOfTransport}
+            startPoint={startPoint}
+            setStartPoint={setStartPoint}
+            active={active}
+            setActive={setActive}
+            updateDistance={updateDistance}
+            updateTravelTime={updateTravelTime}
+          />
           <div id="instructions" style={{ position: "absolute", top: "0" }}>
             Dane Dojazdu:
           </div>
