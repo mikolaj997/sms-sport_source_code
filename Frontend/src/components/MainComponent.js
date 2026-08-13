@@ -9,7 +9,6 @@ import Navbar from "./Navbar";
 import { SelectedSport } from "./SelectedSport";
 import ShortcutPopup from "./ShortcutPopup";
 import axios from "axios";
-import ServerConnection from "./ServerConnection";
 import UpdateDb from "./UpdateDb";
 // import NewActivity from "./NewActivity";
 import UpdateDbFrontView from "./UpdateDbFrontView";

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import ActivityList from "./StoredActivityList";
-import FutureActivities from "./FutureActivities";
-import PastActivities from "./PastActivieties";
+
+
 
 // const UpdateDb = ({
 //       selectedSport,
