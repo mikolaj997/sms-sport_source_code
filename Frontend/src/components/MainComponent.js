@@ -175,15 +175,15 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
   console.log("total:", totalCalories);
   // const [startPoint, setStartPoint] = useState([longitude, latitude]);
   // Funkcja do zmiany lokalizacji punktu startowego
-  const handleChangeStartPoint = () => {
-    console.log(active);
-    setActive(!active);
-    console.log(active);
-    // Tutaj możesz dodać kod do zmiany lokalizacji punktu startowego na mapie
-    // Na przykład możesz użyć biblioteki mapowej, takiej jak Mapbox GL JS
-    // Aktualizacja stanu startPoint // Nowa lokalizacja punktu startowego
-  };
+ const handleChangeStartPoint = () => {
+  console.log("USTAWIAM ACTIVE");
+  console.log("przed:", active);
 
+  setActive(!active);
+};
+useEffect(() => {
+  console.log("ACTIVE ZMIENIONE:", active);
+}, [active]);
   // const handleCalculateCost = () => { //do poprawy!!!
   // };
   console.log(distanceInKm);
