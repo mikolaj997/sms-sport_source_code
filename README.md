@@ -57,6 +57,25 @@ The backend is developed in Node.js, with MongoDB as the database.
 - delete all activities,
 - create a new activity.
 
+
+![alt text](<Zrzut ekranu 2026-08-17 150332.png>)
+
+- What users can do on this screen
+- View their profile and username.
+- Select their preferred activity/sport.
+- Select their default means of transport.
+- Select their preferred location.
+- View their default starting point coordinates.
+- Choose a new starting point directly on the map.
+- View the route on the map from the starting point to the selected destination.
+- View travel information:
+- travel time,
+- distance,
+- means of transport.
+- Save preferences.
+- Delete saved preferences.
+
+
 ![image](https://github.com/user-attachments/assets/968ede33-8cc8-48b3-ae83-a5d67a9b8bbb)
 ### What users can do in this screen
 

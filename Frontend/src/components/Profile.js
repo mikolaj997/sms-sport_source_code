@@ -51,6 +51,9 @@ function Profile({
   startPoint,
   setStartPoint,
 
+  active,
+  setActive,
+
   tenisOptionsExtended,
   setTenisOptionsExtended,
 
@@ -69,23 +72,23 @@ function Profile({
     queryFn: fetchData,
   });
 
- const createUserMutation = useMutation({
-  mutationFn: createUser,
-  onSuccess: () => {
-    queryClient.invalidateQueries({
-      queryKey: ["userData"],
-    });
-  },
-});
+  const createUserMutation = useMutation({
+    mutationFn: createUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["userData"],
+      });
+    },
+  });
 
   const updateUserMutation = useMutation({
-  mutationFn: updateUser,
-  onSuccess: () => {
-    queryClient.invalidateQueries({
-      queryKey: ["userData"],
-    });
-  },
-});
+    mutationFn: updateUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["userData"],
+      });
+    },
+  });
   //   let thisUser
   //   useEffect(() => {
   //       thisUser = data.find(user => user.Name === username);
@@ -270,12 +273,12 @@ function Profile({
         <label>Domyślny punkt startowy:</label>
 
         <div>
-          <input type="text" value={startPoint[0]} readOnly />
+          <input type="text" value={startPoint[0].toFixed(5)} readOnly />
 
-          <input type="text" value={startPoint[1]} readOnly />
+          <input type="text" value={startPoint[1].toFixed(5)} readOnly />
         </div>
 
-        <button>Wybierz punkt na mapie</button>
+        <button onClick={() => setActive(true)}>Wybierz punkt na mapie</button>
       </div>
 
       <hr />
