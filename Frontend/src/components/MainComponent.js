@@ -125,7 +125,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
 
     if (newValue) {
       // document.getElementById("map").style.display = "none";
-      document.getElementById("instructions").style.display = "none";
+      document.getElementById("instructions").style.display = "block";
       document.querySelector(".select-container").style.display = "none";
       document.querySelector(".activityData").style.display = "none";
       document.querySelector(".rightTopButtons").style.display = "none";
@@ -175,15 +175,15 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
   console.log("total:", totalCalories);
   // const [startPoint, setStartPoint] = useState([longitude, latitude]);
   // Funkcja do zmiany lokalizacji punktu startowego
- const handleChangeStartPoint = () => {
-  console.log("USTAWIAM ACTIVE");
-  console.log("przed:", active);
+  const handleChangeStartPoint = () => {
+    console.log("USTAWIAM ACTIVE");
+    console.log("przed:", active);
 
-  setActive(!active);
-};
-useEffect(() => {
-  console.log("ACTIVE ZMIENIONE:", active);
-}, [active]);
+    setActive(!active);
+  };
+  useEffect(() => {
+    console.log("ACTIVE ZMIENIONE:", active);
+  }, [active]);
   // const handleCalculateCost = () => { //do poprawy!!!
   // };
   console.log(distanceInKm);
@@ -333,6 +333,8 @@ useEffect(() => {
                   setPreferredLocation={setPreferredLocation}
                   startPoint={startPoint}
                   setStartPoint={setStartPoint}
+                  active={active}
+                  setActive={setActive}
                   tenisOptionsExtended={tenisOptionsExtended}
                   setTenisOptionsExtended={setTenisOptionsExtended}
                   runningOptionsExtended={runningOptionsExtended}
@@ -573,7 +575,7 @@ useEffect(() => {
             updateDistance={updateDistance}
             updateTravelTime={updateTravelTime}
           />
-          <div id="instructions" style={{ position: "absolute", top: "0" }}>
+          <div id="instructions" style={{ position: "absolute", top: "0",zIndex: 10 }}>
             Dane Dojazdu:
           </div>
           {isHistoryVisible && (
