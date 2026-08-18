@@ -69,9 +69,9 @@ The backend is developed in Node.js, with MongoDB as the database.
 - Choose a new starting point directly on the map.
 - View the route on the map from the starting point to the selected destination.
 - View travel information:
-- travel time,
-- distance,
-- means of transport.
+  - Travel time.
+  - Distance.
+  - Means of transport.
 - Save preferences.
 - Delete saved preferences.
 
