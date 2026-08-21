@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
-
-
 // const UpdateDb = ({
 //       selectedSport,
 //       activityTime,
@@ -57,7 +55,7 @@ const fetchData = async () => {
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
-  return response.json(); 
+  return response.json();
 };
 
 const createTenis = async (newTenis) => {
@@ -84,7 +82,6 @@ const deleteAllData = async () => {
   });
 };
 
-
 const UpdateDb = ({
   selectedSport,
   activityTime,
@@ -102,19 +99,16 @@ const UpdateDb = ({
   all,
   username,
   storedDataFuture,
-  storedDataPast
-
+  storedDataPast,
 }) => {
-  useEffect(() => {
-    
-  }, [past,planned])
+  const [sortByCost, setSortByCost] = useState(false);
+  useEffect(() => {}, [past, planned]);
   // const [click, setClick] = useState(0)
   const queryClient = useQueryClient();
   const { data, isLoading, error } = useQuery({
     queryKey: "activityData",
     queryFn: fetchData,
   });
-  
 
   const createTenisMutation = useMutation({
     mutationFn: createTenis,
@@ -197,7 +191,7 @@ const UpdateDb = ({
 
   const formattedDate = `${hour}:${minutes} ${days}/${month}/${year}`;
 
-  console.log(past,planned,'past/planned');
+  console.log(past, planned, "past/planned");
 
   const now = new Date();
   if (
@@ -223,254 +217,298 @@ const UpdateDb = ({
     isAfter = true;
     console.log("Wybrana data nie jest wcześniejsza od dzisiejszej daty.");
   }
-  console.log(new Date(date)<new Date(),'isAfter');
+  console.log(new Date(date) < new Date(), "isAfter");
   // Dane do sortowania
 
- // Funkcja do sortowania danych po dacie
- 
+  // Funkcja do sortowania danych po dacie
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
+const parseDateFromString = (dateString) => {
+  console.log("parseDateFromString dostało:", dateString);
 
-  
-  
-  const parseDateFromString = (dateString) => {
-      const [time, date] = dateString.split(' ');
-      const [hour, minute] = time.split(':');
-      const [day, month, year] = date.split('/');
-      return new Date(year, month - 1, day, hour, minute); // Uwaga: Miesiące są indeksowane od 0, stąd month - 1
-    };
-    
-    const sortedData = data.sort((a, b) => {
-        const dateA = parseDateFromString(a.Date);
-        const dateB = parseDateFromString(b.Date);
-       
-        return dateA - dateB;
+  if (!dateString) {
+    console.log("!!! BRAK DATE !!!");
+    return new Date(0);
+  }
+
+  const [time, date] = dateString.split(" ");
+
+  if (!time || !date) {
+    console.log("!!! ZŁY FORMAT DATY !!!", dateString);
+    return new Date(0);
+  }
+
+  const [hour, minute] = time.split(":");
+  const [day, month, year] = date.split("/");
+
+  return new Date(year, month - 1, day, hour, minute);
+};
+
+  const sortedData = data.sort((a, b) => {
+    const dateA = parseDateFromString(a.Date);
+    const dateB = parseDateFromString(b.Date);
+
+    return dateA - dateB;
+  });
+
+  storedDataFuture = storedDataFuture
+    .filter((a) => parseDateFromString(a.Date) > new Date())
+    .filter((a) => {
+      if (username == "admin") {
+        return a;
+      } else {
+        return a.User == username;
+      }
     });
 
-    storedDataFuture = storedDataFuture.filter(a=>parseDateFromString(a.Date)>new Date()).filter(a=>{
-      if(username=='admin'){
-        return a
-      }else{
-        return a.User==username
+  storedDataPast = storedDataPast
+    .filter((a) => parseDateFromString(a.Date) < new Date())
+    .filter((a) => {
+      if (username == "admin") {
+        return a;
+      } else {
+        return a.User == username;
       }
-      })
+    });
 
-    storedDataPast = storedDataPast.filter(a=>parseDateFromString(a.Date)<new Date()).filter(a=>{
-      if(username=='admin'){
-        return a
-      }else{
-        return a.User==username
-      }
-      })
+  // Wyświetl posortowane dane
+  let displayData;
+  const userData = sortedData.filter((a) => {
+    if (username == "admin") {
+      return a;
+    } else {
+      return a.User == username;
+    }
+  });
+  console.log(userData);
 
-    // Wyświetl posortowane dane
-    let displayData;
-    const userData = sortedData.filter(a=>{
-      if(username=='admin'){
-        return a
-      }else{
-        return a.User==username
-      }
-      }
-    );
-      console.log(userData);
-    
-    const today = new Date();
-    displayData = sortedData.map((activity) => (
-            
-        <li key={activity._id}>
-        data: {`${activity.Date} `}
-        Nazwa: {`${activity.Name}, `}
-        Czas: {`${activity.Time}, `}
-        Koszt: {`${activity.ActivityCost}, `}
-        Transport: {`${activity.Transport}, `}
-        Kalorie: {`${activity.Calories}, `}
-        Koszt Kalorii: {`${activity.CalorieCost}, `}
-       
-      
-        <button onClick={() => handleDelete(activity._id)}>Usuń</button>
-      </li>
-    ))
+  if (sortByCost) {
+    displayData = [...userData].sort((a, b) => a.CalorieCost - b.CalorieCost);
+  } else {
+    displayData = userData;
+  }
 
-    // parseDateFromString(sortedData.map(a=>a.Data))
+  const today = new Date();
+  
 
-//   const activity = document.getElementById('#activity')
-//   console.log('aktywnoś',activity)
-//   const data2 = data.slice(0)
-//   const data3 = data.slice(0)
-//   console.log(planned);
-//   const sortedActivities = data.sort((a,b)=>new Date(a.Date) - new Date(b.Date))
+  // parseDateFromString(sortedData.map(a=>a.Data))
+
+  //   const activity = document.getElementById('#activity')
+  //   console.log('aktywnoś',activity)
+  //   const data2 = data.slice(0)
+  //   const data3 = data.slice(0)
+  //   console.log(planned);
+  //   const sortedActivities = data.sort((a,b)=>new Date(a.Date) - new Date(b.Date))
   return (
-    
     <div className="data-from-db">
+      <div className="activity-list">
+  {/* <h2>Historia aktywności:</h2> */}
+
+<button onClick={() => setSortByCost(!sortByCost)}>
+  {sortByCost ? "Przywróć kolejność" : "Sortuj według opłacalności"}
+</button>  </div>
+      
       <ul>
-      {planned &&<>przyszłe aktywności</>}
+        {planned && <>przyszłe aktywności</>}
 
-{planned && storedDataFuture.map((activity) => (
-  
-  <li key={activity._id}>
-    Data: {`${activity.Date} `}
-    Nazwa: {`${ activity.Name.includes("Tennis")
-    ? `${activity.Name.split(" ")[0].slice(0, -1)} ${
-        activity.Name.split(" ")[1] == "singles"
-          ? "(singiel)"
-          : activity.Name.split(" ")[1] == "doubles"
-          ? "(debel)"
-          : ""
-      }`
-    : activity.Name.includes("Running")
-    ? `${
-        activity.Name.split(" ")[0].slice(0, -1) ==
-        "Running"
-          ? "bieganie"
-          : ""
-      }(${
-        activity.Name
-          .slice(activity.Name.split(" ")[1])
-          .trim() == "8 mph (7.5 min/mile)"
-          ? "12,9 km/h"
-          : !activity.Name.includes("general")
-          ? "16,1 km/h"
-          : "średnim tempem"
-      })`
-    : activity.Name.includes("Cycling")
-    ? `${
-        activity.Name.split(" ")[0].slice(0, -1) ==
-        "Cycling"
-          ? "rower"
-          : ""
-      }(${
-        activity.Name
-          .slice(activity.Name.split(" ")[1])
-          .trim() == "12-13.9mph, moderate"
-          ? "rower, 19.3-22.4km/h"
-          : activity.Name
-              .slice(activity.Name.split(" ")[1])
-              .trim() == "Cycling, 10-11.9mph, light"
-          ? "rower, 16.1-19.2km/h"
-          : "rower, 22.5-25.6km/h"
-      })`
-    : activity.Name === "Squash"
-    ? `${activity.Name}`
-    : activity.Name === "Table tennis, ping pong"
-    ? `tenis stolowy`
-    : activity.Name === "Paddleball, competitive"
-    ? `${activity.Name.split(" ")[0].slice(0, -8)}el`
-    : activity.Name === "Badminton"
-    ? `${activity.Name}`
-    : activity.Name === "Running, general"
-    ? `${
-        activity.Name.split(" ")[0].slice(0, -1) == "Running"
-          ? "bieganie"
-          : ""
-      }`
-    : activity.Name === "Cycling, 12-13.9mph, moderate"
-    ? `${
-        activity.Name.split(" ")[0].slice(0, -1) == "Cycling"
-          ? "rower"
-          : ""
-      }`
-    : activity.Name
-}  `}
-    Czas: {`${activity.Time}, `}
-    Koszt: {`${activity.ActivityCost}, `}
-    Transport: {`${activity.Transport=='cycling'?'rower':activity.Transport=='driving'?'samochod':'pieszo'}, `}
-    Kalorie: {`${activity.Calories}, `}
-    Koszt Kalorii: {`${activity.CalorieCost} `}
-    {/* user: {`${activity.User
-}`} */}
-  
-    <button onClick={() => handleDelete(activity._id)}>Usuń</button>
-  </li>
-))}
-</ul>
+{planned && (
+  <div className="activity-list">
+    {storedDataFuture.map((activity) => (
+      <div className="activity-card" key={activity._id}>
+        <div className="activity-main">
+          <strong>{activity.Name}</strong>
+          <span>{activity.Date}</span>
+        </div>
+
+        <div className="activity-details">
+          <div>
+            <span>Czas</span>
+            <strong>{activity.Time ?? "-"} min</strong>
+          </div>
+
+          <div>
+            <span>Koszt</span>
+            <strong>{activity.ActivityCost ?? "-"} zł</strong>
+          </div>
+
+          <div>
+            <span>Kalorie</span>
+            <strong>{activity.Calories ?? 0} kcal</strong>
+          </div>
+
+          <div>
+            <span>Koszt kalorii</span>
+            <strong>
+              {activity.CalorieCost != null
+                ? Number(activity.CalorieCost).toFixed(3)
+                : "0.000"} zł
+            </strong>
+          </div>
+
+          <div>
+            <span>Transport</span>
+            <strong>
+              {activity.Transport === "cycling"
+                ? "rower"
+                : activity.Transport === "driving"
+                  ? "samochód"
+                  : "pieszo"}
+            </strong>
+          </div>
+
+          <button onClick={() => handleDelete(activity._id)}>
+            Usuń
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
+)}
+        {/* {planned &&
+          storedDataFuture.map((activity) => (
+            <li key={activity._id}>
+              Data: {`${activity.Date} `}
+              Nazwa:{" "}
+              {`${
+                activity.Name.includes("Tennis")
+                  ? `${activity.Name.split(" ")[0].slice(0, -1)} ${
+                      activity.Name.split(" ")[1] == "singles"
+                        ? "(singiel)"
+                        : activity.Name.split(" ")[1] == "doubles"
+                          ? "(debel)"
+                          : ""
+                    }`
+                  : activity.Name.includes("Running")
+                    ? `${
+                        activity.Name.split(" ")[0].slice(0, -1) == "Running"
+                          ? "bieganie"
+                          : ""
+                      }(${
+                        activity.Name.slice(
+                          activity.Name.split(" ")[1],
+                        ).trim() == "8 mph (7.5 min/mile)"
+                          ? "12,9 km/h"
+                          : !activity.Name.includes("general")
+                            ? "16,1 km/h"
+                            : "średnim tempem"
+                      })`
+                    : activity.Name.includes("Cycling")
+                      ? `${
+                          activity.Name.split(" ")[0].slice(0, -1) == "Cycling"
+                            ? "rower"
+                            : ""
+                        }(${
+                          activity.Name.slice(
+                            activity.Name.split(" ")[1],
+                          ).trim() == "12-13.9mph, moderate"
+                            ? "rower, 19.3-22.4km/h"
+                            : activity.Name.slice(
+                                  activity.Name.split(" ")[1],
+                                ).trim() == "Cycling, 10-11.9mph, light"
+                              ? "rower, 16.1-19.2km/h"
+                              : "rower, 22.5-25.6km/h"
+                        })`
+                      : activity.Name === "Squash"
+                        ? `${activity.Name}`
+                        : activity.Name === "Table tennis, ping pong"
+                          ? `tenis stolowy`
+                          : activity.Name === "Paddleball, competitive"
+                            ? `${activity.Name.split(" ")[0].slice(0, -8)}el`
+                            : activity.Name === "Badminton"
+                              ? `${activity.Name}`
+                              : activity.Name === "Running, general"
+                                ? `${
+                                    activity.Name.split(" ")[0].slice(0, -1) ==
+                                    "Running"
+                                      ? "bieganie"
+                                      : ""
+                                  }`
+                                : activity.Name ===
+                                    "Cycling, 12-13.9mph, moderate"
+                                  ? `${
+                                      activity.Name.split(" ")[0].slice(
+                                        0,
+                                        -1,
+                                      ) == "Cycling"
+                                        ? "rower"
+                                        : ""
+                                    }`
+                                  : activity.Name
+              }  `}
+              Czas: {`${activity.Time}, `}
+              Koszt: {`${activity.ActivityCost}, `}
+              Transport:{" "}
+              {`${activity.Transport == "cycling" ? "rower" : activity.Transport == "driving" ? "samochod" : "pieszo"}, `}
+              Kalorie: {`${activity.Calories}, `}
+              Koszt Kalorii: {`${activity.CalorieCost} `}
+              
+              <button onClick={() => handleDelete(activity._id)}>Usuń</button>
+            </li>
+          ))} */}
+      </ul>
 
       <ul>
-      {past && <>przeszłe aktywności</>}
 
-{past && storedDataPast.map((activity) => (
-  
-  <li key={activity._id}>
-    Data: {`${activity.Date} `}
-    Nazwa: {`${ activity.Name.includes("Tennis")
-    ? `${activity.Name.split(" ")[0].slice(0, -1)} ${
-        activity.Name.split(" ")[1] == "singles"
-          ? "(singiel)"
-          : activity.Name.split(" ")[1] == "doubles"
-          ? "(debel)"
-          : ""
-      }`
-    : activity.Name.includes("Running")
-    ? `${
-        activity.Name.split(" ")[0].slice(0, -1) ==
-        "Running"
-          ? "bieganie"
-          : ""
-      }(${
-        activity.Name
-          .slice(activity.Name.split(" ")[1])
-          .trim() == "8 mph (7.5 min/mile)"
-          ? "12,9 km/h"
-          : !activity.Name.includes("general")
-          ? "16,1 km/h"
-          : "średnim tempem"
-      })`
-    : activity.Name.includes("Cycling")
-    ? `${
-        activity.Name.split(" ")[0].slice(0, -1) ==
-        "Cycling"
-          ? "rower"
-          : ""
-      }(${
-        activity.Name
-          .slice(activity.Name.split(" ")[1])
-          .trim() == "12-13.9mph, moderate"
-          ? "rower, 19.3-22.4km/h"
-          : activity.Name
-              .slice(activity.Name.split(" ")[1])
-              .trim() == "Cycling, 10-11.9mph, light"
-          ? "rower, 16.1-19.2km/h"
-          : "rower, 22.5-25.6km/h"
-      })`
-    : activity.Name === "Squash"
-    ? `${activity.Name}`
-    : activity.Name === "Table tennis, ping pong"
-    ? `tenis stolowy`
-    : activity.Name === "Paddleball, competitive"
-    ? `${activity.Name.split(" ")[0].slice(0, -8)}el`
-    : activity.Name === "Badminton"
-    ? `${activity.Name}`
-    : activity.Name === "Running, general"
-    ? `${
-        activity.Name.split(" ")[0].slice(0, -1) == "Running"
-          ? "bieganie"
-          : ""
-      }`
-    : activity.Name === "Cycling, 12-13.9mph, moderate"
-    ? `${
-        activity.Name.split(" ")[0].slice(0, -1) == "Cycling"
-          ? "rower"
-          : ""
-      }`
-    : activity.Name
-}  `}
-    Czas: {`${activity.Time}, `}
-    Koszt: {`${activity.ActivityCost}, `}
-    Transport: {`${activity.Transport=='cycling'?'rower':activity.Transport=='driving'?'samochod':'pieszo'}, `}
-    Kalorie: {`${activity.Calories}, `}
-    Koszt Kalorii: {`${activity.CalorieCost} `}
-    {/* user: {`${activity.User
-}`} */}
-  
-    <button onClick={() => handleDelete(activity._id)}>Usuń</button>
-  </li>
-))}
-</ul>
+       {past && (
+         <div className="activity-list">
+    {past && <>przeszłe aktywności</>}
+    {storedDataPast.map((activity) => (
+      <div className="activity-card" key={activity._id}>
+        <div className="activity-main">
+          <strong>{activity.Name}</strong>
+          <span>{activity.Date}</span>
+        </div>
+
+        <div className="activity-details">
+          <div>
+            <span>Czas</span>
+            <strong>{activity.Time ?? "-"} min</strong>
+          </div>
+
+          <div>
+            <span>Koszt</span>
+            <strong>{activity.ActivityCost ?? "-"} zł</strong>
+          </div>
+
+          <div>
+            <span>Kalorie</span>
+            <strong>{activity.Calories ?? 0} kcal</strong>
+          </div>
+
+          <div>
+            <span>Koszt kalorii</span>
+            <strong>
+              {activity.CalorieCost != null
+                ? Number(activity.CalorieCost).toFixed(3)
+                : "0.000"} zł
+            </strong>
+          </div>
+
+          <div>
+            <span>Transport</span>
+            <strong>
+              {activity.Transport === "cycling"
+                ? "rower"
+                : activity.Transport === "driving"
+                  ? "samochód"
+                  : "pieszo"}
+            </strong>
+          </div>
+
+          <button onClick={() => handleDelete(activity._id)}>
+            Usuń
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
+)}
+      </ul>
       {/* <ActivityList data={data}></ActivityList> */}
       <ul>
-      {/* <>aktywności przeszłe:</> */}
+        {/* <>aktywności przeszłe:</> */}
         {/* {isBefore &&
           data.map((activity) => (
             <>
@@ -525,92 +563,154 @@ const UpdateDb = ({
           </li>:<></>
         ))} */}
 
-       {/* { planned && <FutureActivities data={data2} handleDelete={handleDelete}></FutureActivities>}
+        {/* { planned && <FutureActivities data={data2} handleDelete={handleDelete}></FutureActivities>}
         
         {past&&<PastActivities  data={data3} handleDelete={handleDelete}></PastActivities>} */}
 
-{all &&<>wszystkie aktywności</>}
 
-        {all && userData.map((activity) => (
-          
-          <li key={activity._id}>
-            Data: {`${activity.Date} `}
-            Nazwa: {`${ activity.Name.includes("Tennis")
-            ? `${activity.Name.split(" ")[0].slice(0, -1)} ${
-                activity.Name.split(" ")[1] == "singles"
-                  ? "(singiel)"
-                  : activity.Name.split(" ")[1] == "doubles"
-                  ? "(debel)"
-                  : ""
-              }`
-            : activity.Name.includes("Running")
-            ? `${
-                activity.Name.split(" ")[0].slice(0, -1) ==
-                "Running"
-                  ? "bieganie"
-                  : ""
-              }(${
-                activity.Name
-                  .slice(activity.Name.split(" ")[1])
-                  .trim() == "8 mph (7.5 min/mile)"
-                  ? "12,9 km/h"
-                  : !activity.Name.includes("general")
-                  ? "16,1 km/h"
-                  : "średnim tempem"
-              })`
-            : activity.Name.includes("Cycling")
-            ? `${
-                activity.Name.split(" ")[0].slice(0, -1) ==
-                "Cycling"
-                  ? "rower"
-                  : ""
-              }(${
-                activity.Name
-                  .slice(activity.Name.split(" ")[1])
-                  .trim() == "12-13.9mph, moderate"
-                  ? "rower, 19.3-22.4km/h"
-                  : activity.Name
-                      .slice(activity.Name.split(" ")[1])
-                      .trim() == "Cycling, 10-11.9mph, light"
-                  ? "rower, 16.1-19.2km/h"
-                  : "rower, 22.5-25.6km/h"
-              })`
-            : activity.Name === "Squash"
-            ? `${activity.Name}`
-            : activity.Name === "Table tennis, ping pong"
-            ? `tenis stolowy`
-            : activity.Name === "Paddleball, competitive"
-            ? `${activity.Name.split(" ")[0].slice(0, -8)}el`
-            : activity.Name === "Badminton"
-            ? `${activity.Name}`
-            : activity.Name === "Running, general"
-            ? `${
-                activity.Name.split(" ")[0].slice(0, -1) == "Running"
-                  ? "bieganie"
-                  : ""
-              }`
-            : activity.Name === "Cycling, 12-13.9mph, moderate"
-            ? `${
-                activity.Name.split(" ")[0].slice(0, -1) == "Cycling"
-                  ? "rower"
-                  : ""
-              }`
-            : activity.Name
-        }  `}
-            Czas: {`${activity.Time}, `}
-            Koszt: {`${activity.ActivityCost}, `}
-            Transport: {`${activity.Transport=='cycling'?'rower':activity.Transport=='driving'?'samochod':'pieszo'}, `}
-            Kalorie: {`${activity.Calories}, `}
-            Koszt Kalorii: {`${activity.CalorieCost} `}
-            {/* user: {`${activity.User
-        }`} */}
-          
-            <button onClick={() => handleDelete(activity._id)}>Usuń</button>
-          </li>
-))}
+{all && (
+  <div className="activity-list">
+    {all && <>wszystkie aktywności</>}
+   
+    {displayData.map((activity) => (
+      <div className="activity-card" key={activity._id}>
+        <div className="activity-main">
+          <strong>{activity.Name}</strong>
+          <span>{activity.Date}</span>
+        </div>
+
+        <div className="activity-details">
+          <div>
+            <span>Czas</span>
+            <strong>{activity.Time ?? "-"} min</strong>
+          </div>
+
+          <div>
+            <span>Koszt</span>
+            <strong>{activity.ActivityCost ?? "-"} zł</strong>
+          </div>
+
+          <div>
+            <span>Kalorie</span>
+            <strong>
+  {activity.Calories != null
+    ? Number(activity.Calories).toFixed(3)
+    : "0.000"}{" "}
+  kcal
+</strong>
+          </div>
+
+          <div>
+            <span>Koszt kalorii</span>
+            <strong>
+  {activity.CalorieCost != null
+    ? Number(activity.CalorieCost).toFixed(3)
+    : "0.000"}{" "}
+  zł
+</strong>
+          </div>
+
+          <div>
+            <span>Transport</span>
+            <strong>
+              {activity.Transport === "cycling"
+                ? "rower"
+                : activity.Transport === "driving"
+                  ? "samochód"
+                  : "pieszo"}
+            </strong>
+          </div>
+
+          <button onClick={() => handleDelete(activity._id)}>
+            Usuń
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
+)}
+        {/* {all &&
+          displayData.map((activity) => (
+            <li key={activity._id}>
+              Data: {`${activity.Date} `}
+              Nazwa:{" "}
+              {`${
+                activity.Name.includes("Tennis")
+                  ? `${activity.Name.split(" ")[0].slice(0, -1)} ${
+                      activity.Name.split(" ")[1] == "singles"
+                        ? "(singiel)"
+                        : activity.Name.split(" ")[1] == "doubles"
+                          ? "(debel)"
+                          : ""
+                    }`
+                  : activity.Name.includes("Running")
+                    ? `${
+                        activity.Name.split(" ")[0].slice(0, -1) == "Running"
+                          ? "bieganie"
+                          : ""
+                      }(${
+                        activity.Name.slice(
+                          activity.Name.split(" ")[1],
+                        ).trim() == "8 mph (7.5 min/mile)"
+                          ? "12,9 km/h"
+                          : !activity.Name.includes("general")
+                            ? "16,1 km/h"
+                            : "średnim tempem"
+                      })`
+                    : activity.Name.includes("Cycling")
+                      ? `${
+                          activity.Name.split(" ")[0].slice(0, -1) == "Cycling"
+                            ? "rower"
+                            : ""
+                        }(${
+                          activity.Name.slice(
+                            activity.Name.split(" ")[1],
+                          ).trim() == "12-13.9mph, moderate"
+                            ? "rower, 19.3-22.4km/h"
+                            : activity.Name.slice(
+                                  activity.Name.split(" ")[1],
+                                ).trim() == "Cycling, 10-11.9mph, light"
+                              ? "rower, 16.1-19.2km/h"
+                              : "rower, 22.5-25.6km/h"
+                        })`
+                      : activity.Name === "Squash"
+                        ? `${activity.Name}`
+                        : activity.Name === "Table tennis, ping pong"
+                          ? `tenis stolowy`
+                          : activity.Name === "Paddleball, competitive"
+                            ? `${activity.Name.split(" ")[0].slice(0, -8)}el`
+                            : activity.Name === "Badminton"
+                              ? `${activity.Name}`
+                              : activity.Name === "Running, general"
+                                ? `${
+                                    activity.Name.split(" ")[0].slice(0, -1) ==
+                                    "Running"
+                                      ? "bieganie"
+                                      : ""
+                                  }`
+                                : activity.Name ===
+                                    "Cycling, 12-13.9mph, moderate"
+                                  ? `${
+                                      activity.Name.split(" ")[0].slice(
+                                        0,
+                                        -1,
+                                      ) == "Cycling"
+                                        ? "rower"
+                                        : ""
+                                    }`
+                                  : activity.Name
+              }  `}
+              Czas: {`${activity.Time}, `}
+              Koszt: {`${activity.ActivityCost}, `}
+              Transport:{" "}
+              {`${activity.Transport == "cycling" ? "rower" : activity.Transport == "driving" ? "samochod" : "pieszo"}, `}
+              Kalorie: {`${activity.Calories}, `}
+              Koszt Kalorii: {`${activity.CalorieCost} `}
+             
+              <button onClick={() => handleDelete(activity._id)}>Usuń</button>
+            </li>
+          ))} */}
       </ul>
-
-
 
       {/* {date.getFullYear() < now.getFullYear() ||
         (date.getFullYear() === now.getFullYear() &&
