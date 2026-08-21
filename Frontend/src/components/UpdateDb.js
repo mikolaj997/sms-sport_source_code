@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-
+import ActivityCard from "./ActivityCard";
 
 const fetchData = async () => {
   const response = await fetch("/api/activity");
@@ -94,7 +94,7 @@ const UpdateDb = ({
       console.error("Error creating activity:", error);
     }
   };
-  
+
   const handleDelete = async (id) => {
     try {
       await deleteTenisMutation.mutateAsync(id);
@@ -102,7 +102,6 @@ const UpdateDb = ({
       console.error("Error deleting tenis:", error);
     }
   };
-
 
   const handleDeleteAll = async () => {
     try {
@@ -246,185 +245,45 @@ const UpdateDb = ({
         {planned && (
           <div className="activity-list">
             {storedDataFuture.map((activity) => (
-              <div className="activity-card" key={activity._id}>
-                <div className="activity-main">
-                  <strong>{activity.Name}</strong>
-                  <span>{activity.Date}</span>
-                </div>
-
-                <div className="activity-details">
-                  <div>
-                    <span>Czas</span>
-                    <strong>{activity.Time ?? "-"} min</strong>
-                  </div>
-
-                  <div>
-                    <span>Koszt</span>
-                    <strong>{activity.ActivityCost ?? "-"} zł</strong>
-                  </div>
-
-                  <div>
-                    <span>Kalorie</span>
-                    <strong>{activity.Calories ?? 0} kcal</strong>
-                  </div>
-
-                  <div>
-                    <span>Koszt kalorii</span>
-                    <strong>
-                      {activity.CalorieCost != null
-                        ? Number(activity.CalorieCost).toFixed(3)
-                        : "0.000"}{" "}
-                      zł
-                    </strong>
-                  </div>
-
-                  <div>
-                    <span>Transport</span>
-                    <strong>
-                      {activity.Transport === "cycling"
-                        ? "rower"
-                        : activity.Transport === "driving"
-                          ? "samochód"
-                          : "pieszo"}
-                    </strong>
-                  </div>
-
-                  <button onClick={() => handleDelete(activity._id)}>
-                    Usuń
-                  </button>
-                </div>
-              </div>
+              <ActivityCard
+                key={activity._id}
+                activity={activity}
+                onDelete={handleDelete}
+              />
             ))}
           </div>
         )}
-        
       </ul>
 
       <ul>
+        {past && <>przeszłe aktywności</>}
         {past && (
           <div className="activity-list">
-            {past && <>przeszłe aktywności</>}
             {storedDataPast.map((activity) => (
-              <div className="activity-card" key={activity._id}>
-                <div className="activity-main">
-                  <strong>{activity.Name}</strong>
-                  <span>{activity.Date}</span>
-                </div>
-
-                <div className="activity-details">
-                  <div>
-                    <span>Czas</span>
-                    <strong>{activity.Time ?? "-"} min</strong>
-                  </div>
-
-                  <div>
-                    <span>Koszt</span>
-                    <strong>{activity.ActivityCost ?? "-"} zł</strong>
-                  </div>
-
-                  <div>
-                    <span>Kalorie</span>
-                    <strong>{activity.Calories ?? 0} kcal</strong>
-                  </div>
-
-                  <div>
-                    <span>Koszt kalorii</span>
-                    <strong>
-                      {activity.CalorieCost != null
-                        ? Number(activity.CalorieCost).toFixed(3)
-                        : "0.000"}{" "}
-                      zł
-                    </strong>
-                  </div>
-
-                  <div>
-                    <span>Transport</span>
-                    <strong>
-                      {activity.Transport === "cycling"
-                        ? "rower"
-                        : activity.Transport === "driving"
-                          ? "samochód"
-                          : "pieszo"}
-                    </strong>
-                  </div>
-
-                  <button onClick={() => handleDelete(activity._id)}>
-                    Usuń
-                  </button>
-                </div>
-              </div>
+              <ActivityCard
+                key={activity._id}
+                activity={activity}
+                onDelete={handleDelete}
+              />
             ))}
           </div>
         )}
       </ul>
       <ul>
-        
-
         {all && (
           <div className="activity-list">
-            {all && <>wszystkie aktywności</>}
-
+            {<>wszystkie aktywności</>}
             {displayData.map((activity) => (
-              <div className="activity-card" key={activity._id}>
-                <div className="activity-main">
-                  <strong>{activity.Name}</strong>
-                  <span>{activity.Date}</span>
-                </div>
-
-                <div className="activity-details">
-                  <div>
-                    <span>Czas</span>
-                    <strong>{activity.Time ?? "-"} min</strong>
-                  </div>
-
-                  <div>
-                    <span>Koszt</span>
-                    <strong>{activity.ActivityCost ?? "-"} zł</strong>
-                  </div>
-
-                  <div>
-                    <span>Kalorie</span>
-                    <strong>
-                      {activity.Calories != null
-                        ? Number(activity.Calories).toFixed(3)
-                        : "0.000"}{" "}
-                      kcal
-                    </strong>
-                  </div>
-
-                  <div>
-                    <span>Koszt kalorii</span>
-                    <strong>
-                      {activity.CalorieCost != null
-                        ? Number(activity.CalorieCost).toFixed(3)
-                        : "0.000"}{" "}
-                      zł
-                    </strong>
-                  </div>
-
-                  <div>
-                    <span>Transport</span>
-                    <strong>
-                      {activity.Transport === "cycling"
-                        ? "rower"
-                        : activity.Transport === "driving"
-                          ? "samochód"
-                          : "pieszo"}
-                    </strong>
-                  </div>
-
-                  <button onClick={() => handleDelete(activity._id)}>
-                    Usuń
-                  </button>
-                </div>
-              </div>
+              <ActivityCard
+                key={activity._id}
+                activity={activity}
+                onDelete={handleDelete}
+              />
             ))}
           </div>
         )}
-        
       </ul>
 
-      
       <button onClick={() => handleDeleteAll()}>Usuń wszystko</button>
 
       <button onClick={handleCreateActivity}>Stwórz aktywność</button>
@@ -433,4 +292,3 @@ const UpdateDb = ({
 };
 
 export default UpdateDb;
-
