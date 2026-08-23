@@ -1,7 +1,5 @@
 import "../App.css";
 import React, { useEffect, useState } from "react";
-// import mapboxgl from "mapbox-gl";
-// import "mapbox-gl/dist/mapbox-gl.css";
 import { handleCalculateCalories } from "./CalorieCalculator";
 import { handleCalculateCost } from "./ProfitabilityCalculator";
 import clubsAndOtherLocations from "./ClubsAndOtherLocations";
@@ -10,7 +8,6 @@ import { SelectedSport } from "./SelectedSport";
 import ShortcutPopup from "./ShortcutPopup";
 import axios from "axios";
 import UpdateDb from "./UpdateDb";
-// import NewActivity from "./NewActivity";
 import UpdateDbFrontView from "./UpdateDbFrontView";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -35,7 +32,6 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
   const [totalCalorieCost, setTotalCalorieCost] = useState(0);
   const [fuelCost, setFuelCost] = useState("");
   const [fuelConsumption, setFuelConsumption] = useState("");
-  //const [tripInstructions, setTripInstructions] = useState('');
   const [distanceInKm, setDistanceInKm] = useState(0);
   const [storedDistanceInKm, setStoredDistanceInKm] = useState(0); // do local storage
   const [storedDataFuture, setStoredDataFuture] = useState("");
@@ -173,7 +169,6 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
   };
 
   console.log("total:", totalCalories);
-  // const [startPoint, setStartPoint] = useState([longitude, latitude]);
   // Funkcja do zmiany lokalizacji punktu startowego
   const handleChangeStartPoint = () => {
     console.log("USTAWIAM ACTIVE");
@@ -184,8 +179,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
   useEffect(() => {
     console.log("ACTIVE ZMIENIONE:", active);
   }, [active]);
-  // const handleCalculateCost = () => { //do poprawy!!!
-  // };
+  
   console.log(distanceInKm);
 
   localStorage.setItem("distanceInKm", distanceInKm);
@@ -199,8 +193,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
     }
   }, []);
   console.log(storedDistanceInKm);
-  // const handleCalculateCalories = () => {
-  // };
+  
   function onClickAction(e) {
     if (e.key === "o") {
       handleCalculateCost(distanceInKm, setTotalCalorieCost);
@@ -252,14 +245,16 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
         <div style={{ flex: 1, position: "relative" }}>
           <div className="rightTopButtons">
             <ShortcutPopup></ShortcutPopup>
-            <button
-              className={`${
-                active == true ? "active" : "changeLocalizationBtn"
-              }`}
-              onClick={handleChangeStartPoint}
-            >
-              Zmień lokalizację punktu startowego
-            </button>
+            {!isHistoryVisible && !isPastVisible && !isPlannedVisible && (
+              <button
+                className={`${
+                  active == true ? "active" : "changeLocalizationBtn"
+                }`}
+                onClick={handleChangeStartPoint}
+              >
+                Zmień lokalizację punktu startowego
+              </button>
+            )}
           </div>
           {isChatVisible && (
             <div
@@ -284,21 +279,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
                 cyclingOptionsExtended={cyclingOptionsExtended}
                 setCyclingOptionsExtended={setCyclingOptionsExtended}
               ></Chat>
-              {/* <UpdateDb 
-            selectedSport={selectedSport}
-            activityTime={activityTime}
-            totalCalories={totalCalories}
-            totalCalorieCost={totalCalorieCost}
-            travelTime={travelTime}
-            price={price}
-            storedDistanceInKm={storedDistanceInKm}
-            kindOfTransport={kindOfTransport}
-            click={click}
-            date={date}
-            ifPlaned={ifPlaned}
-            planned={planned}
-            
-          ></UpdateDb> */}
+             
             </div>
           )}
           {isProfileVisible && (
@@ -342,31 +323,13 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
                   cyclingOptionsExtended={cyclingOptionsExtended}
                   setCyclingOptionsExtended={setCyclingOptionsExtended}
                 >
-                  {/* komentarze mogą zostać */}
                 </Profile>
               </div>
 
-              {/* <UpdateDb 
-            selectedSport={selectedSport}
-            activityTime={activityTime}
-            totalCalories={totalCalories}
-            totalCalorieCost={totalCalorieCost}
-            travelTime={travelTime}
-            price={price}
-            storedDistanceInKm={storedDistanceInKm}
-            kindOfTransport={kindOfTransport}
-            click={click}
-            date={date}
-            ifPlaned={ifPlaned}
-            planned={planned}
-            
-          ></UpdateDb> */}
             </div>
           )}
 
-          {/* {data && <pre>{JSON.stringify(data, null, 2)}</pre>} */}
           <div onKeyUp={onClickAction} className="select-container">
-            {/* <ServerConnection selectedSport={selectedSport} ></ServerConnection> */}
             <SelectedSport
               selectedSport={selectedSport}
               setSelectedSport={setSelectedSport}
@@ -467,7 +430,6 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
                 onChange={(e) => setPriceOfDrive(parseFloat(e.target.value))}
               />
             )}
-            {/* <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} /> */}
             <label>data rozpoczęcia:</label>
             <DatePicker
               type="number"
@@ -482,7 +444,6 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
               timeCaption="Time"
             />
             <div className="buttons">
-              {/* <button id="calculateButton" class='button' onClick={() => handleCalculateCost(distanceInKm)}>Oblicz opłacalność</button> */}
               <button
                 id="calculateButton"
                 class="button"
@@ -492,7 +453,6 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
               >
                 Oblicz opłacalność
               </button>
-              {/* <HandleCalculateCalories ></HandleCalculateCalories> //totalCalories={totalCalories} setTotalCalories={setTotalCalories} */}
               <button
                 id="calculateCaloriesButton"
                 class="button"
@@ -502,43 +462,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
               </button>
             </div>
           </div>
-          {/* <NewActivity selectedSport={selectedSport}
-                  activityTime={activityTime}
-                  totalCalories={totalCalories}
-                  totalCalorieCost={totalCalorieCost}
-                  travelTime={travelTime}
-                  price={price}
-                  storedDistanceInKm={storedDistanceInKm}
-                  kindOfTransport={kindOfTransport}
-                  toggleHistory={toggleHistory}
-                  isVisible={isVisible}
-                  click={click}
-                  setClick={setClick}></NewActivity> */}
-          {/* {isHistoryVisible && ( //do poprawy
-              <div
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  backgroundColor: "rgba(0, 0, 0, 0.5)",
-                }}
-              >
-                Historia aktywności:
-                <UpdateDb
-                  selectedSport={selectedSport}
-                  activityTime={activityTime}
-                  totalCalories={totalCalories}
-                  totalCalorieCost={totalCalorieCost}
-                  travelTime={travelTime}
-                  price={price}
-                  storedDistanceInKm={storedDistanceInKm}
-                  kindOfTransport={kindOfTransport}
-                ></UpdateDb>
-              </div>)} */}
-
-          {/* <button onClick={""}>historia</button> onClick={filesystemData} */}
+          
 
           <UpdateDbFrontView
             className="UpdateDbFrontView"
@@ -562,7 +486,6 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
             setStoredDataPast={setStoredDataPast}
           ></UpdateDbFrontView>
 
-          {/* do bazy danych   onClick={saveFilesystemData}*/}
         </div>
         <div style={{ flex: 1, height: "90vh", position: "relative" }}>
           <MapComponent
@@ -575,7 +498,10 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
             updateDistance={updateDistance}
             updateTravelTime={updateTravelTime}
           />
-          <div id="instructions" style={{ position: "absolute", top: "0",zIndex: 10 }}>
+          <div
+            id="instructions"
+            style={{ position: "absolute", top: "0", zIndex: 10 }}
+          >
             Dane Dojazdu:
           </div>
           {isHistoryVisible && (
@@ -611,7 +537,6 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
             </div>
           )}
 
-          {/* zrób na podstawie isHistoryVisible */}
           {isPlannedVisible && (
             <div
               style={{

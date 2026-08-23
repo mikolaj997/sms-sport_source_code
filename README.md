@@ -45,7 +45,7 @@ The backend is developed in Node.js, with MongoDB as the database.
 - view the selected locations on the interactive map,
 - save the calculated activity to their profile.
 
-![image](https://github.com/user-attachments/assets/f5eb70c7-be45-4f8a-aab9-d95b0979efb2)
+![alt text](image.png)
 
 ### What users can do in this screen
 
@@ -60,7 +60,8 @@ The backend is developed in Node.js, with MongoDB as the database.
 
 ![alt text](<Zrzut ekranu 2026-08-17 150332.png>)
 
-- What users can do on this screen
+### What users can do on this screen
+
 - View their profile and username.
 - Select their preferred activity/sport.
 - Select their default means of transport.
