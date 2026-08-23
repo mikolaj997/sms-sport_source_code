@@ -45,7 +45,7 @@ The backend is developed in Node.js, with MongoDB as the database.
 - view the selected locations on the interactive map,
 - save the calculated activity to their profile.
 
-![alt text](image.png)
+<img width="940" height="729" alt="image" src="https://github.com/user-attachments/assets/0bb15f23-cf7c-4aee-8790-591b5b77adb6" />
 
 ### What users can do in this screen
 
@@ -58,7 +58,7 @@ The backend is developed in Node.js, with MongoDB as the database.
 - create a new activity.
 
 
-![alt text](<Zrzut ekranu 2026-08-17 150332.png>)
+<img width="1856" height="907" alt="image" src="https://github.com/user-attachments/assets/58ef5efc-ad21-48bf-9671-087b8e86e2ea" />
 
 ### What users can do on this screen
 
