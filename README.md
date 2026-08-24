@@ -83,6 +83,19 @@ The backend is developed in Node.js, with MongoDB as the database.
 - view chats
 - post messeges
 
+<img width="1834" height="914" alt="Zrzut ekranu 2026-08-24 201005" src="https://github.com/user-attachments/assets/9304de30-7f16-4931-af37-79b253a051a9" />
+
+### What users can do in this screen
+
+- use the calendar to browse activities by date,
+- navigate between months,
+- view scheduled activities directly on specific days,
+- quickly see which days contain activities,
+- review the main activity-planning area,
+- select a sport, location and means of transport,
+- enter activity and travel details,
+- calculate activity profitability and calories,
+- add a new activity.
 ## MongoDB Database Structure:
 <img width="1698" height="613" alt="image" src="https://github.com/user-attachments/assets/80fb86e8-adea-4069-94bb-8324de3a349f" />
 
