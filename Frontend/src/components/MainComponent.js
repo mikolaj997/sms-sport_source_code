@@ -14,6 +14,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Profile from "./Profile";
 import Chat from "./chat";
 import MapComponent from "./Map";
+import Calendar from "./Calendar";
 
 function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
   const [startPoint, setStartPoint] = useState([18.5531, 54.4449]);
@@ -51,6 +52,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
   const [planned, setPlanned] = useState(false);
   const [past, setPast] = useState(false);
   const [all, setAll] = useState(false);
+  const [isCalendarVisible, setIsCalendarVisible] = useState(false);
 
   const handleClickOutside = (e) => {
     if (isVisible && !e.target.closest(".popup")) {
@@ -155,6 +157,35 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
       document.querySelector(".rightTopButtons").style.display = "block";
     }
   };
+  const toggleCalendar = () => {
+    const newValue = !isCalendarVisible;
+
+    setIsCalendarVisible(newValue);
+
+    setIsHistoryVisible(false);
+    setIsPastVisible(false);
+    setIsPlannedVisible(false);
+    setIsProfileVisible(false);
+    setIsChatVisible(false);
+
+    setAll(false);
+    setPast(false);
+    setPlanned(false);
+
+    if (newValue) {
+      document.getElementById("map").style.display = "none";
+      document.getElementById("instructions").style.display = "none";
+      document.querySelector(".select-container").style.display = "none";
+      document.querySelector(".activityData").style.display = "none";
+      document.querySelector(".rightTopButtons").style.display = "none";
+    } else {
+      document.getElementById("map").style.display = "block";
+      document.getElementById("instructions").style.display = "block";
+      document.querySelector(".select-container").style.display = "block";
+      document.querySelector(".activityData").style.display = "flex";
+      document.querySelector(".rightTopButtons").style.display = "block";
+    }
+  };
 
   const handleTransportChange = (e) => {
     setKindOfTransport(e.target.value);
@@ -179,7 +210,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
   useEffect(() => {
     console.log("ACTIVE ZMIENIONE:", active);
   }, [active]);
-  
+
   console.log(distanceInKm);
 
   localStorage.setItem("distanceInKm", distanceInKm);
@@ -193,7 +224,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
     }
   }, []);
   console.log(storedDistanceInKm);
-  
+
   function onClickAction(e) {
     if (e.key === "o") {
       handleCalculateCost(distanceInKm, setTotalCalorieCost);
@@ -238,6 +269,8 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
           toggleProfile={toggleProfile}
           setPassword={setPassword}
           toggleChat={toggleChat}
+          toggleCalendar={toggleCalendar}
+          isCalendarVisible={isCalendarVisible}
         ></Navbar>
       </div>
 
@@ -279,7 +312,6 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
                 cyclingOptionsExtended={cyclingOptionsExtended}
                 setCyclingOptionsExtended={setCyclingOptionsExtended}
               ></Chat>
-             
             </div>
           )}
           {isProfileVisible && (
@@ -322,10 +354,23 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
                   setRunningOptionsExtended={setRunningOptionsExtended}
                   cyclingOptionsExtended={cyclingOptionsExtended}
                   setCyclingOptionsExtended={setCyclingOptionsExtended}
-                >
-                </Profile>
+                ></Profile>
               </div>
-
+            </div>
+          )}
+          {isCalendarVisible && (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                position: "absolute",
+                top: 0,
+                left: 0,
+                backgroundColor: "whitesmoke",
+                zIndex: 10,
+              }}
+            >
+              <Calendar />
             </div>
           )}
 
@@ -462,7 +507,6 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
               </button>
             </div>
           </div>
-          
 
           <UpdateDbFrontView
             className="UpdateDbFrontView"
@@ -485,7 +529,6 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
             setStoredDataFuture={setStoredDataFuture}
             setStoredDataPast={setStoredDataPast}
           ></UpdateDbFrontView>
-
         </div>
         <div style={{ flex: 1, height: "90vh", position: "relative" }}>
           <MapComponent
