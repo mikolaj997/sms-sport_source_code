@@ -16,6 +16,8 @@ const Navbar = ({
   setUsername,
   setPassword,
   setIsLoggedIn,
+  isCalendarVisible,
+  toggleCalendar,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -130,7 +132,12 @@ const Navbar = ({
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link disabled">kalendarz</a>
+              <a
+                className="nav-link"
+                onClick={toggleCalendar}
+              >
+                kalendarz
+              </a>
             </li>
           </ul>
           <form className="d-flex" role="search">
