@@ -67,6 +67,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
     setIsPlannedVisible(false);
     setIsProfileVisible(false);
     setIsChatVisible(false);
+    setIsCalendarVisible(false);
 
     setAll(false);
     setPast(false);
@@ -175,15 +176,9 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
     if (newValue) {
       document.getElementById("map").style.display = "none";
       document.getElementById("instructions").style.display = "none";
-      document.querySelector(".select-container").style.display = "none";
-      document.querySelector(".activityData").style.display = "none";
-      document.querySelector(".rightTopButtons").style.display = "none";
     } else {
       document.getElementById("map").style.display = "block";
       document.getElementById("instructions").style.display = "block";
-      document.querySelector(".select-container").style.display = "block";
-      document.querySelector(".activityData").style.display = "flex";
-      document.querySelector(".rightTopButtons").style.display = "block";
     }
   };
 
@@ -278,16 +273,19 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
         <div style={{ flex: 1, position: "relative" }}>
           <div className="rightTopButtons">
             <ShortcutPopup></ShortcutPopup>
-            {!isHistoryVisible && !isPastVisible && !isPlannedVisible && (
-              <button
-                className={`${
-                  active == true ? "active" : "changeLocalizationBtn"
-                }`}
-                onClick={handleChangeStartPoint}
-              >
-                Zmień lokalizację punktu startowego
-              </button>
-            )}
+            {!isHistoryVisible &&
+              !isPastVisible &&
+              !isPlannedVisible &&
+              !isCalendarVisible && (
+                <button
+                  className={`${
+                    active == true ? "active" : "changeLocalizationBtn"
+                  }`}
+                  onClick={handleChangeStartPoint}
+                >
+                  Zmień lokalizację punktu startowego
+                </button>
+              )}
           </div>
           {isChatVisible && (
             <div
@@ -356,21 +354,6 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
                   setCyclingOptionsExtended={setCyclingOptionsExtended}
                 ></Profile>
               </div>
-            </div>
-          )}
-          {isCalendarVisible && (
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-                position: "absolute",
-                top: 0,
-                left: 0,
-                backgroundColor: "whitesmoke",
-                zIndex: 10,
-              }}
-            >
-              <Calendar />
             </div>
           )}
 
@@ -531,6 +514,25 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
           ></UpdateDbFrontView>
         </div>
         <div style={{ flex: 1, height: "90vh", position: "relative" }}>
+          {isCalendarVisible && (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                position: "absolute",
+                top: 0,
+                left: 0,
+                backgroundColor: "whitesmoke",
+                zIndex: 10,
+              }}
+            >
+              <Calendar
+                storedDataFuture={storedDataFuture}
+                storedDataPast={storedDataPast}
+                username={username}
+              />
+            </div>
+          )}
           <MapComponent
             selectedSport={selectedSport}
             kindOfTransport={kindOfTransport}

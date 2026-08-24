@@ -321,3 +321,76 @@ width: calc(100% - 40px);  max-width: 100%;
 .activity-details button {
   margin-left: auto;
 }
+
+.calendar {
+  width: 90%;
+  max-width: 1000px;
+  margin: 30px auto;
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.calendar-header h2 {
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.calendar-header button {
+  border: none;
+  background: none;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.calendar-weekdays,
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.calendar-weekdays div {
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.calendar-day {
+  height: 120px;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.calendar-day-number {
+  margin-bottom: 5px;
+}
+
+.calendar-activities {
+  max-height: 85px;
+  overflow-y: auto;
+}
+
+.calendar-activity {
+  margin-bottom: 4px;
+  padding: 3px 5px;
+  border-radius: 4px;
+  background-color: #4caf50;
+  color: white;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.calendar-day.empty {
+  background: #f5f5f5;
+}
