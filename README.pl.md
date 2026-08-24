@@ -33,6 +33,8 @@
 <img width="940" height="729" alt="image" src="https://github.com/user-attachments/assets/41be5718-670f-429c-8727-a774d6ce4a86" />
 <img width="1856" height="907" alt="image" src="https://github.com/user-attachments/assets/f63d4a4b-591a-441b-8a07-3ab9ffa8b2d2" />
 ![image](https://github.com/user-attachments/assets/968ede33-8cc8-48b3-ae83-a5d67a9b8bbb)
+<img width="1834" height="914" alt="Zrzut ekranu 2026-08-24 201005" src="https://github.com/user-attachments/assets/1fe0df7e-0bd1-4056-9fca-de19ac49a992" />
+
 
 ## MongoDB - struktura bazy danych:
 <img width="1698" height="613" alt="image" src="https://github.com/user-attachments/assets/80fb86e8-adea-4069-94bb-8324de3a349f" />
