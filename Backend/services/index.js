@@ -1,6 +1,6 @@
 exports.generateCrudMethods = Model => {
     return {
-      getAll: () => Model.find(),
+      getAll: (filter = {}) => Model.find(filter),
       getById: (id) => Model.findById(id),
       create: (record) => Model.create(record),
       update: (id, record) =>
