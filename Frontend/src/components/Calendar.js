@@ -107,7 +107,15 @@ const Calendar = ({ storedDataFuture, storedDataPast, username }) => {
 
               {dayActivities.map((activity) => (
                 <div key={activity._id} className="calendar-activity">
-                  {activity.Name}
+                  {activity.Name === "Paddleball, competitive"
+                    ? "Padel"
+                    : activity.Name === "Tennis, general"
+                      ? "tenis ziemny"
+                      : activity.Name === "Table tennis, ping pong"
+                        ? "tenis stołowy"
+                        : activity.Name === "Running, general"
+                          ? "bieganie"
+                          : activity.Name}
                 </div>
               ))}
             </div>
