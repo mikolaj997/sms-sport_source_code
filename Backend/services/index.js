@@ -8,6 +8,6 @@ exports.generateCrudMethods = Model => {
       updateByUsername: (username, record) =>
         Model.findOneAndUpdate({ Name: username }, record, { new: true }),
       delete: (id) => Model.findByIdAndDelete(id),
-      deleteAll: () => Model.deleteMany({}),
+      deleteAll: (filter = {}) => Model.deleteMany(filter),
     };
 }

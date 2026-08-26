@@ -27,17 +27,34 @@ const createTenis = async (newTenis) => {
   }
   return response.json();
 };
-const deleteTenis = async (id) => {
-  const response = await fetch(`/api/activity/${id}`, {
+// const deleteTenis = async (id) => {
+//   const response = await fetch(`/api/activity/${id}`, {
+//     method: "DELETE",
+//   });
+// };
+const deleteTenis = async ({ id, username }) => {
+  const response = await fetch(`/api/activity/${id}?user=${username}`, {
     method: "DELETE",
   });
-};
-const deleteAllData = async () => {
-  const response = await fetch(`/api/activity`, {
-    method: "DELETE",
-  });
-};
 
+  if (!response.ok) {
+    throw new Error("Failed to delete activity");
+  }
+};
+const deleteAllData = async (username) => {
+  const response = await fetch(
+    `/api/activity?user=${encodeURIComponent(username)}`,
+    {
+      method: "DELETE",
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to delete all records");
+  }
+
+  return response.json();
+};
 const UpdateDb = ({
   selectedSport,
   activityTime,
@@ -109,7 +126,10 @@ const UpdateDb = ({
 
   const handleDelete = async (id) => {
     try {
-      await deleteTenisMutation.mutateAsync(id);
+      await deleteTenisMutation.mutateAsync({
+        id,
+        username,
+      });
     } catch (error) {
       console.error("Error deleting tenis:", error);
     }
@@ -117,14 +137,11 @@ const UpdateDb = ({
 
   const handleDeleteAll = async () => {
     try {
-      const response = await fetch("/api/activity", {
-        method: "DELETE",
+      await deleteAllData(username);
+
+      queryClient.invalidateQueries({
+        queryKey: ["activityData", username],
       });
-      if (!response.ok) {
-        throw new Error("Failed to delete all records");
-      }
-      // Aktualizacja danych w React Query po usunięciu rekordów
-      queryClient.invalidateQueries("activityData");
     } catch (error) {
       console.error("Error deleting all records:", error);
     }
@@ -244,10 +261,10 @@ const UpdateDb = ({
           <div className="activity-list">
             {futureData.map((activity) => (
               <ActivityCard
-  key={activity._id}
-  activity={activity}
-  onDelete={handleDelete}
-/>
+                key={activity._id}
+                activity={activity}
+                onDelete={handleDelete}
+              />
             ))}
           </div>
         )}
@@ -259,10 +276,10 @@ const UpdateDb = ({
           <div className="activity-list">
             {pastData.map((activity) => (
               <ActivityCard
-  key={activity._id}
-  activity={activity}
-  onDelete={handleDelete}
-/>
+                key={activity._id}
+                activity={activity}
+                onDelete={handleDelete}
+              />
             ))}
           </div>
         )}
@@ -273,17 +290,18 @@ const UpdateDb = ({
             {<>wszystkie aktywności</>}
             {displayData.map((activity) => (
               <ActivityCard
-  key={activity._id}
-  activity={activity}
-  onDelete={handleDelete}
-/>
+                key={activity._id}
+                activity={activity}
+                onDelete={handleDelete}
+              />
             ))}
           </div>
         )}
       </ul>
 
-      <button onClick={() => handleDeleteAll()}>Usuń wszystko</button>
-
+      <button onClick={handleDeleteAll} disabled={username !== "admin"}>
+        Usuń wszystko
+      </button>
       <button onClick={handleCreateActivity}>Stwórz aktywność</button>
     </div>
   );
