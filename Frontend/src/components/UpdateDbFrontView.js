@@ -92,56 +92,7 @@ const UpdateDbFrontView = ({
 
     const formattedDate = `${hour}:${minutes} ${days}/${month}/${year}`;
    
-    // const now = new Date();
-    // console.log(
-    //   "czy data wybrana jest większa od daty obecnej:",
-    //   now.getFullYear() < date.getFullYear(),
-    //   " , ",
-    //   date,
-    //   date.getDate()
-    // );
-    // console.log(
-    //   date.getFullYear() < now.getFullYear() ||
-    //     (date.getFullYear() === now.getFullYear() &&
-    //       date.getMonth() < now.getMonth()) ||
-    //     (date.getFullYear() === now.getFullYear() &&
-    //       date.getMonth() === now.getMonth() &&
-    //       date.getDate() < now.getDate()) ||
-    //     (date.getFullYear() === now.getFullYear() &&
-    //       date.getMonth() === now.getMonth() &&
-    //       date.getDate() === now.getDate() &&
-    //       date.getHours() < now.getHours()) ||
-    //     (date.getFullYear() === now.getFullYear() &&
-    //       date.getMonth() === now.getMonth() &&
-    //       date.getDate() === now.getDate() &&
-    //       date.getHours() === now.getHours() &&
-    //       date.getMinutes() < now.getMinutes())
-    //     ? console.log("Wybrana data jest wcześniejsza od dzisiejszej daty.")
-    //     : console.log("Wybrana data nie jest wcześniejsza od dzisiejszej daty.")
-    // );
-    // if (
-    //   date.getFullYear() < now.getFullYear() ||
-    //   (date.getFullYear() === now.getFullYear() &&
-    //     date.getMonth() < now.getMonth()) ||
-    //   (date.getFullYear() === now.getFullYear() &&
-    //     date.getMonth() === now.getMonth() &&
-    //     date.getDate() < now.getDate()) ||
-    //   (date.getFullYear() === now.getFullYear() &&
-    //     date.getMonth() === now.getMonth() &&
-    //     date.getDate() === now.getDate() &&
-    //     date.getHours() < now.getHours()) ||
-    //   (date.getFullYear() === now.getFullYear() &&
-    //     date.getMonth() === now.getMonth() &&
-    //     date.getDate() === now.getDate() &&
-    //     date.getHours() === now.getHours() &&
-    //     date.getMinutes() < now.getMinutes())
-    // ) {
-    //     setIfPlaned(true)
-    //   console.log("Wybrana data jest wcześniejsza od dzisiejszej daty.");
-    // } else {
-    //     setIfPlaned(false)
-    //   console.log("Wybrana data nie jest wcześniejsza od dzisiejszej daty.");
-    // }
+  
 
     try {
         
@@ -181,7 +132,15 @@ const UpdateDbFrontView = ({
       {/* <ActivityList data={data}></ActivityList> */}
 
       <div className="activityData">
-        <span>Aktywność: {selectedSport}</span>
+        <span>Aktywność: {selectedSport === "Paddleball, competitive"
+                    ? "Padel"
+                    : selectedSport === "Tennis, general"
+                      ? "tenis ziemny"
+                      : selectedSport === "Table tennis, ping pong"
+                        ? "tenis stołowy"
+                        : selectedSport === "Running, general"
+                          ? "bieganie"
+                          : selectedSport}</span>
         <span>Czas: {activityTime} minut</span>
         <span>Cena: {price} złotych</span>
         <span>Dystans: {storedDistanceInKm} kilometrów</span>

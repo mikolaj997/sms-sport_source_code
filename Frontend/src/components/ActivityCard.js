@@ -1,7 +1,15 @@
 const ActivityCard = ({ activity, onDelete }) => (
   <div className="activity-card">
     <div className="activity-main">
-      <strong>{activity.Name}</strong>
+      <strong>{activity.Name === "Paddleball, competitive"
+        ? "Padel"
+        : activity.Name === "Tennis, general"
+          ? "tenis ziemny"
+          : activity.Name === "Table tennis, ping pong"
+            ? "tenis stołowy"
+            : activity.Name === "Running, general"
+              ? "bieganie"
+              : activity.Name}</strong>
       <span>{activity.Date}</span>
     </div>
 

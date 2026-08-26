@@ -1,23 +1,4 @@
-// import React from 'react';
-// import { useData } from './DataContext';
 
-// const CaloriesComponent = () => {
-//   const { caloriesData } = useData();
-
-//   return (
-//     <div>
-//       <h2>Kalorie spalane podczas różnych dyscyplin:</h2>
-//       <ul>
-//         <li>Tenis: {caloriesData.tennis} kalorii</li>
-//         <li>Squash: {caloriesData.squash} kalorii</li>
-//         <li>Bieganie: {caloriesData.running} kalorii</li>
-//         {/* inne dyscypliny... */}
-//       </ul>
-//     </div>
-//   );
-// };
-
-// export default CaloriesComponent;
 import CalorieBurnData from "./CalorieBurnData";
 import { useEffect } from "react";
 import { useState } from "react";

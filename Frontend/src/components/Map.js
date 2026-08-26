@@ -16,7 +16,7 @@ function MapComponent({
 }) {
   const mapRef = useRef(null);
   useEffect(() => {
-    mapboxgl.accessToken = `${process.env.REACT_APP_API_KEY}`; // {do_usuniecia} - to abym widział efekty na zywo bez marnowania requestów api
+    mapboxgl.accessToken = `${process.env.REACT_APP_API_KEY}`; 
     if (mapRef.current) {
       return;
     }
@@ -40,21 +40,7 @@ function MapComponent({
 
     if (!map) return;
 
-    // let map;
-    // const getMap = () => {
-    //   map = new mapboxgl.Map({
-    //     container: "map",
-    //     style: "mapbox://styles/mapbox/streets-v12",
-    //     center: [18.4293, 54.4293],
-    //     zoom: 1,
-    //   });
-    // };
-    // getMap();
-    // Ustaw granice mapy na obszar obejmujący Trójmiasto
-    // const clubs = [
-    // ];
-    // const nonInstitutionActivities = [
-    // ]
+    
     const bounds = [
       [18.2893, 54.2593], // sw/se Południowo-zachodni narożnik
       [18.6693, 54.6493], // Północno-wschodni narożnik
@@ -62,10 +48,7 @@ function MapComponent({
     map.setMaxBounds(bounds);
     // Dodaj markery do mapy
     clubsAndOtherLocations[0].clubs.forEach(function (club) {
-      // new mapboxgl.Marker() -- działajacy blok
-      //   .setLngLat(club.coordinates)
-      //   .setPopup(new mapboxgl.Popup().setHTML(`<h3>${club.name}</h3>`)) // Dodaj popup, który wyświetla nazwę klubu
-      //   .addTo(map);
+      
       if (club.type === "badminton" && selectedSport === "Badminton") {
         var el = document.createElement("div");
         el.className = "marker " + club.type;
