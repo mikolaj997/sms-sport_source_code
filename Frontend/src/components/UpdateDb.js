@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import ActivityCard from "./ActivityCard";
 
-const fetchData = async () => {
-  const response = await fetch("/api/activity");
+const fetchData = async (username) => {
+  const response = await fetch(
+    `http://localhost:3001/api/activity?user=${username}`,
+  );
+
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
+
   return response.json();
 };
 
@@ -56,21 +60,26 @@ const UpdateDb = ({
   const [sortByCost, setSortByCost] = useState(false);
   useEffect(() => {}, [past, planned]);
   const queryClient = useQueryClient();
+
   const { data, isLoading, error } = useQuery({
-    queryKey: "activityData",
-    queryFn: fetchData,
+    queryKey: ["activityData", username],
+    queryFn: () => fetchData(username),
   });
 
   const createTenisMutation = useMutation({
     mutationFn: createTenis,
     onSuccess: () => {
-      queryClient.invalidateQueries("activityData");
+      queryClient.invalidateQueries({
+        queryKey: ["activityData", username],
+      });
     },
   });
   const deleteTenisMutation = useMutation({
     mutationFn: deleteTenis,
     onSuccess: () => {
-      queryClient.invalidateQueries("activityData");
+      queryClient.invalidateQueries({
+        queryKey: ["activityData", username],
+      });
     },
   });
   const deleteTAllMutation = useMutation({
@@ -89,6 +98,7 @@ const UpdateDb = ({
         Transport: kindOfTransport,
         Calories: totalCalories,
         CalorieCost: totalCalorieCost,
+        User: username,
       });
     } catch (error) {
       console.error("Error creating activity:", error);
@@ -213,14 +223,8 @@ const UpdateDb = ({
 
   // Wyświetl posortowane dane
   let displayData;
-  const userData = sortedData.filter((a) => {
-    if (username == "admin") {
-      return a;
-    } else {
-      return a.User == username;
-    }
-  });
-  console.log(userData);
+
+  const userData = sortedData;
 
   if (sortByCost) {
     displayData = [...userData].sort((a, b) => a.CalorieCost - b.CalorieCost);
