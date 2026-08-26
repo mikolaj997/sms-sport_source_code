@@ -28,8 +28,8 @@
 
 ## Zrzuty ekranu:
 <img width="1866" height="919" alt="Zrzut ekranu 2026-07-24 125659" src="https://github.com/user-attachments/assets/7cbd5e78-3436-44ab-a25e-bfb344627b82" />
+<img width="1857" height="899" alt="image" src="https://github.com/user-attachments/assets/4daabe39-fbd6-4802-9602-ee556a63e110" />
 
-![image](https://github.com/user-attachments/assets/b11afaad-2920-4009-ad6b-8c73f985c0c6)
 <img width="940" height="729" alt="image" src="https://github.com/user-attachments/assets/41be5718-670f-429c-8727-a774d6ce4a86" />
 <img width="1856" height="907" alt="image" src="https://github.com/user-attachments/assets/f63d4a4b-591a-441b-8a07-3ab9ffa8b2d2" />
 ![image](https://github.com/user-attachments/assets/968ede33-8cc8-48b3-ae83-a5d67a9b8bbb)
