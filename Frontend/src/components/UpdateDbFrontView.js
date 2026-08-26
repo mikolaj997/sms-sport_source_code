@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
-const fetchData = async () => {
-  const response = await fetch("/api/activity");
+
+const fetchData = async (username) => {
+  const response = await fetch(
+    `http://localhost:3001/api/activity?user=${username}`,
+  );
+
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
+
   return response.json();
 };
 
@@ -45,25 +50,36 @@ const UpdateDbFrontView = ({
   setIfPlaned,
   username,
   setStoredDataFuture,
-  setStoredDataPast
+  setStoredDataPast,
 }) => {
   const queryClient = useQueryClient();
+  
   const { data, isLoading, error } = useQuery({
-    queryKey: "activityData",
-    queryFn: fetchData,
+    queryKey: ["activityData", username],
+    queryFn: () => fetchData(username),
   });
-  setStoredDataFuture(data)
-  setStoredDataPast(data)
+  
+  useEffect(() => {
+    if (data) {
+      setStoredDataFuture(data);
+      setStoredDataPast(data);
+    }
+  }, [data, setStoredDataFuture, setStoredDataPast]);
   const createActivityMutation = useMutation({
     mutationFn: createActivity,
     onSuccess: () => {
-      queryClient.invalidateQueries("activityData");
+      queryClient.invalidateQueries({
+        queryKey: ["activityData", username],
+      });
     },
   });
+
   const deleteActivityMutation = useMutation({
     mutationFn: deleteActivity,
     onSuccess: () => {
-      queryClient.invalidateQueries("activityData");
+      queryClient.invalidateQueries({
+        queryKey: ["activityData", username],
+      });
     },
   });
   const handleCreateActivity = async () => {
@@ -91,11 +107,8 @@ const UpdateDbFrontView = ({
     const monthPolish = month[polishMonths];
 
     const formattedDate = `${hour}:${minutes} ${days}/${month}/${year}`;
-   
-  
 
     try {
-        
       await createActivityMutation.mutateAsync({
         Date: `${formattedDate}`,
         Name: `${selectedSport}`,
@@ -104,18 +117,16 @@ const UpdateDbFrontView = ({
         Transport: kindOfTransport,
         Calories: totalCalories,
         CalorieCost: totalCalorieCost,
-        User: username
-        
+        User: username,
+
         // IsPlaned: ifPlaned //dokończ
       });
       console.log(username);
-      
-      
     } catch (error) {
       console.error("Error creating activity:", error);
     }
   };
-  
+
   const handleDelete = async (id) => {
     try {
       await deleteActivityMutation.mutateAsync(id);
@@ -129,30 +140,34 @@ const UpdateDbFrontView = ({
 
   return (
     <div>
-      {/* <ActivityList data={data}></ActivityList> */}
+   
 
       <div className="activityData">
-        <span>Aktywność: {selectedSport === "Paddleball, competitive"
-                    ? "Padel"
-                    : selectedSport === "Tennis, general"
-                      ? "tenis ziemny"
-                      : selectedSport === "Table tennis, ping pong"
-                        ? "tenis stołowy"
-                        : selectedSport === "Running, general"
-                          ? "bieganie"
-                          : selectedSport}</span>
+        <span>
+          Aktywność:{" "}
+          {selectedSport === "Paddleball, competitive"
+            ? "Padel"
+            : selectedSport === "Tennis, general"
+              ? "tenis ziemny"
+              : selectedSport === "Table tennis, ping pong"
+                ? "tenis stołowy"
+                : selectedSport === "Running, general"
+                  ? "bieganie"
+                  : selectedSport}
+        </span>
         <span>Czas: {activityTime} minut</span>
         <span>Cena: {price} złotych</span>
         <span>Dystans: {storedDistanceInKm} kilometrów</span>
         <span>
-          Rodzaj transportu: {kindOfTransport == "driving" ? "samochód" : kindOfTransport}
+          Rodzaj transportu:{" "}
+          {kindOfTransport == "driving" ? "samochód" : kindOfTransport}
         </span>
         <span>Kalorie: {totalCalories.toFixed(2)}</span>
         <span>Koszt Kalorii: {totalCalorieCost.toFixed(2)} złotych</span>
         <button onClick={handleCreateActivity} className="addBtn">
           dodaj
         </button>
-        {/* do bazy danych   onClick={saveFilesystemData}*/}
+       
       </div>
     </div>
   );

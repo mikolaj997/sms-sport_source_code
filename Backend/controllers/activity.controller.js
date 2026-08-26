@@ -8,10 +8,14 @@ const { validateDbId, raiseRecord404Error } = require('../middlewares');
 
 
 router.get('/', (req, res, next) => {
-    activityCrud.getAll()
+    const filter = req.query.user
+        ? { User: req.query.user }
+        : {};
+
+    activityCrud.getAll(filter)
         .then(data => res.send(data))
-        .catch(err => next(err))
-    })
+        .catch(err => next(err));
+})
 
 router.get('/:id', validateDbId, (req, res, next) => {
         activityCrud.getById(req.params.id)
