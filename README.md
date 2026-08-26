@@ -31,7 +31,8 @@ The backend is developed in Node.js, with MongoDB as the database.
 ## Screen shots:
 <img width="1866" height="919" alt="Zrzut ekranu 2026-07-24 125659" src="https://github.com/user-attachments/assets/7cbd5e78-3436-44ab-a25e-bfb344627b82" />
 
-![image](https://github.com/user-attachments/assets/b11afaad-2920-4009-ad6b-8c73f985c0c6)
+<img width="1857" height="899" alt="image" src="https://github.com/user-attachments/assets/54d49323-d294-45ee-b409-987ed1649676" />
+
 ### Short list description of the previous two screens:
 - select a sport,
 - choose the activity location,
@@ -42,6 +43,7 @@ The backend is developed in Node.js, with MongoDB as the database.
 - choose the activity start date and time,
 - calculate the profitability of the activity,
 - estimate the number of calories burned,
+- view shortcut popup wchich describe how to invoke shortcuts and explain map legend
 - view the selected locations on the interactive map,
 - save the calculated activity to their profile.
 
