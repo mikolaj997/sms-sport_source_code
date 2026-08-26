@@ -85,7 +85,9 @@ const UpdateDb = ({
   const deleteTAllMutation = useMutation({
     mutationFn: deleteAllData,
     onSuccess: () => {
-      queryClient.invalidateQueries("activityData");
+      queryClient.invalidateQueries({
+        queryKey: ["activityData", username],
+      });
     },
   });
   const handleCreateActivity = async () => {
@@ -126,6 +128,11 @@ const UpdateDb = ({
     } catch (error) {
       console.error("Error deleting all records:", error);
     }
+  };
+  const handleUpdate = () => {
+    queryClient.invalidateQueries({
+      queryKey: ["activityData", username],
+    });
   };
 
   let isBefore = false;
@@ -201,26 +208,13 @@ const UpdateDb = ({
     return dateA - dateB;
   });
 
-  storedDataFuture = storedDataFuture
-    .filter((a) => parseDateFromString(a.Date) > new Date())
-    .filter((a) => {
-      if (username == "admin") {
-        return a;
-      } else {
-        return a.User == username;
-      }
-    });
+  const futureData = storedDataFuture.filter(
+    (a) => parseDateFromString(a.Date) > new Date(),
+  );
 
-  storedDataPast = storedDataPast
-    .filter((a) => parseDateFromString(a.Date) < new Date())
-    .filter((a) => {
-      if (username == "admin") {
-        return a;
-      } else {
-        return a.User == username;
-      }
-    });
-
+  const pastData = storedDataPast.filter(
+    (a) => parseDateFromString(a.Date) < new Date(),
+  );
   // Wyświetl posortowane dane
   let displayData;
 
@@ -248,12 +242,12 @@ const UpdateDb = ({
 
         {planned && (
           <div className="activity-list">
-            {storedDataFuture.map((activity) => (
+            {futureData.map((activity) => (
               <ActivityCard
-                key={activity._id}
-                activity={activity}
-                onDelete={handleDelete}
-              />
+  key={activity._id}
+  activity={activity}
+  onDelete={handleDelete}
+/>
             ))}
           </div>
         )}
@@ -263,12 +257,12 @@ const UpdateDb = ({
         {past && <>przeszłe aktywności</>}
         {past && (
           <div className="activity-list">
-            {storedDataPast.map((activity) => (
+            {pastData.map((activity) => (
               <ActivityCard
-                key={activity._id}
-                activity={activity}
-                onDelete={handleDelete}
-              />
+  key={activity._id}
+  activity={activity}
+  onDelete={handleDelete}
+/>
             ))}
           </div>
         )}
@@ -279,10 +273,10 @@ const UpdateDb = ({
             {<>wszystkie aktywności</>}
             {displayData.map((activity) => (
               <ActivityCard
-                key={activity._id}
-                activity={activity}
-                onDelete={handleDelete}
-              />
+  key={activity._id}
+  activity={activity}
+  onDelete={handleDelete}
+/>
             ))}
           </div>
         )}

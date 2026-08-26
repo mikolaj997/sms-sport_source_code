@@ -318,9 +318,22 @@ width: calc(100% - 40px);  max-width: 100%;
   font-size: 15px;
 }
 
-.activity-details button {
+/* .activity-details button {
   margin-left: auto;
+} */
+ .activity-buttons {
+  margin-left: auto;
+  display: flex;
+ 
+  gap: 8px;
+  align-items: center;
 }
+
+.activity-buttons button {
+  margin: 0;
+    width:50px;
+}
+
 
 .calendar {
   width: 90%;
