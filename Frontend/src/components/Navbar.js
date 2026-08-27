@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import translations from "./translations";
 
 const Navbar = ({
   children,
@@ -18,6 +19,8 @@ const Navbar = ({
   setIsLoggedIn,
   isCalendarVisible,
   toggleCalendar,
+  language,
+  setLanguage,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -69,7 +72,9 @@ const Navbar = ({
                     closeMenu();
                   }}
                 >
-                  {isHistoryVisible ? "Ukryj Aktywności" : "Pokarz Aktywności"}
+                  {isHistoryVisible
+                    ? translations[language].hideActivities
+                    : translations[language].showActivities}
                 </span>
               </a>
               <ul className="dropdown-menu">
@@ -83,8 +88,8 @@ const Navbar = ({
                     }}
                   >
                     {isPlannedVisible
-                      ? "Ukryj Aktywności"
-                      : "przyszłe aktywności"}
+                      ? translations[language].hideActivities
+                      : translations[language].futureActivities}
                   </a>
                 </li>
                 <li>
@@ -95,7 +100,9 @@ const Navbar = ({
                       closeMenu();
                     }}
                   >
-                    {isPastVisible ? "Ukryj Aktywności" : "przeszłe aktywności"}
+                    {isPastVisible
+                      ? translations[language].hideActivities
+                      : translations[language].pastActivities}{" "}
                   </a>
                 </li>
                 <li>
@@ -103,7 +110,7 @@ const Navbar = ({
                 </li>
                 <li>
                   <a className="dropdown-item" href="#">
-                    wszystkie
+                    {translations[language].allActivities}
                   </a>
                 </li>
               </ul>
@@ -117,7 +124,7 @@ const Navbar = ({
                   closeMenu();
                 }}
               >
-                profil{" "}
+                {translations[language].profile}{" "}
               </span>
             </li>
             <li className="nav-item">
@@ -128,20 +135,22 @@ const Navbar = ({
                   closeMenu();
                 }}
               >
-                chat
+                {translations[language].chat}
               </a>
             </li>
             <li className="nav-item">
-              <a
-                className="nav-link"
-                onClick={toggleCalendar}
-              >
-                kalendarz
+              <a className="nav-link" onClick={toggleCalendar}>
+                {translations[language].calendar}
               </a>
             </li>
           </ul>
+          <button
+            className="btn btn-outline-secondary me-2 fw-bold"
+            onClick={() => setLanguage(language === "pl" ? "en" : "pl")}
+          >
+            {language === "pl" ? "EN" : "PL"}
+          </button>
           <form className="d-flex" role="search">
-            {/* <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input> */}
             <button
               className="btn btn-outline-success"
               type="submit"
@@ -151,7 +160,7 @@ const Navbar = ({
                 setUsername(" ");
               }}
             >
-              wyloguj
+              {translations[language].logout}
             </button>
           </form>
         </div>

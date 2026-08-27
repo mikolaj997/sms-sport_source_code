@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import ActivityCard from "./ActivityCard";
+import translations from "./translations";
 
 const fetchData = async (username) => {
   const response = await fetch(
@@ -73,6 +74,7 @@ const UpdateDb = ({
   username,
   storedDataFuture,
   storedDataPast,
+  language,
 }) => {
   const [sortByCost, setSortByCost] = useState(false);
   useEffect(() => {}, [past, planned]);
@@ -248,14 +250,15 @@ const UpdateDb = ({
   return (
     <div className="data-from-db">
       <div className="activity-list">
-        {/* <h2>Historia aktywności:</h2> */}
         <button onClick={() => setSortByCost(!sortByCost)}>
-          {sortByCost ? "Przywróć kolejność" : "Sortuj według opłacalności"}
-        </button>{" "}
+          {sortByCost
+            ? translations[language].sortRestore
+            : translations[language].sortByProfitability}
+        </button>
       </div>
 
       <ul>
-        {planned && <>przyszłe aktywności</>}
+        {planned && <>{translations[language].futureActivities}</>}
 
         {planned && (
           <div className="activity-list">
@@ -264,6 +267,7 @@ const UpdateDb = ({
                 key={activity._id}
                 activity={activity}
                 onDelete={handleDelete}
+                language={language}
               />
             ))}
           </div>
@@ -271,7 +275,8 @@ const UpdateDb = ({
       </ul>
 
       <ul>
-        {past && <>przeszłe aktywności</>}
+        {past && <>{translations[language].pastActivities}</>}
+
         {past && (
           <div className="activity-list">
             {pastData.map((activity) => (
@@ -279,20 +284,24 @@ const UpdateDb = ({
                 key={activity._id}
                 activity={activity}
                 onDelete={handleDelete}
+                language={language}
               />
             ))}
           </div>
         )}
       </ul>
+
       <ul>
         {all && (
           <div className="activity-list">
-            {<>wszystkie aktywności</>}
+            {translations[language].allActivities}
+
             {displayData.map((activity) => (
               <ActivityCard
                 key={activity._id}
                 activity={activity}
                 onDelete={handleDelete}
+                language={language}
               />
             ))}
           </div>
@@ -300,9 +309,12 @@ const UpdateDb = ({
       </ul>
 
       <button onClick={handleDeleteAll} disabled={username !== "admin"}>
-        Usuń wszystko
+        {translations[language].deleteAll}
       </button>
-      <button onClick={handleCreateActivity}>Stwórz aktywność</button>
+
+      <button onClick={handleCreateActivity}>
+        {translations[language].createActivity}
+      </button>
     </div>
   );
 };

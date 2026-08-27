@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import translations from "./translations";
 
-const ShortcutPopup = () => {
+const ShortcutPopup = ({ language }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const togglePopup = () => {
@@ -48,14 +49,11 @@ const ShortcutPopup = () => {
           </button>
 
           <div>
-            <strong>Skróty klawiaturowe</strong> są od pierwszej litery
-            ostatniego wyrazu w przyciskach (działają tylko gdy jeden z inputów
-            jest podświetlony).
+            <strong>{translations[language].keyboardShortcuts}</strong>{" "}
+            {translations[language].keyboardShortcutsDescription}
             <br />
-            <strong>Kolory markerów widocznych na mapie:</strong> zielony -
-            Padowy klub sportowy, żółty - Tenisowy klub sportowy, niebieski -
-            punkt widokowy, biały - klub sportowy do tenisa stołowego, czarny -
-            Squashowy klub sportowy, szary - klub badmintonowy.
+            <strong>{translations[language].markerColors}</strong>{" "}
+            {translations[language].markerColorsDescription}
           </div>
         </div>
       )}
