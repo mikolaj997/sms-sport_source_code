@@ -35,7 +35,7 @@
 
 ![image](https://github.com/user-attachments/assets/968ede33-8cc8-48b3-ae83-a5d67a9b8bbb)
 
-<img width="1836" height="919" alt="image" src="https://github.com/user-attachments/assets/c9f38753-b70d-450a-9e40-263effd4cb6c" />
+<img width="1823" height="903" alt="image" src="https://github.com/user-attachments/assets/c956df4d-dbc7-4dea-ac9b-10572ba2cc23" />
 
 
 
