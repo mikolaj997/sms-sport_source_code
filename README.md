@@ -85,7 +85,8 @@ The backend is developed in Node.js, with MongoDB as the database.
 - view chats
 - post messeges
 
-<img width="1836" height="919" alt="image" src="https://github.com/user-attachments/assets/39ece2ef-ae6e-4426-a462-21678a9d3ba5" />
+<img width="1823" height="903" alt="image" src="https://github.com/user-attachments/assets/04918889-c995-4d8b-aa78-88e0e460ef04" />
+
 
 ### What users can do in this screen
 
