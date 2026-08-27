@@ -29,9 +29,9 @@ The backend is developed in Node.js, with MongoDB as the database.
 - Dedicated chat rooms for different sports activities
 
 ## Screen shots:
-<img width="1866" height="919" alt="Zrzut ekranu 2026-07-24 125659" src="https://github.com/user-attachments/assets/7cbd5e78-3436-44ab-a25e-bfb344627b82" />
+<img width="1850" height="903" alt="image" src="https://github.com/user-attachments/assets/62872ac5-ae88-464b-8184-7edd3469d14b" />
 
-<img width="1857" height="899" alt="image" src="https://github.com/user-attachments/assets/54d49323-d294-45ee-b409-987ed1649676" />
+<img width="1857" height="897" alt="image" src="https://github.com/user-attachments/assets/06abba7f-d4e7-485b-84f0-0b432e7a0405" />
 
 ### Short list description of the previous two screens:
 - select a sport,
@@ -47,7 +47,7 @@ The backend is developed in Node.js, with MongoDB as the database.
 - view the selected locations on the interactive map,
 - save the calculated activity to their profile.
 
-<img width="940" height="729" alt="image" src="https://github.com/user-attachments/assets/0bb15f23-cf7c-4aee-8790-591b5b77adb6" />
+<img width="1832" height="916" alt="image" src="https://github.com/user-attachments/assets/1cf9fdd2-0626-48f3-8252-e4fd17ad148f" />
 
 ### What users can do in this screen
 
@@ -60,7 +60,7 @@ The backend is developed in Node.js, with MongoDB as the database.
 - create a new activity.
 
 
-<img width="1856" height="907" alt="image" src="https://github.com/user-attachments/assets/58ef5efc-ad21-48bf-9671-087b8e86e2ea" />
+<img width="1858" height="917" alt="image" src="https://github.com/user-attachments/assets/73ee34dc-9f90-4fdf-8ce1-22eb4451ff36" />
 
 ### What users can do on this screen
 
@@ -78,14 +78,14 @@ The backend is developed in Node.js, with MongoDB as the database.
 - Save preferences.
 - Delete saved preferences.
 
+<img width="1852" height="898" alt="image" src="https://github.com/user-attachments/assets/18414d1f-647c-4dcf-8671-9865364db055" />
 
-![image](https://github.com/user-attachments/assets/968ede33-8cc8-48b3-ae83-a5d67a9b8bbb)
 ### What users can do in this screen
 
 - view chats
 - post messeges
 
-<img width="1823" height="903" alt="image" src="https://github.com/user-attachments/assets/04918889-c995-4d8b-aa78-88e0e460ef04" />
+<img width="1831" height="904" alt="image" src="https://github.com/user-attachments/assets/d642e2db-4c2e-4b1c-8d82-251385cb87d8" />
 
 
 ### What users can do in this screen
