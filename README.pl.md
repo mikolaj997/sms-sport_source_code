@@ -25,6 +25,8 @@
 - Wybór środka transportu wpływający na czas dojazdu i obliczenia kalkulatora
 - Wyświetlanie trasy dojazdu do wybranego obiektu
 - Czaty dla poszczególnych aktywności sportowych
+- Pełne wsparcie języka polskiego i angielskiego
+- Przycisk do przełączania języka
 
 ## Zrzuty ekranu:
 <img width="1857" height="910" alt="image" src="https://github.com/user-attachments/assets/f5b3093e-643f-4521-91d4-c9f837f3de45" />
