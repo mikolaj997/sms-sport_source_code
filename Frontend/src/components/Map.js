@@ -16,7 +16,7 @@ function MapComponent({
 }) {
   const mapRef = useRef(null);
   useEffect(() => {
-    mapboxgl.accessToken = `${process.env.REACT_APP_API_KEY}`; 
+    mapboxgl.accessToken = `${process.env.REACT_APP_API_KEY+1}`; 
     if (mapRef.current) {
       return;
     }

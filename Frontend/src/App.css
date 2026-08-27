@@ -133,6 +133,29 @@ html {
   /* Kolor dla klubów tenisowych */
 }
 
+.calendar-activity.tennis {
+  background-color: yellow;
+  color: black;
+}
+
+.calendar-activity.badminton {
+  background-color: grey;
+}
+
+.calendar-activity.tennis_stolowy {
+  background-color: white;
+  color: black;
+  border: 1px solid;
+}
+
+.calendar-activity.squash {
+  background-color: black;
+}
+
+.calendar-activity.padel {
+  background-color: green;
+}
+
 .select-container {
   flex-wrap: wrap;
   top: 30%;
@@ -318,12 +341,25 @@ width: calc(100% - 40px);  max-width: 100%;
   font-size: 15px;
 }
 
-.activity-details button {
+/* .activity-details button {
   margin-left: auto;
+} */
+ .activity-buttons {
+  margin-left: auto;
+  display: flex;
+ 
+  gap: 8px;
+  align-items: center;
 }
 
+.activity-buttons button {
+  margin: 0;
+    width:50px;
+}
+
+
 .calendar {
-  width: 90%;
+  width: 93%;
   max-width: 1000px;
   margin: 30px auto;
   background: white;

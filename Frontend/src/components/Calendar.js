@@ -98,6 +98,23 @@ const Calendar = ({ storedDataFuture, storedDataPast, username }) => {
                 })
               : [];
 
+          const getActivityClass = (name) => {
+            switch (name) {
+              case "Tennis, general":
+                return "tennis";
+              case "Badminton":
+                return "badminton";
+              case "Table tennis, ping pong":
+                return "tennis_stolowy";
+              case "Paddleball, competitive":
+                return "padel";
+              case "Squash":
+                return "squash";
+              default:
+                return "";
+            }
+          };
+
           return (
             <div
               key={index}
@@ -106,15 +123,18 @@ const Calendar = ({ storedDataFuture, storedDataPast, username }) => {
               <div>{day}</div>
 
               {dayActivities.map((activity) => (
-                <div key={activity._id} className="calendar-activity">
+                <div
+                  key={activity._id}
+                  className={`calendar-activity ${getActivityClass(activity.Name)}`}
+                >
                   {activity.Name === "Paddleball, competitive"
                     ? "Padel"
                     : activity.Name === "Tennis, general"
-                      ? "tenis ziemny"
+                      ? "Tenis ziemny"
                       : activity.Name === "Table tennis, ping pong"
-                        ? "tenis stołowy"
+                        ? "Tenis stołowy"
                         : activity.Name === "Running, general"
-                          ? "bieganie"
+                          ? "Bieganie"
                           : activity.Name}
                 </div>
               ))}

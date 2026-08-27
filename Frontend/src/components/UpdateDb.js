@@ -27,17 +27,34 @@ const createTenis = async (newTenis) => {
   }
   return response.json();
 };
-const deleteTenis = async (id) => {
-  const response = await fetch(`/api/activity/${id}`, {
+// const deleteTenis = async (id) => {
+//   const response = await fetch(`/api/activity/${id}`, {
+//     method: "DELETE",
+//   });
+// };
+const deleteTenis = async ({ id, username }) => {
+  const response = await fetch(`/api/activity/${id}?user=${username}`, {
     method: "DELETE",
   });
-};
-const deleteAllData = async () => {
-  const response = await fetch(`/api/activity`, {
-    method: "DELETE",
-  });
-};
 
+  if (!response.ok) {
+    throw new Error("Failed to delete activity");
+  }
+};
+const deleteAllData = async (username) => {
+  const response = await fetch(
+    `/api/activity?user=${encodeURIComponent(username)}`,
+    {
+      method: "DELETE",
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to delete all records");
+  }
+
+  return response.json();
+};
 const UpdateDb = ({
   selectedSport,
   activityTime,
@@ -85,7 +102,9 @@ const UpdateDb = ({
   const deleteTAllMutation = useMutation({
     mutationFn: deleteAllData,
     onSuccess: () => {
-      queryClient.invalidateQueries("activityData");
+      queryClient.invalidateQueries({
+        queryKey: ["activityData", username],
+      });
     },
   });
   const handleCreateActivity = async () => {
@@ -107,7 +126,10 @@ const UpdateDb = ({
 
   const handleDelete = async (id) => {
     try {
-      await deleteTenisMutation.mutateAsync(id);
+      await deleteTenisMutation.mutateAsync({
+        id,
+        username,
+      });
     } catch (error) {
       console.error("Error deleting tenis:", error);
     }
@@ -115,17 +137,19 @@ const UpdateDb = ({
 
   const handleDeleteAll = async () => {
     try {
-      const response = await fetch("/api/activity", {
-        method: "DELETE",
+      await deleteAllData(username);
+
+      queryClient.invalidateQueries({
+        queryKey: ["activityData", username],
       });
-      if (!response.ok) {
-        throw new Error("Failed to delete all records");
-      }
-      // Aktualizacja danych w React Query po usunięciu rekordów
-      queryClient.invalidateQueries("activityData");
     } catch (error) {
       console.error("Error deleting all records:", error);
     }
+  };
+  const handleUpdate = () => {
+    queryClient.invalidateQueries({
+      queryKey: ["activityData", username],
+    });
   };
 
   let isBefore = false;
@@ -201,26 +225,13 @@ const UpdateDb = ({
     return dateA - dateB;
   });
 
-  storedDataFuture = storedDataFuture
-    .filter((a) => parseDateFromString(a.Date) > new Date())
-    .filter((a) => {
-      if (username == "admin") {
-        return a;
-      } else {
-        return a.User == username;
-      }
-    });
+  const futureData = storedDataFuture.filter(
+    (a) => parseDateFromString(a.Date) > new Date(),
+  );
 
-  storedDataPast = storedDataPast
-    .filter((a) => parseDateFromString(a.Date) < new Date())
-    .filter((a) => {
-      if (username == "admin") {
-        return a;
-      } else {
-        return a.User == username;
-      }
-    });
-
+  const pastData = storedDataPast.filter(
+    (a) => parseDateFromString(a.Date) < new Date(),
+  );
   // Wyświetl posortowane dane
   let displayData;
 
@@ -248,7 +259,7 @@ const UpdateDb = ({
 
         {planned && (
           <div className="activity-list">
-            {storedDataFuture.map((activity) => (
+            {futureData.map((activity) => (
               <ActivityCard
                 key={activity._id}
                 activity={activity}
@@ -263,7 +274,7 @@ const UpdateDb = ({
         {past && <>przeszłe aktywności</>}
         {past && (
           <div className="activity-list">
-            {storedDataPast.map((activity) => (
+            {pastData.map((activity) => (
               <ActivityCard
                 key={activity._id}
                 activity={activity}
@@ -288,8 +299,9 @@ const UpdateDb = ({
         )}
       </ul>
 
-      <button onClick={() => handleDeleteAll()}>Usuń wszystko</button>
-
+      <button onClick={handleDeleteAll} disabled={username !== "admin"}>
+        Usuń wszystko
+      </button>
       <button onClick={handleCreateActivity}>Stwórz aktywność</button>
     </div>
   );
