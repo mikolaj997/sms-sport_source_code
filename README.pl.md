@@ -27,13 +27,16 @@
 - Czaty dla poszczególnych aktywności sportowych
 
 ## Zrzuty ekranu:
-<img width="1866" height="919" alt="Zrzut ekranu 2026-07-24 125659" src="https://github.com/user-attachments/assets/7cbd5e78-3436-44ab-a25e-bfb344627b82" />
-<img width="1857" height="899" alt="image" src="https://github.com/user-attachments/assets/4daabe39-fbd6-4802-9602-ee556a63e110" />
+<img width="1857" height="910" alt="image" src="https://github.com/user-attachments/assets/f5b3093e-643f-4521-91d4-c9f837f3de45" />
 
-<img width="940" height="729" alt="image" src="https://github.com/user-attachments/assets/41be5718-670f-429c-8727-a774d6ce4a86" />
-<img width="1856" height="907" alt="image" src="https://github.com/user-attachments/assets/f63d4a4b-591a-441b-8a07-3ab9ffa8b2d2" />
+<img width="1852" height="901" alt="image" src="https://github.com/user-attachments/assets/edc8f8f7-c5a7-45b5-a330-98b4fd4b15bb" />
 
-![image](https://github.com/user-attachments/assets/968ede33-8cc8-48b3-ae83-a5d67a9b8bbb)
+<img width="1822" height="910" alt="image" src="https://github.com/user-attachments/assets/fd157c0e-c46d-4629-8398-3e68de583670" />
+
+
+<img width="1864" height="906" alt="image" src="https://github.com/user-attachments/assets/58e5adef-4ce5-4d9f-983a-01718afc1561" />
+
+<img width="1849" height="897" alt="image" src="https://github.com/user-attachments/assets/aab806d2-f153-4995-b01d-7d5c42d22f0e" />
 
 <img width="1823" height="903" alt="image" src="https://github.com/user-attachments/assets/c956df4d-dbc7-4dea-ac9b-10572ba2cc23" />
 
