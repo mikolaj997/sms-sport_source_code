@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import translations from "./translations";
 
 import clubsAndOtherLocations from "./ClubsAndOtherLocations";
 
@@ -13,10 +14,11 @@ function MapComponent({
   setActive,
   updateDistance,
   updateTravelTime,
+  language
 }) {
   const mapRef = useRef(null);
   useEffect(() => {
-    mapboxgl.accessToken = `${process.env.REACT_APP_API_KEY+1}`; 
+    mapboxgl.accessToken = `${process.env.REACT_APP_API_KEY}`; 
     if (mapRef.current) {
       return;
     }
@@ -55,15 +57,20 @@ function MapComponent({
 
         new mapboxgl.Marker(el)
           .setLngLat(club.coordinates)
-          .setPopup(new mapboxgl.Popup().setHTML(`<h3>${club.name}</h3>`))
+          .setPopup(new mapboxgl.Popup().setHTML(
+            `<h3>${club.name[language]}</h3>`
+          ))
           .addTo(map);
       } else if (club.type === "tennis" && selectedSport.includes("Tennis")) {
         var el = document.createElement("div");
         el.className = "marker " + club.type;
 
+       
         new mapboxgl.Marker(el)
           .setLngLat(club.coordinates)
-          .setPopup(new mapboxgl.Popup().setHTML(`<h3>${club.name}</h3>`))
+          .setPopup(new mapboxgl.Popup().setHTML(
+            `<h3>${club.name[language]}</h3>`
+          ))
           .addTo(map);
       } else if (
         club.type === "tennis_stolowy" &&
@@ -74,7 +81,9 @@ function MapComponent({
 
         new mapboxgl.Marker(el)
           .setLngLat(club.coordinates)
-          .setPopup(new mapboxgl.Popup().setHTML(`<h3>${club.name}</h3>`))
+          .setPopup(new mapboxgl.Popup().setHTML(
+            `<h3>${club.name[language]}</h3>`
+          ))
           .addTo(map);
       } else if (
         club.type === "padel" &&
@@ -85,7 +94,9 @@ function MapComponent({
 
         new mapboxgl.Marker(el)
           .setLngLat(club.coordinates)
-          .setPopup(new mapboxgl.Popup().setHTML(`<h3>${club.name}</h3>`))
+          .setPopup(new mapboxgl.Popup().setHTML(
+            `<h3>${club.name[language]}</h3>`
+          ))
           .addTo(map);
       } else if (!selectedSport) {
         var el = document.createElement("div");
@@ -93,7 +104,9 @@ function MapComponent({
 
         new mapboxgl.Marker(el)
           .setLngLat(club.coordinates)
-          .setPopup(new mapboxgl.Popup().setHTML(`<h3>${club.name}</h3>`))
+          .setPopup(new mapboxgl.Popup().setHTML(
+            `<h3>${club.name[language]}</h3>`
+          ))
           .addTo(map);
       }
       // create a HTML element for each feature
@@ -109,12 +122,14 @@ function MapComponent({
 
           new mapboxgl.Marker(el)
             .setLngLat(place.coordinates)
-            .setPopup(new mapboxgl.Popup().setHTML(`<h3>${place.name}</h3>`))
+            .setPopup(new mapboxgl.Popup().setHTML(
+              `<h3>${place.name[language]}</h3>`
+            ))
             .addTo(map);
         }
       },
     );
-  }, [selectedSport]);
+  }, [selectedSport, language]);
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
@@ -215,33 +230,41 @@ function MapComponent({
       const instructions = document.getElementById("instructions");
 
       if (instructions) {
-        instructions.innerHTML = `
-        <h3><strong>Dane dojazdu ${
+  instructions.innerHTML = `
+    <h3>
+      <strong>
+        ${translations[language].travelData} ${
           kindOfTransport === "walking"
-            ? "na pieszo:"
+            ? translations[language].walkingRoute
             : kindOfTransport === "cycling"
-              ? "rowerem:"
+              ? translations[language].cyclingRoute
               : kindOfTransport === "driving"
-                ? "samochodem:"
+                ? translations[language].drivingRoute
                 : ""
-        }</strong></h3>
+        }:
+      </strong>
+    </h3>
 
-        <h4>
-          czas: ${Math.floor(data.duration / 60)} min
-          ${
-            kindOfTransport === "walking"
-              ? "🚶‍♂️"
-              : kindOfTransport === "cycling"
-                ? "🚴"
-                : kindOfTransport === "driving"
-                  ? "🚘"
-                  : ""
-          }
-        </h4>
-
-        <h4>dystans: ${distanceKm} km</h4>
-      `;
+    <h4>
+      ${translations[language].time.toLowerCase()}: ${Math.floor(
+        data.duration / 60,
+      )} min
+      ${
+        kindOfTransport === "walking"
+          ? "🚶‍♂️"
+          : kindOfTransport === "cycling"
+            ? "🚴"
+            : kindOfTransport === "driving"
+              ? "🚘"
+              : ""
       }
+    </h4>
+
+    <h4>
+      ${translations[language].distance.toLowerCase()}: ${distanceKm} km
+    </h4>
+  `;
+}
     }
 
     const handleMapClick = (event) => {

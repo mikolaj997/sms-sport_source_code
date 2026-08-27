@@ -3,9 +3,16 @@ import "../App.css";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { createUser } from "./userApi";
 import { fetchData } from "./userApi";
+import translations from "./translations";
 
-
-const Auth = ({ onLogin, username, setUsername, password, setPassword }) => {
+const Auth = ({
+  onLogin,
+  username,
+  setUsername,
+  password,
+  setPassword,
+  language,
+}) => {
   const queryClient = useQueryClient();
 
   const { data, isLoading, error } = useQuery({
@@ -19,8 +26,6 @@ const Auth = ({ onLogin, username, setUsername, password, setPassword }) => {
       queryClient.invalidateQueries("userData");
     },
   });
-
-  
 
   const handleAddUser = async (username, password) => {
     const user = { Name: username, Password: password }; // do dodsnia w przyszłości TransportType: selectedTransportType
@@ -45,37 +50,39 @@ const Auth = ({ onLogin, username, setUsername, password, setPassword }) => {
 
     console.log(username);
   };
- useEffect(() => {
-  if (data)
-    userValid = data.find(
-      (user) => user.Name === username && user.Password === password
-    );
+  useEffect(() => {
+    if (data)
+      userValid = data.find(
+        (user) => user.Name === username && user.Password === password,
+      );
   }, [password, handleLogin]);
   return (
     <>
-      
       <div className="credentials">
-        <>
-          <input
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </>
+        <input
+          type="text"
+          placeholder={translations[language].username}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+
+        <input
+          type="password"
+          placeholder={translations[language].password}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
         <div className="creBtns">
-          <button onClick={handleLogin}>zaloguj</button>
+          <button onClick={handleLogin}>{translations[language].login}</button>
+
           <button onClick={() => handleAddUser(username, password)}>
-            zarejestruj
+            {translations[language].register}
           </button>
-          <button onClick={handleLogin}>kontunuuj bez logowania</button>
+
+          <button onClick={handleLogin}>
+            {translations[language].continueWithoutLogin}
+          </button>
         </div>
       </div>
     </>

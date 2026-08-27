@@ -1,6 +1,13 @@
 import React, { useState } from "react";
+import translations from "./translations";
 
-const ActivityCard = ({ activity, onDelete, username, onUpdate }) => {
+const ActivityCard = ({
+  activity,
+  onDelete,
+  username,
+  onUpdate,
+  language,
+}) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const [editedActivity, setEditedActivity] = useState({
@@ -17,45 +24,47 @@ const ActivityCard = ({ activity, onDelete, username, onUpdate }) => {
       [field]: value,
     }));
   };
+
   const handleSave = async () => {
-  try {
-    const response = await fetch(
-      `http://localhost:3001/api/activity/${activity._id}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...activity,
-          Name: editedActivity.Name,
-          Date: editedActivity.Date,
-          Time: Number(editedActivity.Time),
-          ActivityCost: Number(editedActivity.ActivityCost),
-          Transport: editedActivity.Transport,
-        }),
+    try {
+      const response = await fetch(
+        `http://localhost:3001/api/activity/${activity._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            ...activity,
+            Name: editedActivity.Name,
+            Date: editedActivity.Date,
+            Time: Number(editedActivity.Time),
+            ActivityCost: Number(editedActivity.ActivityCost),
+            Transport: editedActivity.Transport,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Nie udało się zaktualizować aktywności");
       }
-    );
 
-    if (!response.ok) {
-  throw new Error("Nie udało się zaktualizować aktywności");
-}
+      const updatedActivity = await response.json();
 
-const updatedActivity = await response.json();
+      onUpdate(updatedActivity);
 
-setIsEditing(false);
-onUpdate(updatedActivity);
-} catch (error) {
-  console.error("Błąd podczas edycji aktywności:", error);
-}
-};
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Błąd podczas edycji aktywności:", error);
+    }
+  };
 
   return (
     <div className="activity-card">
       {isEditing ? (
         <div>
           <div>
-            <label>Aktywność</label>
+            <label>{translations[language].activity}</label>
             <input
               value={editedActivity.Name}
               onChange={(e) => handleChange("Name", e.target.value)}
@@ -63,7 +72,7 @@ onUpdate(updatedActivity);
           </div>
 
           <div>
-            <label>Data</label>
+            <label>{translations[language].date}</label>
             <input
               value={editedActivity.Date}
               onChange={(e) => handleChange("Date", e.target.value)}
@@ -71,7 +80,7 @@ onUpdate(updatedActivity);
           </div>
 
           <div>
-            <label>Czas</label>
+            <label>{translations[language].time}</label>
             <input
               type="number"
               value={editedActivity.Time}
@@ -80,38 +89,46 @@ onUpdate(updatedActivity);
           </div>
 
           <div>
-            <label>Koszt</label>
+            <label>{translations[language].cost}</label>
             <input
               type="number"
               value={editedActivity.ActivityCost}
-              onChange={(e) => handleChange("ActivityCost", e.target.value)}
+              onChange={(e) =>
+                handleChange("ActivityCost", e.target.value)
+              }
             />
           </div>
 
           <div>
-            <label>Transport</label>
+            <label>{translations[language].transport}</label>
             <input
               value={editedActivity.Transport}
-              onChange={(e) => handleChange("Transport", e.target.value)}
+              onChange={(e) =>
+                handleChange("Transport", e.target.value)
+              }
             />
           </div>
 
-          <button onClick={() => setIsEditing(false)}>Anuluj</button>
+          <button onClick={() => setIsEditing(false)}>
+            {translations[language].cancel}
+          </button>
 
-<button onClick={handleSave}>Zapisz</button>   
-     </div>
+          <button onClick={handleSave}>
+            {translations[language].save}
+          </button>
+        </div>
       ) : (
         <>
           <div className="activity-main">
             <strong>
               {activity.Name === "Paddleball, competitive"
-                ? "Padel"
+                ? translations[language].padel
                 : activity.Name === "Tennis, general"
-                  ? "tenis ziemny"
+                  ? translations[language].tennis
                   : activity.Name === "Table tennis, ping pong"
-                    ? "tenis stołowy"
+                    ? translations[language].tableTennis
                     : activity.Name === "Running, general"
-                      ? "bieganie"
+                      ? translations[language].running
                       : activity.Name}
             </strong>
 
@@ -120,17 +137,17 @@ onUpdate(updatedActivity);
 
           <div className="activity-details">
             <div>
-              <span>Czas</span>
+              <span>{translations[language].time}</span>
               <strong>{activity.Time ?? "-"} min</strong>
             </div>
 
             <div>
-              <span>Koszt</span>
+              <span>{translations[language].cost}</span>
               <strong>{activity.ActivityCost ?? "-"} zł</strong>
             </div>
 
             <div>
-              <span>Kalorie</span>
+              <span>{translations[language].calories}</span>
               <strong>
                 {activity.Calories != null
                   ? Number(activity.Calories).toFixed(3)
@@ -140,7 +157,7 @@ onUpdate(updatedActivity);
             </div>
 
             <div>
-              <span>Koszt kalorii</span>
+              <span>{translations[language].calorieCost}</span>
               <strong>
                 {activity.CalorieCost != null
                   ? Number(activity.CalorieCost).toFixed(3)
@@ -150,20 +167,25 @@ onUpdate(updatedActivity);
             </div>
 
             <div>
-              <span>Transport</span>
+              <span>{translations[language].transport}</span>
               <strong>
                 {activity.Transport === "cycling"
-                  ? "rower"
+                  ? translations[language].bike
                   : activity.Transport === "driving"
-                    ? "samochód"
-                    : "pieszo"}
+                    ? translations[language].car
+                    : translations[language].walking}
               </strong>
             </div>
-<div className="activity-buttons">
-            <button onClick={() => setIsEditing(true)}>Edytuj</button>
 
-            <button onClick={() => onDelete(activity._id)}>Usuń</button>
-</div>
+            <div className="activity-buttons">
+              <button onClick={() => setIsEditing(true)}>
+                {translations[language].edit}
+              </button>
+
+              <button onClick={() => onDelete(activity._id)}>
+                {translations[language].delete}
+              </button>
+            </div>
           </div>
         </>
       )}

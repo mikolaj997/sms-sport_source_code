@@ -15,8 +15,16 @@ import Profile from "./Profile";
 import Chat from "./chat";
 import MapComponent from "./Map";
 import Calendar from "./Calendar";
+import translations from "./translations";
 
-function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
+function MainComponent({
+  username,
+  setUsername,
+  setPassword,
+  setIsLoggedIn,
+  language,
+  setLanguage,
+}) {
   const [startPoint, setStartPoint] = useState([18.5531, 54.4449]);
   const [active, setActive] = useState(false);
   const [travelTime, setTravelTime] = useState("");
@@ -266,13 +274,15 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
           toggleChat={toggleChat}
           toggleCalendar={toggleCalendar}
           isCalendarVisible={isCalendarVisible}
+          language={language}
+          setLanguage={setLanguage}
         ></Navbar>
       </div>
 
       <div onClick={handleClickOutside} style={{ display: "flex" }}>
         <div style={{ flex: 1, position: "relative" }}>
           <div className="rightTopButtons">
-            <ShortcutPopup></ShortcutPopup>
+            <ShortcutPopup language={language}></ShortcutPopup>
             {!isHistoryVisible &&
               !isPastVisible &&
               !isPlannedVisible &&
@@ -283,7 +293,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
                   }`}
                   onClick={handleChangeStartPoint}
                 >
-                  Zmień lokalizację punktu startowego
+                  {translations[language].changeStartingPoint}
                 </button>
               )}
           </div>
@@ -309,6 +319,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
                 setRunningOptionsExtended={setRunningOptionsExtended}
                 cyclingOptionsExtended={cyclingOptionsExtended}
                 setCyclingOptionsExtended={setCyclingOptionsExtended}
+                language={language}
               ></Chat>
             </div>
           )}
@@ -352,6 +363,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
                   setRunningOptionsExtended={setRunningOptionsExtended}
                   cyclingOptionsExtended={cyclingOptionsExtended}
                   setCyclingOptionsExtended={setCyclingOptionsExtended}
+                  language={language}
                 ></Profile>
               </div>
             </div>
@@ -367,13 +379,14 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
               setRunningOptionsExtended={setRunningOptionsExtended}
               cyclingOptionsExtended={cyclingOptionsExtended}
               setCyclingOptionsExtended={setCyclingOptionsExtended}
+              language={language}
             ></SelectedSport>
             <select
               id="locationSelect"
               value={preferredLocation}
               onChange={(e) => setPreferredLocation(e.target.value)}
             >
-              <option value="">Wybierz lokalizację</option>
+              <option value="">{translations[language].chooseLocation}</option>
               <option value="Gdynia">Gdynia</option>
               <option value="Gdańsk">Gdańsk</option>
               <option value="Sopot">Sopot</option>
@@ -383,47 +396,51 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
               value={kindOfTransport}
               onChange={(e) => setKindOfTransport(e.target.value)}
             >
-              <option value="">Wybierz środek transportu</option>
-              <option value="driving">samochód</option>
-              <option value="cycling">rower</option>
-              <option value="walking">pieszo</option>
+              <option value="">
+                {
+                  /* Wybierz środek transportu  */ translations[language]
+                    .chooseTransport
+                }
+              </option>
+              <option value="driving">{translations[language].car}</option>
+              <option value="cycling">{translations[language].bike}</option>
+              <option value="walking">{translations[language].walking}</option>
             </select>
             <input
               type="number"
               id="weightInput"
-              placeholder="waga (kg)"
+              placeholder={translations[language].weightPlaceholder}
               value={weightKg}
               onChange={(e) => setWeightKg(parseFloat(e.target.value))}
             />
             <input
               type="number"
               id="travelTimeInput"
-              placeholder="czas podrózy (min)"
+              placeholder={translations[language].travelTimePlaceholder}
               value={travelTime}
               onChange={(e) => setTravelTime(parseFloat(e.target.value))}
             />
             <input
               type="number"
               id="activityTimeInput"
-              placeholder="czas aktywności (min)"
+              placeholder={translations[language].activityTimePlaceholder}
               value={activityTime}
               onChange={(e) => setActivityTime(parseFloat(e.target.value))}
             />
             <input
               type="number"
               id="priceInput"
-              placeholder="koszt aktywności"
+              placeholder={translations[language].activityCostPlaceholder}
               value={price}
               onChange={(e) => setPrice(parseFloat(e.target.value))}
             />
             {/* popraw */}
-
             {kindOfTransport === "driving" && (
               <>
                 <input
                   type="number"
                   id="fuelCost"
-                  placeholder="cena litra paliwa"
+                  placeholder={translations[language].fuelCostPlaceholder}
                   value={fuelCost}
                   onChange={(e) => {
                     setFuelCost(parseFloat(e.target.value));
@@ -432,7 +449,9 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
                 <input
                   type="number"
                   id="fuelConsumption"
-                  placeholder="złuzycie paliwa na 100km"
+                  placeholder={
+                    translations[language].fuelConsumptionPlaceholder
+                  }
                   value={fuelConsumption}
                   onChange={(e) =>
                     setFuelConsumption(parseFloat(e.target.value))
@@ -441,7 +460,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
                 <input
                   type="number"
                   id="priceOfDriveInput"
-                  placeholder="koszt dojazdu"
+                  placeholder={translations[language].travelCostPlaceholder}
                   disabled={fuelCost !== "" && fuelConsumption !== ""}
                   value={priceOfDrive}
                   onChange={(e) => setPriceOfDrive(parseFloat(e.target.value))}
@@ -452,13 +471,13 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
               <input
                 type="number"
                 id="priceOfDriveInput"
-                placeholder="koszt dojazdu"
+                placeholder={translations[language].travelCostPlaceholder}
                 disabled={false}
                 value={priceOfDrive}
                 onChange={(e) => setPriceOfDrive(parseFloat(e.target.value))}
               />
             )}
-            <label>data rozpoczęcia:</label>
+            <label>{translations[language].startDate}</label>{" "}
             <DatePicker
               type="number"
               selected={date}
@@ -474,19 +493,20 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
             <div className="buttons">
               <button
                 id="calculateButton"
-                class="button"
+                className="button"
                 onClick={() =>
                   handleCalculateCost(distanceInKm, setTotalCalorieCost)
                 }
               >
-                Oblicz opłacalność
+                {translations[language].calculateProfitability}
               </button>
+
               <button
                 id="calculateCaloriesButton"
-                class="button"
+                className="button"
                 onClick={() => handleCalculateCalories(setTotalCalories)}
               >
-                Oblicz kalorie
+                {translations[language].calculateCalories}
               </button>
             </div>
           </div>
@@ -511,6 +531,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
             username={username}
             setStoredDataFuture={setStoredDataFuture}
             setStoredDataPast={setStoredDataPast}
+            language={language}
           ></UpdateDbFrontView>
         </div>
         <div style={{ flex: 1, height: "90vh", position: "relative" }}>
@@ -530,6 +551,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
                 storedDataFuture={storedDataFuture}
                 storedDataPast={storedDataPast}
                 username={username}
+                language={language}
               />
             </div>
           )}
@@ -542,12 +564,13 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
             setActive={setActive}
             updateDistance={updateDistance}
             updateTravelTime={updateTravelTime}
+            language={language}
           />
           <div
             id="instructions"
             style={{ position: "absolute", top: "0", zIndex: 10 }}
           >
-            Dane Dojazdu:
+            {translations[language].travelData}
           </div>
           {isHistoryVisible && (
             <div
@@ -560,7 +583,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
                 backgroundColor: "whitesmoke",
               }}
             >
-              Historia aktywności:
+              {translations[language].activityHistory}
               <UpdateDb
                 selectedSport={selectedSport}
                 activityTime={activityTime}
@@ -577,6 +600,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
                 username={username}
                 storedDataFuture={storedDataFuture}
                 storedDataPast={storedDataPast}
+                language={language}
               ></UpdateDb>
               {/* zrób to! */}
             </div>
@@ -610,6 +634,7 @@ function MainComponent({ username, setUsername, setPassword, setIsLoggedIn }) {
                 storedDataFuture={storedDataFuture}
                 storedDataPast={storedDataPast}
                 username={username}
+                language={language}
               ></UpdateDb>
             </div>
           )}

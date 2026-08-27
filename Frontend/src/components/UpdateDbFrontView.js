@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import translations from "./translations";
 
 
 const fetchData = async (username) => {
@@ -51,6 +52,7 @@ const UpdateDbFrontView = ({
   username,
   setStoredDataFuture,
   setStoredDataPast,
+  language
 }) => {
   const queryClient = useQueryClient();
   
@@ -138,39 +140,58 @@ const UpdateDbFrontView = ({
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
 
-  return (
-    <div>
-   
+  return (<div className="activityData">
+  <span>
+    {translations[language].activity}:{" "}
+    {selectedSport === "Paddleball, competitive"
+      ? translations[language].padel
+      : selectedSport === "Tennis, general"
+        ? translations[language].tennis
+        : selectedSport === "Table tennis, ping pong"
+          ? translations[language].tableTennis
+          : selectedSport === "Running, general"
+            ? translations[language].running
+            : selectedSport}
+  </span>
 
-      <div className="activityData">
-        <span>
-          Aktywność:{" "}
-          {selectedSport === "Paddleball, competitive"
-            ? "Padel"
-            : selectedSport === "Tennis, general"
-              ? "tenis ziemny"
-              : selectedSport === "Table tennis, ping pong"
-                ? "tenis stołowy"
-                : selectedSport === "Running, general"
-                  ? "bieganie"
-                  : selectedSport}
-        </span>
-        <span>Czas: {activityTime} minut</span>
-        <span>Cena: {price} złotych</span>
-        <span>Dystans: {storedDistanceInKm} kilometrów</span>
-        <span>
-          Rodzaj transportu:{" "}
-          {kindOfTransport == "driving" ? "samochód" : kindOfTransport}
-        </span>
-        <span>Kalorie: {totalCalories.toFixed(2)}</span>
-        <span>Koszt Kalorii: {totalCalorieCost.toFixed(2)} złotych</span>
-        <button onClick={handleCreateActivity} className="addBtn">
-          dodaj
-        </button>
-       
-      </div>
-    </div>
-  );
+  <span>
+    {translations[language].time}: {activityTime}{" "}
+    {translations[language].minutes}
+  </span>
+
+  <span>
+    {translations[language].price}: {price} {translations[language].zloty}
+  </span>
+
+  <span>
+    {translations[language].distance}: {storedDistanceInKm}{" "}
+    {translations[language].kilometers}
+  </span>
+
+  <span>
+    {translations[language].transportType}:{" "}
+    {kindOfTransport === "driving"
+      ? translations[language].car
+      : kindOfTransport === "cycling"
+        ? translations[language].bike
+        : kindOfTransport === "walking"
+          ? translations[language].walking
+          : kindOfTransport}
+  </span>
+
+  <span>
+    {translations[language].calories}: {totalCalories.toFixed(2)}
+  </span>
+
+  <span>
+    {translations[language].calorieCost}: {totalCalorieCost.toFixed(2)}{" "}
+    {translations[language].zloty}
+  </span>
+
+  <button onClick={handleCreateActivity} className="addBtn">
+    {translations[language].add}
+  </button>
+</div>)
 };
 
 export default UpdateDbFrontView;

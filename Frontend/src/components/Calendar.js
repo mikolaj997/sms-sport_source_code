@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import translations from "./translations";
 
-const Calendar = ({ storedDataFuture, storedDataPast, username }) => {
+const Calendar = ({ storedDataFuture, storedDataPast, username, language }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const activities = [...(storedDataPast || []), ...(storedDataFuture || [])]
@@ -56,10 +57,13 @@ const Calendar = ({ storedDataFuture, storedDataPast, username }) => {
     setCurrentDate(new Date(year, month + 1, 1));
   };
 
-  const monthName = currentDate.toLocaleString("pl-PL", {
-    month: "long",
-    year: "numeric",
-  });
+  const monthName = currentDate.toLocaleString(
+    language === "pl" ? "pl-PL" : "en-US",
+    {
+      month: "long",
+      year: "numeric",
+    },
+  );
 
   return (
     <div className="calendar">
@@ -72,13 +76,13 @@ const Calendar = ({ storedDataFuture, storedDataPast, username }) => {
       </div>
 
       <div className="calendar-weekdays">
-        <div>Pon</div>
-        <div>Wt</div>
-        <div>Śr</div>
-        <div>Czw</div>
-        <div>Pt</div>
-        <div>Sob</div>
-        <div>Nd</div>
+        <div>{translations[language].monday}</div>
+        <div>{translations[language].tuesday}</div>
+        <div>{translations[language].wednesday}</div>
+        <div>{translations[language].thursday}</div>
+        <div>{translations[language].friday}</div>
+        <div>{translations[language].saturday}</div>
+        <div>{translations[language].sunday}</div>
       </div>
 
       <div className="calendar-grid">
@@ -125,16 +129,18 @@ const Calendar = ({ storedDataFuture, storedDataPast, username }) => {
               {dayActivities.map((activity) => (
                 <div
                   key={activity._id}
-                  className={`calendar-activity ${getActivityClass(activity.Name)}`}
+                  className={`calendar-activity ${getActivityClass(
+                    activity.Name,
+                  )}`}
                 >
                   {activity.Name === "Paddleball, competitive"
-                    ? "Padel"
+                    ? translations[language].padel
                     : activity.Name === "Tennis, general"
-                      ? "Tenis ziemny"
+                      ? translations[language].tennis
                       : activity.Name === "Table tennis, ping pong"
-                        ? "Tenis stołowy"
+                        ? translations[language].tableTennis
                         : activity.Name === "Running, general"
-                          ? "Bieganie"
+                          ? translations[language].running
                           : activity.Name}
                 </div>
               ))}

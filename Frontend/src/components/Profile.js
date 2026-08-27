@@ -1,6 +1,7 @@
 import "../App.css";
 import React, { Children, useEffect, useState } from "react";
 import { SelectedSport } from "./SelectedSport";
+import translations from "./translations";
 
 import {
   useQuery,
@@ -62,6 +63,8 @@ function Profile({
 
   cyclingOptionsExtended,
   setCyclingOptionsExtended,
+
+  language,
 }) {
   const [newData, setNewData] = useState({});
 
@@ -108,28 +111,6 @@ function Profile({
   //     }
   //   };
 
-  // const addUserIfNotExists = async (username, user) => {
-  //   try {
-  //     const userExists = await checkUserExists(username);
-  //     if (!userExists) {
-  //       createUserMutation.mutate(user);
-  //     } else {
-  //       console.log('User already exists');
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //     const handleAddUser = async () => {
-  //       const username = username; // replace with actual username
-  //       const user = { username, password:'' }; // replace with actual user data
-  //       await addUserIfNotExists(username, user);
-  //     };
-
-  //     handleAddUser();
-  // },[])
   const deleteTenis = async (id) => {
     const response = await fetch(`/api/user/${id}`, {
       method: "DELETE",
@@ -221,18 +202,18 @@ function Profile({
   }, [data, username]);
   return (
     <div className="profile">
-      <h3>👤 Profil</h3>
+      <h3>{translations[language].profileTitle}</h3>
 
       <p>
-        <strong>Użytkownik:</strong> {username}
+        <strong>{translations[language].user}:</strong> {username}
       </p>
 
       <hr />
 
-      <h4>Preferencje</h4>
+      <h4>{translations[language].preferences}</h4>
 
       <div style={{ marginBottom: "15px" }}>
-        <label>Ulubiona aktywność:</label>
+        <label>{translations[language].favoriteActivity}:</label>
         <SelectedSport
           selectedSport={selectedSport}
           setSelectedSport={setSelectedSport}
@@ -242,23 +223,24 @@ function Profile({
           setRunningOptionsExtended={setRunningOptionsExtended}
           cyclingOptionsExtended={cyclingOptionsExtended}
           setCyclingOptionsExtended={setCyclingOptionsExtended}
+          language={language}
         />
       </div>
 
       <div style={{ marginBottom: "15px" }}>
-        <label>Domyślny środek transportu:</label>
+        <label>{translations[language].defaultTransport}:</label>
         <select
           value={kindOfTransport}
           onChange={(e) => setKindOfTransport(e.target.value)}
         >
-          <option value="walking">🚶 Pieszo</option>
-          <option value="cycling">🚴 Rower</option>
-          <option value="driving">🚗 Samochód</option>
+          <option value="walking">🚶 {translations[language].walking}</option>
+          <option value="cycling">🚴 {translations[language].bike}</option>
+          <option value="driving">🚗 {translations[language].car}</option>
         </select>
       </div>
 
       <div style={{ marginBottom: "15px" }}>
-        <label>Preferowana lokalizacja:</label>
+        <label>{translations[language].preferredLocation}:</label>
         <select
           value={preferredLocation}
           onChange={(e) => setPreferredLocation(e.target.value)}
@@ -270,54 +252,28 @@ function Profile({
       </div>
 
       <div style={{ marginBottom: "15px" }}>
-        <label>Domyślny punkt startowy:</label>
+        <label>{translations[language].defaultStartingPoint}:</label>
 
         <div>
           <input type="text" value={startPoint[0].toFixed(5)} readOnly />
-
           <input type="text" value={startPoint[1].toFixed(5)} readOnly />
         </div>
 
-        <button onClick={() => setActive(true)}>Wybierz punkt na mapie</button>
+        <button onClick={() => setActive(true)}>
+          {translations[language].selectPointOnMap}
+        </button>
       </div>
 
       <hr />
 
-      <button onClick={handleUpdateUser}>💾 Zapisz preferencje</button>
+      <button onClick={handleUpdateUser}>
+        {translations[language].savePreferences}
+      </button>
 
       <button style={{ marginLeft: "10px" }} onClick={handleDeleteAll}>
-        🗑 Usuń dane
+        {translations[language].deleteData}
       </button>
     </div>
-    // <div className="profile">
-    //  {username}
-
-    //  {/* {data.map(data=>(
-    //     <li key={data._id}>
-    //         <button onClick={()=>handleDelete(data._id)}>x</button>
-    //     </li>
-    //     ))}  */}
-    //   <p>
-    //   ulubiona aktywność: <SelectedSport  selectedSport={selectedSport}
-    //           setSelectedSport={setSelectedSport}
-    //           tenisOptionsExtended={tenisOptionsExtended}
-    //           setTenisOptionsExtended={setTenisOptionsExtended}
-    //           runningOptionsExtended={runningOptionsExtended}
-    //           setRunningOptionsExtended={setRunningOptionsExtended}
-    //           cyclingOptionsExtended={cyclingOptionsExtended}
-    //           setCyclingOptionsExtended={setCyclingOptionsExtended}></SelectedSport>
-    //   </p>
-    //   <p>preferowana lokalizacja: <select>
-    //     <option>Gdynia</option>
-    //     <option>Sopot</option>
-    //     <option>Gdańsk</option>
-    //     </select></p>
-    //     <p>lokalizacja punktu startowego:</p>
-    //     {/* <button onClick={()=>handleAddUser(username, selectedSport)}></button> */}
-    //     <button onClick={()=>handleUpdateUser}>edytuj dane</button>
-    //     <button onClick={()=>handleDeleteAll}>usuń dane</button>
-    //     {/* <button onClick={handleUpdate}>Update User</button> */}
-    // </div>
   );
 }
 export default Profile;
