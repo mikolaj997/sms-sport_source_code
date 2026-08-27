@@ -27,6 +27,7 @@ The backend is developed in Node.js, with MongoDB as the database.
 - Transport mode selection affecting travel time and calculator results
 - Display of travel routes to selected locations
 - Dedicated chat rooms for different sports activities
+- Full Polish and English language support with a language toggle
 
 ## Screen shots:
 <img width="1850" height="903" alt="image" src="https://github.com/user-attachments/assets/62872ac5-ae88-464b-8184-7edd3469d14b" />
