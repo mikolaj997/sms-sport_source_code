@@ -11,19 +11,19 @@ const fetchMessages = async (selectedSport) => {
       selectedSport === "Squash"
         ? `Squash`
         : selectedSport === "Table tennis, ping pong"
-        ? `TableTenis`
-        : selectedSport === "Paddleball, competitive"
-        ? `Padel`
-        : selectedSport === "Badminton"
-        ? `Badminton`
-        : selectedSport === "Running, general"
-        ? `Running`
-        : selectedSport === "Cycling, 12-13.9mph, moderate"
-        ? `Biking`
-        : selectedSport.includes("Tennis")
-        ? `Tenis`
-        : selectedSport
-    }`
+          ? `TableTenis`
+          : selectedSport === "Paddleball, competitive"
+            ? `Padel`
+            : selectedSport === "Badminton"
+              ? `Badminton`
+              : selectedSport === "Running, general"
+                ? `Running`
+                : selectedSport === "Cycling, 12-13.9mph, moderate"
+                  ? `Biking`
+                  : selectedSport.includes("Tennis")
+                    ? `Tenis`
+                    : selectedSport
+    }`,
   );
   if (!response.ok) {
     throw new Error("Network response was not ok");
@@ -37,18 +37,18 @@ const sendMessage = async ({ newMessage, selectedSport }) => {
       selectedSport === "Squash"
         ? `Squash`
         : selectedSport === "Table tennis, ping pong"
-        ? `TableTenis`
-        : selectedSport === "Paddleball, competitive"
-        ? `Padel`
-        : selectedSport === "Badminton"
-        ? `Badminton`
-        : selectedSport === "Running, general"
-        ? `Running`
-        : selectedSport === "Cycling, 12-13.9mph, moderate"
-        ? `Biking`
-        : selectedSport.includes("Tennis")
-        ? `Tenis`
-        : selectedSport
+          ? `TableTenis`
+          : selectedSport === "Paddleball, competitive"
+            ? `Padel`
+            : selectedSport === "Badminton"
+              ? `Badminton`
+              : selectedSport === "Running, general"
+                ? `Running`
+                : selectedSport === "Cycling, 12-13.9mph, moderate"
+                  ? `Biking`
+                  : selectedSport.includes("Tennis")
+                    ? `Tenis`
+                    : selectedSport
     }`,
     {
       method: "POST",
@@ -56,7 +56,7 @@ const sendMessage = async ({ newMessage, selectedSport }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(newMessage),
-    }
+    },
   );
   if (!response.ok) {
     throw new Error("Failed to send message");
@@ -75,10 +75,10 @@ const Chat = ({
   setRunningOptionsExtended,
   cyclingOptionsExtended,
   setCyclingOptionsExtended,
-  language
+  language,
 }) => {
   const [newMessage, setNewMessage] = useState("");
-  const date = new Date()
+  const date = new Date();
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["messages", selectedSport],
@@ -86,7 +86,8 @@ const Chat = ({
   });
 
   const createMessageMutation = useMutation({
-    mutationFn: (newMessage) => sendMessage({ newMessage, selectedSport, date }),
+    mutationFn: (newMessage) =>
+      sendMessage({ newMessage, selectedSport, date }),
 
     onSuccess: () => {
       queryClient.invalidateQueries(["messages", selectedSport]);
@@ -100,7 +101,7 @@ const Chat = ({
         await createMessageMutation.mutateAsync({
           User: username,
           Name: newMessage,
-          Date: date
+          Date: date,
         });
         setNewMessage("");
       } catch (error) {
@@ -108,19 +109,29 @@ const Chat = ({
       }
     }
   };
-  const formatDate = (isoString) => {
-    const date = new Date(isoString);
-    return date.toLocaleString('pl-PL', {
-      hour: '2-digit',
-      minute: '2-digit',
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+
+    if (isNaN(date.getTime())) {
+      return "Brak daty";
+    }
+
+    return date.toLocaleString(language === "pl" ? "pl-PL" : "en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
     });
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (isLoading) return <div>{translations[language].loading}</div>;
+  if (error)
+    return (
+      <div>
+        {translations[language].error}: {error.message}
+      </div>
+    );
 
   return (
     <div className="chat-container">
@@ -139,13 +150,15 @@ const Chat = ({
       <div className="messages">
         <ul>
           {data &&
-            data.map((message) => (
-              <li key={message._id}>
-                <span className="user">{`${message.User}: `}</span>
-                {message.Name}
-               <span className="date">{formatDate(message.Date)}</span> 
-              </li>
-            ))}
+            [...data]
+              .sort((a, b) => new Date(a.Date) - new Date(b.Date))
+              .map((message) => (
+                <li key={message._id}>
+                  <span className="user">{`${message.User}: `}</span>
+                  {message.Name}
+                  <span className="date">{formatDate(message.Date)}</span>
+                </li>
+              ))}
         </ul>
       </div>
       <form className="message-form" onSubmit={handleCreateMessage}>
@@ -153,13 +166,13 @@ const Chat = ({
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
-          placeholder="Type your message..."
+          placeholder={translations[language].messagePlaceholder}
         />
-        <button type="submit">Send</button>
+
+        <button type="submit">{translations[language].send}</button>
       </form>
     </div>
   );
 };
 
 export default Chat;
-
