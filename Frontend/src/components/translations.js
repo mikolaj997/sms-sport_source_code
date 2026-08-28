@@ -82,6 +82,15 @@ const translations = {
     sortRestore: "Przywróć Kolejność",
 
     // =========================
+    // Czat
+    // =========================
+
+    messagePlaceholder: "Wpisz swoją wiadomość...",
+    send: "Wyślij",
+    loading: "Ładowanie...",
+    error: "Błąd",
+
+    // =========================
     // Kalendarz
     // =========================
     previousMonth: "Poprzedni Miesiąc",
@@ -246,6 +255,15 @@ const translations = {
     activityHistory: "Activity History",
     sortByProfitability: "Sort by Profitability",
     sortRestore: "Restore Order",
+
+    // =========================
+    // Chat
+    // =========================
+
+    messagePlaceholder: "Type your message...",
+    send: "Send",
+    loading: "Loading...",
+    error: "Error",
 
     // =========================
     // Calendar
