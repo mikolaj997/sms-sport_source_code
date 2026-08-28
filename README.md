@@ -79,7 +79,8 @@ The backend is developed in Node.js, with MongoDB as the database.
 - Save preferences.
 - Delete saved preferences.
 
-<img width="1852" height="898" alt="image" src="https://github.com/user-attachments/assets/18414d1f-647c-4dcf-8671-9865364db055" />
+<img width="1850" height="897" alt="image" src="https://github.com/user-attachments/assets/10efa3ab-afc1-468a-acf0-0d19e8f0e70c" />
+
 
 ### What users can do in this screen
 
