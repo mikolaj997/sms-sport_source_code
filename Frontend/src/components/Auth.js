@@ -58,6 +58,14 @@ const Auth = ({
   }, [password, handleLogin]);
   return (
     <>
+      <div className="auth-container">
+    <div className="auth-card">
+      <h1>SMS-Sport</h1>
+
+      <p className="auth-subtitle">
+        {translations[language].login}
+      </p>
+
       <div className="credentials">
         <input
           type="text"
@@ -74,17 +82,21 @@ const Auth = ({
         />
 
         <div className="creBtns">
-          <button onClick={handleLogin}>{translations[language].login}</button>
+          <button className="login-btn" onClick={handleLogin}>
+            {translations[language].login}
+          </button>
 
-          <button onClick={() => handleAddUser(username, password)}>
+          <button className="register-btn" onClick={() => handleAddUser(username, password)}>
             {translations[language].register}
           </button>
 
-          <button onClick={handleLogin}>
+          <button className="guest-btn" onClick={handleLogin}>
             {translations[language].continueWithoutLogin}
           </button>
         </div>
       </div>
+    </div>
+  </div>
     </>
   );
 };
