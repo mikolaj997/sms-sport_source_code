@@ -30,6 +30,9 @@ The backend is developed in Node.js, with MongoDB as the database.
 - Full Polish and English language support with a language toggle
 
 ## Screen shots:
+
+### Application
+
 <img width="1848" height="917" alt="image" src="https://github.com/user-attachments/assets/4b5a3c6b-b2e4-4f86-b19d-40cd90470ae3" />
 
 <img width="1850" height="903" alt="image" src="https://github.com/user-attachments/assets/62872ac5-ae88-464b-8184-7edd3469d14b" />
