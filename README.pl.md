@@ -29,6 +29,8 @@
 - Przycisk do przełączania języka
 
 ## Zrzuty ekranu:
+<img width="1853" height="913" alt="image" src="https://github.com/user-attachments/assets/bfdb7671-9a4c-4481-97b6-48d59e1694d8" />
+
 <img width="1857" height="910" alt="image" src="https://github.com/user-attachments/assets/f5b3093e-643f-4521-91d4-c9f837f3de45" />
 
 <img width="1852" height="901" alt="image" src="https://github.com/user-attachments/assets/edc8f8f7-c5a7-45b5-a330-98b4fd4b15bb" />
