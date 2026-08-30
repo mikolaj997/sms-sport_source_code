@@ -25,12 +25,32 @@ html {
 }
 
 .auth-card {
+  position: relative;
   width: 360px;
   padding: 40px;
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
   text-align: center;
+}
+
+.language-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+
+  width: 58px;
+  height: 48px;
+
+  border: 4px solid #adb5bd;
+  border-radius: 11px;
+
+  background: #5f6972;
+  color: white;
+
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .auth-card h1 {

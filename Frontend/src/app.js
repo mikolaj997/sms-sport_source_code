@@ -46,6 +46,7 @@ function App() {
           password={password}
           setPassword={setPassword}
           language={language}
+          setLanguage={setLanguage}
         />
       )}
     </div>
