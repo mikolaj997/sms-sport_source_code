@@ -32,6 +32,7 @@ const translations = {
     activityCost: "Koszt Aktywności",
     travelCost: "Koszt Dojazdu",
     startDate: "Data Rozpoczęcia:",
+    allFieldsRequired: "Wszystkie pola są wymagane",
 
     // Placeholdery
     weightPlaceholder: "Waga (kg)",
@@ -207,6 +208,7 @@ const translations = {
     activityCost: "Activity Cost",
     travelCost: "Travel Cost",
     startDate: "Start Date:",
+    allFieldsRequired: "All fields are required",
 
     // Placeholders
     weightPlaceholder: "Weight (kg)",
