@@ -20,6 +20,7 @@
 **Część backendowa** została napisana w Node.js. Podpięta baza danych to MongoDB.
 
 ## Funkcjonalności
+- Login i rejestracja
 - Kalkulator opłacalności sportu (czas, koszt, kalorie)
 - Mapa obiektów sportowych z możliwością wyboru trasy dojazdu
 - Wybór środka transportu wpływający na czas dojazdu i obliczenia kalkulatora
