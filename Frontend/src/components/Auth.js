@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../App.css";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { createUser } from "./userApi";
+
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { fetchData } from "./userApi";
 import translations from "./translations";
 
@@ -15,25 +16,20 @@ const Auth = ({
   setLanguage,
 }) => {
   const queryClient = useQueryClient();
-
-  const { data, isLoading, error } = useQuery({
-    queryKey: "userData",
-    queryFn: fetchData,
-  });
-
+  const { data } = useQuery({ queryKey: ["userData"], queryFn: fetchData });
   const createUserMutation = useMutation({
     mutationFn: createUser,
-    onSuccess: () => {
-      queryClient.invalidateQueries("userData");
-    },
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["userData"] }),
   });
-
   const handleAddUser = async (username, password) => {
-    const user = { Name: username, Password: password }; // do dodsnia w przyszłości TransportType: selectedTransportType
-    await createUserMutation.mutate(user);
+    try {
+      await createUserMutation.mutateAsync({ Name: username, Password: password });
+      alert(language === "pl" ? "Konto utworzone. Możesz się zalogować." : "Account created. You can now log in.");
+    } catch (error) {
+      alert(language === "pl" ? "Nie udało się utworzyć konta. Sprawdź login, hasło i połączenie z serwerem." : "Could not create account. Check your username, password and server connection.");
+    }
   };
   let userValid;
-
   const handleLogin = () => {
     if (
       (username === "admin" && password === "admin") ||
@@ -48,14 +44,10 @@ const Auth = ({
     } else {
       alert("Invalid username or password");
     }
-
     console.log(username);
   };
   useEffect(() => {
-    if (data)
-      userValid = data.find(
-        (user) => user.Name === username && user.Password === password,
-      );
+    if (data) userValid = data.find((user) => user.Name === username && user.Password === password);
   }, [password, handleLogin]);
   return (
     <>
@@ -86,6 +78,7 @@ const Auth = ({
               onChange={(e) => setPassword(e.target.value)}
             />
 
+            
             <div className="creBtns">
               <button className="login-btn" onClick={handleLogin}>
                 {translations[language].login}
@@ -93,7 +86,7 @@ const Auth = ({
 
               <button
                 className="register-btn"
-                onClick={() => handleAddUser(username, password)}
+                type="button" disabled={createUserMutation.isPending} onClick={() => handleAddUser(username, password)}
               >
                 {translations[language].register}
               </button>
