@@ -8,8 +8,8 @@ export const fetchData = async () => {
     return response.json(); 
   };
 
-  export const createUser = async (user, username) => {
-    const response = await fetch(`/api/user/${username}`,  {
+  export const createUser = async (user) => {
+    const response = await fetch("/api/user",  {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -17,7 +17,10 @@ export const fetchData = async () => {
       body: JSON.stringify(user),
     });
     if (!response.ok) {
-      throw new Error("Failed to create tenis");
+      const data = await response.json();
+      const error = new Error(data.error || "Request failed");
+      error.code = data.code;
+      throw error;
     }
     return response.json();
   };

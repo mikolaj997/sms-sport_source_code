@@ -71,7 +71,7 @@ function Profile({
   const queryClient = useQueryClient();
 
   const { data, isLoading, error } = useQuery({
-    queryKey: "userData",
+    queryKey: ["userData"],
     queryFn: fetchData,
   });
 

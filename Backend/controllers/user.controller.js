@@ -30,7 +30,7 @@ router.post("/", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.put("/:id", validateDbId, (req, res) => {
+router.put("/:id", validateDbId, (req, res, next) => {
   userCrud
     .update(req.params.id, req.body)
     .then((data) => {
@@ -54,7 +54,7 @@ router.put("/username/:username", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.delete("/:id", validateDbId, (req, res) => {
+router.delete("/:id", validateDbId, (req, res, next) => {
   userCrud
     .delete(req.params.id)
     .then((data) => {
