@@ -21,6 +21,7 @@ The frontend is built with React and uses additional libraries such as React Que
 The backend is developed in Node.js, with MongoDB as the database.
 
 ## Features
+- User registration and login
 - Sports profitability calculator (time, cost, and calories burned)
 - Interactive map of sports facilities
 - Route planning to selected sports facilities
