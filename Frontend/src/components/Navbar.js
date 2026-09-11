@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import translations from "./translations";
 
 const Navbar = ({
+  theme,
+  setTheme,
   children,
   setPlanned,
   setPast,
@@ -144,8 +146,20 @@ const Navbar = ({
               </a>
             </li>
           </ul>
+          <div className="navbar-actions">
           <button
-            className="btn btn-outline-secondary me-2 fw-bold"
+            type="button"
+            className="btn btn-outline-secondary theme-toggle"
+            aria-pressed={theme === "dark"}
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          >
+            <span aria-hidden="true">{theme === "dark" ? "☀" : "☾"}</span>{" "}
+            {language === "pl"
+              ? (theme === "dark" ? "Tryb dzienny" : "Tryb nocny")
+              : (theme === "dark" ? "Light mode" : "Dark mode")}
+          </button>
+          <button
+            className="btn btn-outline-secondary fw-bold"
             onClick={() => setLanguage(language === "pl" ? "en" : "pl")}
           >
             {language === "pl" ? "EN" : "PL"}
@@ -163,6 +177,7 @@ const Navbar = ({
               {translations[language].logout}
             </button>
           </form>
+          </div>
         </div>
       </div>
     </nav>

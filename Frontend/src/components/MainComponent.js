@@ -18,6 +18,8 @@ import Calendar from "./Calendar";
 import translations from "./translations";
 
 function MainComponent({
+  theme,
+  setTheme,
   username,
   setUsername,
   setPassword,
@@ -258,6 +260,8 @@ function MainComponent({
     <>
       <div style={{ height: "fit-content", width: "100%" }}>
         <Navbar
+          theme={theme}
+          setTheme={setTheme}
           setUsername={setUsername}
           setIsLoggedIn={setIsLoggedIn}
           setPlanned={setPlanned}
@@ -305,7 +309,7 @@ function MainComponent({
                 position: "absolute",
                 top: 0,
                 left: 0,
-                backgroundColor: "whitesmoke",
+                backgroundColor: "var(--page-bg)",
               }}
             >
               <Chat
@@ -331,7 +335,7 @@ function MainComponent({
                 position: "absolute",
                 top: 0,
                 left: 0,
-                backgroundColor: "whitesmoke",
+                backgroundColor: "var(--page-bg)",
                 overflowY: "auto",
                 zIndex: 10,
               }}
@@ -543,7 +547,7 @@ function MainComponent({
                 position: "absolute",
                 top: 0,
                 left: 0,
-                backgroundColor: "whitesmoke",
+                backgroundColor: "var(--page-bg)",
                 zIndex: 10,
               }}
             >
@@ -580,7 +584,7 @@ function MainComponent({
                 position: "absolute",
                 top: 0,
                 left: 0,
-                backgroundColor: "whitesmoke",
+                backgroundColor: "var(--page-bg)",
               }}
             >
               {translations[language].activityHistory}
@@ -615,7 +619,7 @@ function MainComponent({
                 position: "absolute",
                 top: 0,
                 left: 0,
-                backgroundColor: "whitesmoke",
+                backgroundColor: "var(--page-bg)",
               }}
             >
               <UpdateDb
@@ -646,7 +650,7 @@ function MainComponent({
                 position: "absolute",
                 top: 0,
                 left: 0,
-                backgroundColor: "whitesmoke",
+                backgroundColor: "var(--page-bg)",
               }}
             >
               <UpdateDb

@@ -9,6 +9,23 @@ function App() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [language, setLanguage] = useState("pl");
+  const [theme, setTheme] = useState(() => {
+    try {
+      return localStorage.getItem("sms-sport-theme") === "dark" ? "dark" : "light";
+    } catch {
+      return "light";
+    }
+  });
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.dataset.bsTheme = theme;
+    try {
+      localStorage.setItem("sms-sport-theme", theme);
+    } catch {
+      // Switching themes still works when browser storage is unavailable.
+    }
+  }, [theme]);
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -24,6 +41,8 @@ function App() {
     <div className="App">
       {isLoggedIn ? (
         <MainComponent
+          theme={theme}
+          setTheme={setTheme}
           username={username}
           password={password}
           setUsername={setUsername}
