@@ -49,6 +49,13 @@
 
 <img width="1823" height="903" alt="image" src="https://github.com/user-attachments/assets/c956df4d-dbc7-4dea-ac9b-10572ba2cc23" />
 
+## Responsywność:
+<img width="945" height="922" alt="image" src="https://github.com/user-attachments/assets/d0c5222b-8a16-440a-b2f6-3095c35cd316" />
+
+### Telefon Mobilny:
+<img width="367" height="792" alt="image" src="https://github.com/user-attachments/assets/38f0d6eb-ead0-4d15-95cd-88c127b0f4eb" />
+<img width="367" height="796" alt="image" src="https://github.com/user-attachments/assets/3aa2cf8c-9e00-4939-9a45-7e60e6ff0a57" />
+
 
 
 ## MongoDB - struktura bazy danych:
