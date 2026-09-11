@@ -20,6 +20,16 @@
 
 body { color: var(--text-color); }
 
+.app-layout { display: flex; }
+.calculator-panel { flex: 1; min-width: 0; position: relative; }
+.map-panel { flex: 1; min-width: 0; height: 90vh; position: relative; }
+.content-panel { overflow: auto; z-index: 20; }
+
+@media (max-width: 991px) {
+  .navbar-actions { padding: 8px 0; }
+  .navbar-collapse .navbar-nav { max-height: none; overflow: visible; }
+}
+
 .navbar-actions {
   display: flex;
   align-items: center;
@@ -614,4 +624,337 @@ width: calc(100% - 40px);  max-width: 100%;
 
 .calendar-day.empty {
   background: var(--subtle-bg);
+}
+
+/* Compact layouts: keep controls and results in the normal document flow. */
+@media (max-width: 991px) {
+  .navbar-actions { flex-wrap: wrap; }
+}
+
+@media (max-width: 767px) {
+  .app-layout { flex-direction: column; }
+  .calculator-panel, .map-panel { flex: none; width: 100%; }
+  .calculator-panel { padding: 12px; }
+  .map-panel { height: 65vh; min-height: 360px; }
+  .auth-container { padding: 16px; }
+  .auth-card { width: 100%; max-width: 360px; padding: 72px 24px 28px; }
+  .navbar-actions .btn { min-height: 44px; height: auto; }
+  .rightTopButtons { position: relative; justify-content: flex-end; gap: 8px; margin-bottom: 12px; }
+  .rightTopButtons > button { position: static; padding: 8px; min-height: 44px; }
+  .rightTopButtons .popup { z-index: 30; max-height: 65vh; overflow-y: auto; }
+  .select-container { top: auto; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+  .calculator-panel :is(input, select, textarea) { max-width: 100%; min-width: 0; font-size: 16px; }
+  .select-container :is(input, select), .profile-content :is(input, select) { width: 100%; min-height: 44px; margin-top: 0; }
+  .react-datepicker-wrapper, .react-datepicker__input-container { width: 100%; }
+  .select-container .buttons { position: static; width: 100%; display: flex; flex-wrap: wrap; gap: 8px; }
+  .select-container .button { flex: 1 1 140px; padding: 12px; margin: 0; border-radius: 8px; }
+  .activityData { position: static; transform: none; width: 100%; margin-top: 16px; padding: 16px; border-radius: 12px; overflow-wrap: anywhere; }
+  .activityData .addBtn { width: 100%; min-height: 44px; margin: 12px 0 0; border-radius: 8px; }
+  .calculator-panel.has-panel > :is(.select-container, .activityData, .rightTopButtons) { display: none; }
+  .calculator-panel > .content-panel { position: relative !important; height: auto !important; min-height: 60vh; }
+  .profile-content { width: 100% !important; padding: 12px; }
+  .chat-container { padding: 12px; }
+  .chat-container .messages { max-height: 50vh; }
+  .messages li { overflow-wrap: anywhere; }
+  .messages .date { position: static; display: block; font-size: 12px; }
+  .message-form { position: static; display: flex; flex-wrap: wrap; gap: 8px; }
+  .message-form input { margin: 0; flex: 1 1 160px; width: 100%; }
+  .message-form button { min-height: 44px; }
+  #instructions { width: calc(100% - 24px); max-width: 320px; max-height: 30%; margin: 12px; padding: 12px; border-radius: 10px; }
+  .activity-list { width: 100%; padding: 8px; }
+  .activity-main, .activity-details { flex-wrap: wrap; gap: 8px; }
+  .activity-buttons { margin-left: 0; flex-wrap: wrap; }
+  .activity-buttons button { min-height: 44px; }
+  .calendar { width: 100%; margin: 0; padding: 8px; }
+  .calendar-header { gap: 8px; }
+  .calendar-header h2 { font-size: 18px; }
+  .calendar-header button { min-width: 44px; min-height: 44px; }
+  .calendar-weekdays div { padding: 6px 0; font-size: 12px; overflow: hidden; }
+  .calendar-day { height: 100px; min-width: 0; padding: 3px; }
+  .calendar-activity { font-size: 10px; padding: 3px 2px; }
+}
+
+/* Tablet / small laptop: fit the calculator beside the map without overlaps. */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .map-panel { height: calc(100dvh - 56px); }
+  .calculator-panel {
+    padding: 56px 12px 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .calculator-panel .select-container {
+    flex: none;
+    top: auto;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    align-items: center;
+  }
+  .calculator-panel .select-container :is(input, select) {
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    font-size: 14px;
+    min-height: 36px;
+  }
+  .calculator-panel .react-datepicker-wrapper { width: 100%; min-width: 0; }
+  .calculator-panel .buttons {
+    position: static;
+    grid-column: 1 / -1;
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-start;
+  }
+  .calculator-panel .button {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  .calculator-panel .activityData {
+    position: static;
+    transform: none;
+    width: fit-content;
+    max-width: 100%;
+    align-self: center;
+    margin-top: 12px;
+    padding: 14px 20px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    font-size: 13px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+  .calculator-panel .activityData .addBtn {
+    width: auto;
+    align-self: flex-start;
+    margin: 4px 0 0;
+    padding: 5px 12px;
+    border-radius: 6px;
+  }
+  .calculator-panel .rightTopButtons { right: 12px; max-width: calc(100% - 24px); }
+  .calculator-panel .rightTopButtons > button { position: static; font-size: 14px; padding: 6px; }
+}
+
+.mobile-map-toggle, .mobile-map-close {
+  display: none;
+  background-color: #4caf50;
+  color: #fff;
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.mobile-map-toggle:hover, .mobile-map-close:hover {
+  background-color: #388e3c;
+}
+
+.mobile-map-toggle:focus-visible, .mobile-map-close:focus-visible {
+  outline: 3px solid #60a5fa;
+  outline-offset: 3px;
+}
+
+@media (max-width: 767px) {
+  .mobile-map-toggle {
+    display: block;
+    align-self: flex-start;
+    margin: 0 12px 12px;
+    padding: 10px 16px;
+    min-height: 44px;
+  }
+  .map-panel.mobile-map-closed { display: none; }
+  .mobile-map-close {
+    display: block;
+    position: absolute;
+    bottom: 40px;
+    right: 12px;
+    z-index: 30;
+    min-height: 44px;
+    padding: 10px 16px;
+  }
+}
+
+.travel-time-field {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  min-width: 0;
+}
+.travel-time-field input { flex: 1 1 130px; min-width: 0; }
+.map-time-button {
+  background: #4caf50;
+  color: white;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.map-time-button:hover { background: #388e3c; }
+.map-time-button:focus-visible { outline: 3px solid #60a5fa; outline-offset: 2px; }
+.map-time-hint { flex-basis: 100%; color: var(--muted-color); font-size: 12px; }
+@media (max-width: 767px) {
+  .rightTopButtons { flex-wrap: wrap; align-items: center; }
+  .rightTopButtons .mobile-map-toggle { margin: 0; }
+  .travel-time-field { display: flex; width: 100%; }
+  .map-time-button { min-height: 44px; }
+}
+
+@media (min-width: 768px) {
+  .travel-time-field { display: contents; }
+  .map-time-button, .map-time-hint { display: none; }
+}
+
+/* Compact phone form leaves room for the activity summary and Add button. */
+@media (max-width: 767px) {
+  .calculator-panel { padding: 8px; }
+  .rightTopButtons { gap: 6px; margin-bottom: 8px; }
+  .select-container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+    align-items: center;
+  }
+  .select-container > * { min-width: 0; }
+  .select-container :is(input, select) { min-height: 40px; padding: 6px; }
+  .travel-time-field { grid-column: 1 / -1; gap: 4px 6px; }
+  .travel-time-field input { flex: 1 1 100px; }
+  .map-time-button { min-height: 40px; }
+  .map-time-hint { font-size: 11px; line-height: 1.3; }
+  .select-container .buttons { grid-column: 1 / -1; }
+  .select-container .button { flex: 1; padding: 8px; min-height: 44px; }
+  .activityData {
+    width: fit-content;
+    max-width: 100%;
+    margin: 8px auto 0;
+    padding: 10px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    line-height: 1.35;
+  }
+  .activityData .addBtn {
+    align-self: flex-start;
+    width: auto;
+    min-height: 36px;
+    margin: 6px 0 0;
+    padding: 4px 12px;
+    border-radius: 6px;
+  }
+}
+
+@media (max-width: 767px) {
+  .mobile-map-hide { display: none !important; }
+  .map-panel.mobile-map-fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100dvh;
+    min-height: 0;
+    background: var(--page-bg);
+  }
+  .mobile-map-fullscreen .mobile-map-close {
+    bottom: calc(36px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-width: 767px) {
+  .calculator-panel .rightTopButtons {
+    margin-bottom: clamp(12px, calc(10dvh - 52px), 32px);
+  }
+}
+
+@media (max-width: 767px) {
+  .calculator-panel .rightTopButtons {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    gap: 6px;
+    width: 100%;
+  }
+  .calculator-panel .rightTopButtons > div { flex: 0 0 24px; }
+  .calculator-panel .rightTopButtons > div > .btn { padding: 6px; }
+  .calculator-panel .rightTopButtons .mobile-map-toggle {
+    flex: 0 0 auto;
+    align-self: stretch;
+    white-space: nowrap;
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+  .calculator-panel .rightTopButtons > :is(.changeLocalizationBtn, .active) {
+    flex: 1 1 0;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: break-word;
+    font-size: 14px;
+    line-height: 1.25;
+    padding: 6px;
+  }
+}
+
+/* Keep the help and location controls on the same line at every width. */
+.rightTopButtons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.rightTopButtons > :is(.changeLocalizationBtn, .active) {
+  position: static;
+  min-width: 0;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  .calculator-panel .rightTopButtons { flex-wrap: nowrap; }
+  .calculator-panel .rightTopButtons > div { flex: 0 0 auto; }
+}
+@media (max-width: 767px) {
+  .calculator-panel .rightTopButtons {
+    justify-content: flex-end;
+    align-items: center;
+  }
+  .calculator-panel .rightTopButtons > :is(.changeLocalizationBtn, .active) {
+    flex: 0 1 auto;
+    max-width: calc(100% - 136px);
+    min-height: 44px;
+  }
+}
+
+.start-date-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.start-date-field label { flex: 0 0 auto; }
+.start-date-field .react-datepicker-wrapper { flex: 1; min-width: 0; }
+.start-date-field .react-datepicker__input-container input { width: 100%; min-width: 0; }
+@media (max-width: 1199px) {
+  .start-date-field {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+  .start-date-field label { flex: 0 0 auto; }
+  .start-date-field .react-datepicker-wrapper { flex: 1; min-width: 0; width: auto; }
+}
+@media (max-width: 767px) {
+  .calculator-panel .rightTopButtons { justify-content: flex-start; }
+}
+
+@media (max-width: 767px) {
+  .calculator-panel .rightTopButtons > div {
+    margin-left: auto;
+  }
 }
