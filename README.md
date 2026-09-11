@@ -59,7 +59,7 @@ The backend is developed in Node.js, with MongoDB as the database.
 <img width="1306" height="744" alt="image" src="https://github.com/user-attachments/assets/ee2ffb73-2b9f-435f-a31a-f06c23638db9" />
 
 ## Dark Mode:
-<img width="1866" height="889" alt="image" src="https://github.com/user-attachments/assets/746a6006-cc03-419b-acf8-c7f3cae6efe0" />
+<img width="1867" height="883" alt="image" src="https://github.com/user-attachments/assets/48791380-1554-4e8e-806e-0a343bb0fcdf" />
 
 > Note: The original development of this project was carried out in a private repository. This public repository contains a portfolio version of the project with sensitive configuration, API keys, and some project setup files omitted.
 
