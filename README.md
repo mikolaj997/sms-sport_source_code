@@ -59,11 +59,12 @@ The backend is developed in Node.js, with MongoDB as the database.
 <img width="1306" height="744" alt="image" src="https://github.com/user-attachments/assets/ee2ffb73-2b9f-435f-a31a-f06c23638db9" />
 
 ## Responsivness:
-<img width="945" height="922" alt="image" src="https://github.com/user-attachments/assets/d0c5222b-8a16-440a-b2f6-3095c35cd316" />
+<img width="954" height="916" alt="image" src="https://github.com/user-attachments/assets/7971358b-02cd-4eca-b64c-bda5d39f31d5" />
 
 ### Mobile Phones:
-<img width="367" height="792" alt="image" src="https://github.com/user-attachments/assets/38f0d6eb-ead0-4d15-95cd-88c127b0f4eb" />
-<img width="367" height="796" alt="image" src="https://github.com/user-attachments/assets/3aa2cf8c-9e00-4939-9a45-7e60e6ff0a57" />
+<img width="379" height="805" alt="image" src="https://github.com/user-attachments/assets/534bcd71-faad-433d-96e5-44c8e589ba85" />
+
+<img width="371" height="799" alt="image" src="https://github.com/user-attachments/assets/24042b22-0cac-4239-a67a-f0512f749b79" />
 
 
 ## Dark Mode:
