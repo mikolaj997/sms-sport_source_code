@@ -31,8 +31,11 @@ function MapComponent({
     });
 
     const map = mapRef.current;
+    const resizeObserver = new ResizeObserver(() => map.resize());
+    resizeObserver.observe(map.getContainer());
 
     return () => {
+      resizeObserver.disconnect();
       map.remove();
       mapRef.current = null;
     };

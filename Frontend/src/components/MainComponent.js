@@ -1,5 +1,5 @@
 import "../App.css";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { handleCalculateCalories } from "./CalorieCalculator";
 import { handleCalculateCost } from "./ProfitabilityCalculator";
 import clubsAndOtherLocations from "./ClubsAndOtherLocations";
@@ -27,6 +27,16 @@ function MainComponent({
   language,
   setLanguage,
 }) {
+  const [isMobileMapOpen, setIsMobileMapOpen] = useState(false);
+  const mobileMapButton = useRef(null);
+  const mapPanel = useRef(null);
+  const closeMapButton = useRef(null);
+
+  useEffect(() => {
+    if (isMobileMapOpen && window.matchMedia("(max-width: 767px)").matches) {
+      closeMapButton.current?.focus({ preventScroll: true });
+    }
+  }, [isMobileMapOpen]);
   const [startPoint, setStartPoint] = useState([18.5531, 54.4449]);
   const [active, setActive] = useState(false);
   const [travelTime, setTravelTime] = useState("");
@@ -85,9 +95,9 @@ function MainComponent({
 
     document.getElementById("map").style.display = "block";
     document.getElementById("instructions").style.display = "block";
-    document.querySelector(".select-container").style.display = "block";
-    document.querySelector(".activityData").style.display = "flex";
-    document.querySelector(".rightTopButtons").style.display = "block";
+    document.querySelector(".select-container")?.style.removeProperty("display");
+    document.querySelector(".activityData")?.style.removeProperty("display");
+    document.querySelector(".rightTopButtons")?.style.removeProperty("display");
   };
   const toggleHistory = () => {
     setIsHistoryVisible(!isHistoryVisible);
@@ -141,9 +151,9 @@ function MainComponent({
     } else {
       document.getElementById("map").style.display = "block";
       document.getElementById("instructions").style.display = "block";
-      document.querySelector(".select-container").style.display = "block";
-      document.querySelector(".activityData").style.display = "block";
-      document.querySelector(".rightTopButtons").style.display = "block";
+      document.querySelector(".select-container")?.style.removeProperty("display");
+      document.querySelector(".activityData")?.style.removeProperty("display");
+      document.querySelector(".rightTopButtons")?.style.removeProperty("display");
     }
   };
 
@@ -163,9 +173,9 @@ function MainComponent({
     } else {
       document.getElementById("map").style.display = "block";
       document.getElementById("instructions").style.display = "block";
-      document.querySelector(".select-container").style.display = "block";
-      document.querySelector(".activityData").style.display = "flex";
-      document.querySelector(".rightTopButtons").style.display = "block";
+      document.querySelector(".select-container")?.style.removeProperty("display");
+      document.querySelector(".activityData")?.style.removeProperty("display");
+      document.querySelector(".rightTopButtons")?.style.removeProperty("display");
     }
   };
   const toggleCalendar = () => {
@@ -207,6 +217,7 @@ function MainComponent({
   console.log("total:", totalCalories);
   // Funkcja do zmiany lokalizacji punktu startowego
   const handleChangeStartPoint = () => {
+    if (!active) setIsMobileMapOpen(true);
     console.log("USTAWIAM ACTIVE");
     console.log("przed:", active);
 
@@ -258,7 +269,7 @@ function MainComponent({
 
   return (
     <>
-      <div style={{ height: "fit-content", width: "100%" }}>
+      <div className={isMobileMapOpen ? "mobile-map-hide" : ""} style={{ height: "fit-content", width: "100%" }}>
         <Navbar
           theme={theme}
           setTheme={setTheme}
@@ -283,9 +294,22 @@ function MainComponent({
         ></Navbar>
       </div>
 
-      <div onClick={handleClickOutside} style={{ display: "flex" }}>
-        <div style={{ flex: 1, position: "relative" }}>
+      <div onClick={handleClickOutside} className="app-layout">
+        <div className={`calculator-panel ${isMobileMapOpen ? "mobile-map-hide" : ""} ${isChatVisible || isProfileVisible ? "has-panel" : ""}`}>
           <div className="rightTopButtons">
+        <button
+          ref={mobileMapButton}
+          type="button"
+          className="mobile-map-toggle"
+          aria-expanded={isMobileMapOpen}
+          aria-controls="main-map-panel"
+          onClick={() => setIsMobileMapOpen((open) => !open)}
+        >
+          {language === "pl"
+            ? (isMobileMapOpen ? "Schowaj mapę" : "Pokaż mapę")
+            : (isMobileMapOpen ? "Hide map" : "Show map")}
+        </button>
+
             <ShortcutPopup language={language}></ShortcutPopup>
             {!isHistoryVisible &&
               !isPastVisible &&
@@ -302,7 +326,7 @@ function MainComponent({
               )}
           </div>
           {isChatVisible && (
-            <div
+            <div className="content-panel"
               style={{
                 width: "100%",
                 height: "100%",
@@ -328,7 +352,7 @@ function MainComponent({
             </div>
           )}
           {isProfileVisible && (
-            <div
+            <div className="content-panel"
               style={{
                 width: "100%",
                 height: "100%",
@@ -340,7 +364,7 @@ function MainComponent({
                 zIndex: 10,
               }}
             >
-              <div
+              <div className="profile-content"
                 style={{
                   width: "50%",
                   height: "100%",
@@ -417,6 +441,7 @@ function MainComponent({
               value={weightKg}
               onChange={(e) => setWeightKg(parseFloat(e.target.value))}
             />
+            <div className="travel-time-field">
             <input
               type="number"
               id="travelTimeInput"
@@ -424,6 +449,26 @@ function MainComponent({
               value={travelTime}
               onChange={(e) => setTravelTime(parseFloat(e.target.value))}
             />
+              <button
+                type="button"
+                className="map-time-button"
+                onClick={() => {
+                  if (!kindOfTransport) {
+                    document.getElementById("travelKindSelect")?.focus();
+                    alert(language === "pl" ? "Najpierw wybierz środek transportu." : "Choose your transport first.");
+                    return;
+                  }
+                  setActive(false);
+                  setIsMobileMapOpen(true);
+                  requestAnimationFrame(() => mapPanel.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
+                }}
+              >
+                {language === "pl" ? "Pobierz z mapy" : "Get from map"}
+              </button>
+              <small className="map-time-hint">
+                {language === "pl" ? "Wybierz cel na mapie — czas uzupełni się automatycznie." : "Select a destination on the map to fill in the time."}
+              </small>
+            </div>
             <input
               type="number"
               id="activityTimeInput"
@@ -481,8 +526,10 @@ function MainComponent({
                 onChange={(e) => setPriceOfDrive(parseFloat(e.target.value))}
               />
             )}
-            <label>{translations[language].startDate}</label>{" "}
+            <div className="start-date-field">
+            <label htmlFor="activityStartDate">{translations[language].startDate}</label>{" "}
             <DatePicker
+              id="activityStartDate"
               type="number"
               selected={date}
               onChange={(date) => {
@@ -494,6 +541,7 @@ function MainComponent({
               dateFormat="d.MM.yyyy h:mm"
               timeCaption="Time"
             />
+            </div>
             <div className="buttons">
               <button
                 id="calculateButton"
@@ -538,9 +586,26 @@ function MainComponent({
             language={language}
           ></UpdateDbFrontView>
         </div>
-        <div style={{ flex: 1, height: "90vh", position: "relative" }}>
+        <div
+          ref={mapPanel}
+          id="main-map-panel"
+          className={`map-panel ${isMobileMapOpen ? "mobile-map-fullscreen" : ""} ${isMobileMapOpen || isCalendarVisible || isHistoryVisible || isPlannedVisible || isPastVisible ? "mobile-map-open" : "mobile-map-closed"}`}
+        >
+          {isMobileMapOpen && (
+            <button
+              ref={closeMapButton}
+              type="button"
+              className="mobile-map-close"
+              onClick={() => {
+                setIsMobileMapOpen(false);
+                requestAnimationFrame(() => mobileMapButton.current?.focus());
+              }}
+            >
+              {language === "pl" ? "Wróć do formularza" : "Back to form"}
+            </button>
+          )}
           {isCalendarVisible && (
-            <div
+            <div className="content-panel"
               style={{
                 width: "100%",
                 height: "100%",
@@ -577,7 +642,7 @@ function MainComponent({
             {translations[language].travelData}
           </div>
           {isHistoryVisible && (
-            <div
+            <div className="content-panel"
               style={{
                 width: "100%",
                 height: "100%",
@@ -611,7 +676,7 @@ function MainComponent({
           )}
 
           {isPlannedVisible && (
-            <div
+            <div className="content-panel"
               style={{
                 display: "block",
                 width: "100%",
@@ -643,7 +708,7 @@ function MainComponent({
             </div>
           )}
           {isPastVisible && (
-            <div
+            <div className="content-panel"
               style={{
                 width: "100%",
                 height: "100%",
