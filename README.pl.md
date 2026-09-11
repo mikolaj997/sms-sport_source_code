@@ -57,6 +57,9 @@
 ### Główna kolekcja:
 <img width="1306" height="744" alt="image" src="https://github.com/user-attachments/assets/ee2ffb73-2b9f-435f-a31a-f06c23638db9" />
 
+## Tryb Nocny:
+<img width="1866" height="889" alt="image" src="https://github.com/user-attachments/assets/467b2625-80e9-4e12-ac01-f87963fb5ff4" />
+
 > Uwaga: Oryginalna wersja projektu była rozwijana w prywatnym repozytorium. To repozytorium zawiera publiczną wersję projektu przygotowaną do celów portfolio. Ze względów bezpieczeństwa pominięto w nim poufną konfigurację, klucze API oraz część plików konfiguracyjnych projektu.
 
 ## Jak uruchomić projekt
