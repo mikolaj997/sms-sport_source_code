@@ -268,7 +268,7 @@ function MainComponent({
   // Inicjalizacja mapy i dodanie granic mapy
 
   return (
-    <>
+    <div className="main-screen">
       <div className={isMobileMapOpen ? "mobile-map-hide" : ""} style={{ height: "fit-content", width: "100%" }}>
         <Navbar
           theme={theme}
@@ -740,7 +740,7 @@ function MainComponent({
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
