@@ -374,6 +374,14 @@ input {
 
 }
 
+.calculator-panel .select-container select {
+  border: 2px inset;
+  border-radius: 0;
+}
+[data-theme="dark"] .calculator-panel .select-container select {
+  border-color: var(--border-color);
+}
+
 
 
 .creBtns {}
@@ -934,8 +942,7 @@ width: calc(100% - 40px);  max-width: 100%;
   gap: 8px;
   min-width: 0;
 }
-.start-date-field label { flex: 0 0 auto; }
-.start-date-field .react-datepicker-wrapper { flex: 1; min-width: 0; }
+.start-date-field .react-datepicker-wrapper { flex: 0 1 220px; width: 220px; min-width: 0; }
 .start-date-field .react-datepicker__input-container input { width: 100%; min-width: 0; }
 @media (max-width: 1199px) {
   .start-date-field {
@@ -945,8 +952,7 @@ width: calc(100% - 40px);  max-width: 100%;
     gap: 8px;
     min-width: 0;
   }
-  .start-date-field label { flex: 0 0 auto; }
-  .start-date-field .react-datepicker-wrapper { flex: 1; min-width: 0; width: auto; }
+  .start-date-field .react-datepicker-wrapper { flex: 0 1 220px; min-width: 0; width: 220px; }
 }
 @media (max-width: 767px) {
   .calculator-panel .rightTopButtons { justify-content: flex-start; }

@@ -64,7 +64,7 @@ function MainComponent({
   const [isProfileVisible, setIsProfileVisible] = useState(false);
   const [isChatVisible, setIsChatVisible] = useState(false);
   const [click, setClick] = useState(false);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(null);
   const [prefSport, setPrefSport] = useState("");
   const [preferredLocation, setPreferredLocation] = useState("Gdynia");
   const [isVisible, setIsVisible] = useState(false);
@@ -527,10 +527,13 @@ function MainComponent({
               />
             )}
             <div className="start-date-field">
-            <label htmlFor="activityStartDate">{translations[language].startDate}</label>{" "}
+            <label id="activityStartDateLabel" htmlFor="activityStartDate" className="visually-hidden">
+              {translations[language].startDate}
+            </label>
             <DatePicker
               id="activityStartDate"
-              type="number"
+              placeholderText={translations[language].startDate}
+              ariaLabelledBy="activityStartDateLabel"
               selected={date}
               onChange={(date) => {
                 setDate(date);
@@ -538,7 +541,7 @@ function MainComponent({
               showTimeSelect
               timeFormat="HH:mm"
               timeIntervals={15}
-              dateFormat="d.MM.yyyy h:mm"
+              dateFormat="d.MM.yyyy HH:mm"
               timeCaption="Time"
             />
             </div>
