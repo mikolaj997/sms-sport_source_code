@@ -8,11 +8,12 @@ SMS-Sport is a web application designed to encourage people to engage in sports 
 >
 > This repository contains the public portfolio version of the project.
 >
-> The original project was developed in a private repository. For security reasons, sensitive configuration files, environment variables, API keys, and other confidential data have been removed.
+> The project was originally developed in a private repository for my bachelor’s thesis. This public repository was created later as a separate portfolio copy, so its commit history does not include the full development history of the application. The original private repository with the complete commit history is still available and can be shown upon request. For security reasons, sensitive configuration files, environment variables, API keys, and other confidential data have been removed.
 >
-> **Project status:** Maintained and further developed. Ongoing changes are implemented in this branch first.
+> **Project status:** Maintained and further developed. Ongoing changes are implemented on the `Dev` branch first.
 >
-> Project setup instructions are at the end of this file.
+> Project setup instructions are available at the end of this file.
+
 
 **Frontend** 
 The frontend is built with React and uses additional libraries such as React Query for communication with the Node.js backend and React Datepicker for date selection. Mapbox API is used to display interactive maps.
