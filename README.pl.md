@@ -8,10 +8,9 @@
 >
 > To repozytorium zawiera publiczną wersję projektu przygotowaną do celów portfolio.
 >
-> Oryginalna wersja projektu była rozwijana w prywatnym repozytorium. Ze względów bezpieczeństwa usunięto pliki konfiguracyjne, zmienne środowiskowe, klucze API oraz inne poufne dane.
+> Projekt został pierwotnie opracowany w prywatnym repozytorium na potrzeby mojej pracy licencjackiej. To publiczne repozytorium zostało utworzone później jako osobna kopia projektu przeznaczona do portfolio, dlatego jego historia commitów nie obejmuje pełnej historii rozwoju aplikacji. Oryginalne prywatne repozytorium z pełną historią commitów nadal istnieje i może zostać udostępnione do wglądu na życzenie. Ze względów bezpieczeństwa usunięto poufne pliki konfiguracyjne, zmienne środowiskowe, klucze API oraz inne poufne dane.
 >
->
-> **Status projektu:** Projekt jest utrzymywany i dalej rozwijany. Bieżące zmiany są najpierw wprowadzane na tej gałęzi.
+> **Status projektu:** Projekt jest utrzymywany i nadal rozwijany. Bieżące zmiany są najpierw wprowadzane na gałęzi `Dev`.
 >
 > Instrukcja uruchomienia projektu znajduje się na końcu tego pliku.
 
