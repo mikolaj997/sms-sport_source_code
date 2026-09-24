@@ -157,11 +157,11 @@ const UpdateDb = ({
   let isBefore = false;
   let isAfter = false;
 
-  const hour = date.getHours();
-  const minutes = date.getMinutes();
-  const days = date.getDate();
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
+  const hour = date?.getHours();
+  const minutes = date?.getMinutes();
+  const days = date?.getDate();
+  const month = date?.getMonth() + 1;
+  const year = date?.getFullYear();
 
   const formattedDate = `${hour}:${minutes} ${days}/${month}/${year}`;
 
@@ -169,21 +169,21 @@ const UpdateDb = ({
 
   const now = new Date();
   if (
-    date.getFullYear() < now.getFullYear() ||
-    (date.getFullYear() === now.getFullYear() &&
-      date.getMonth() < now.getMonth()) ||
-    (date.getFullYear() === now.getFullYear() &&
-      date.getMonth() === now.getMonth() &&
-      date.getDate() < now.getDate()) ||
-    (date.getFullYear() === now.getFullYear() &&
-      date.getMonth() === now.getMonth() &&
-      date.getDate() === now.getDate() &&
-      date.getHours() < now.getHours()) ||
-    (date.getFullYear() === now.getFullYear() &&
-      date.getMonth() === now.getMonth() &&
-      date.getDate() === now.getDate() &&
-      date.getHours() === now.getHours() &&
-      date.getMinutes() < now.getMinutes())
+    date?.getFullYear() < now.getFullYear() ||
+    (date?.getFullYear() === now.getFullYear() &&
+      date?.getMonth() < now.getMonth()) ||
+    (date?.getFullYear() === now.getFullYear() &&
+      date?.getMonth() === now.getMonth() &&
+      date?.getDate() < now.getDate()) ||
+    (date?.getFullYear() === now.getFullYear() &&
+      date?.getMonth() === now.getMonth() &&
+      date?.getDate() === now.getDate() &&
+      date?.getHours() < now.getHours()) ||
+    (date?.getFullYear() === now.getFullYear() &&
+      date?.getMonth() === now.getMonth() &&
+      date?.getDate() === now.getDate() &&
+      date?.getHours() === now.getHours() &&
+      date?.getMinutes() < now.getMinutes())
   ) {
     isBefore = true;
     console.log("Wybrana data jest wcześniejsza od dzisiejszej daty.");

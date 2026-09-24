@@ -86,6 +86,7 @@ const UpdateDbFrontView = ({
   const handleCreateActivity = async () => {
     if (
     !selectedSport ||
+    !date ||
     activityTime == null ||
     price == null ||
     !kindOfTransport ||

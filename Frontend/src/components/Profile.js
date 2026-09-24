@@ -212,7 +212,7 @@ function Profile({
 
       <h4>{translations[language].preferences}</h4>
 
-      <div style={{ marginBottom: "15px" }}>
+      <div className="profile-field">
         <label>{translations[language].favoriteActivity}:</label>
         <SelectedSport
           selectedSport={selectedSport}
@@ -227,7 +227,7 @@ function Profile({
         />
       </div>
 
-      <div style={{ marginBottom: "15px" }}>
+      <div className="profile-field">
         <label>{translations[language].defaultTransport}:</label>
         <select
           value={kindOfTransport}
@@ -239,7 +239,7 @@ function Profile({
         </select>
       </div>
 
-      <div style={{ marginBottom: "15px" }}>
+      <div className="profile-field">
         <label>{translations[language].preferredLocation}:</label>
         <select
           value={preferredLocation}
@@ -251,10 +251,10 @@ function Profile({
         </select>
       </div>
 
-      <div style={{ marginBottom: "15px" }}>
+      <div className="profile-field">
         <label>{translations[language].defaultStartingPoint}:</label>
 
-        <div>
+        <div className="profile-coordinates">
           <input type="text" value={startPoint[0].toFixed(5)} readOnly />
           <input type="text" value={startPoint[1].toFixed(5)} readOnly />
         </div>
@@ -266,13 +266,15 @@ function Profile({
 
       <hr />
 
-      <button onClick={handleUpdateUser}>
-        {translations[language].savePreferences}
-      </button>
+      <div className="profile-actions">
+        <button onClick={handleUpdateUser}>
+          {translations[language].savePreferences}
+        </button>
 
-      <button style={{ marginLeft: "10px" }} onClick={handleDeleteAll}>
-        {translations[language].deleteData}
-      </button>
+        <button onClick={handleDeleteAll}>
+          {translations[language].deleteData}
+        </button>
+      </div>
     </div>
   );
 }
