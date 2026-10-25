@@ -51,7 +51,7 @@ The backend is developed in Node.js, with MongoDB as the database.
 
 
 
-<img width="1831" height="904" alt="image" src="https://github.com/user-attachments/assets/d642e2db-4c2e-4b1c-8d82-251385cb87d8" />
+<img width="1920" height="920" alt="image" src="https://github.com/user-attachments/assets/ab32add5-3e02-4461-a1a5-4ade6d7795d4" />
 
 ## MongoDB Database Structure:
 <img width="1698" height="613" alt="image" src="https://github.com/user-attachments/assets/80fb86e8-adea-4069-94bb-8324de3a349f" />
